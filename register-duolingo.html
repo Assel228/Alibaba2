@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ElderConnect</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .register-container {
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .register-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #43cea2, #185a9d, #43cea2);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #185a9d;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #43cea2;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #43cea2, #185a9d);
+            width: 30%;
+            border-radius: 4px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 8px;
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #43cea2;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 206, 162, 0.2);
+        }
+        
+        /* Special styling for loneliness level selection */
+        #loneliness-level {
+            border: 2px solid #43cea2;
+            background-color: #e8f8f5;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-item:hover {
+            background-color: #e8f8f5;
+            transform: translateY(-2px);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-top: 4px;
+            transform: scale(1.3);
+        }
+        
+        .checkbox-item label {
+            font-weight: 500;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 18px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(24, 90, 157, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(24, 90, 157, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .back-link a {
+            color: #185a9d;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-link a:hover {
+            color: #43cea2;
+            text-decoration: underline;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 600px) {
+            .register-container {
+                padding: 30px 20px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo">Elder<span>Connect</span></div>
+        <h1>Create Your Profile</h1>
+        <p class="subtitle">Help us personalize your experience and connect you with activities that match your interests</p>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="preferred-name">Preferred Name *</label>
+                <input type="text" id="preferred-name" name="preferredName" placeholder="Enter your preferred name" required>
+                <small>The app will call you by this name</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age *</label>
+                <input type="number" id="age" name="age" min="50" max="110" placeholder="Enter your age" required>
+                <small>To group you with similar age participants</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender *</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="medical-needs">Medical Needs or Disabilities</label>
+                <textarea id="medical-needs" name="medicalNeeds" placeholder="Any medical conditions, mobility issues, or special requirements we should know about?" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Interests and Hobbies *</label>
+                <small>Select all that apply</small>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest1" name="interests" value="Board Games">
+                        <label for="interest1">Board Games</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest2" name="interests" value="Gardening">
+                        <label for="interest2">Gardening</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest3" name="interests" value="Reading">
+                        <label for="interest3">Reading</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest4" name="interests" value="Cooking">
+                        <label for="interest4">Cooking</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest5" name="interests" value="Arts & Crafts">
+                        <label for="interest5">Arts & Crafts</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest6" name="interests" value="Music">
+                        <label for="interest6">Music</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest7" name="interests" value="Walking">
+                        <label for="interest7">Walking</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest8" name="interests" value="Travel">
+                        <label for="interest8">Travel</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest9" name="interests" value="Volunteering">
+                        <label for="interest9">Volunteering</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest10" name="interests" value="Technology">
+                        <label for="interest10">Technology</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="personality">Personality Type *</label>
+                <select id="personality" name="personality" required>
+                    <option value="">Select your personality type</option>
+                    <option value="introvert">Introvert</option>
+                    <option value="extrovert">Extrovert</option>
+                    <option value="ambivert">Ambivert</option>
+                </select>
+            </div>
+            
+            <!-- Mental Well-being Assessment -->
+            <div class="form-group">
+                <label for="loneliness-level">Loneliness Level *</label>
+                <select id="loneliness-level" name="lonelinessLevel" required>
+                    <option value="">Select your current loneliness level</option>
+                    <option value="mild">Mild - I feel generally connected but sometimes lonely</option>
+                    <option value="moderate">Moderate - I often feel lonely and seek more connections</option>
+                    <option value="severe">Severe - I feel isolated and need significant support</option>
+                </select>
+                <small>This helps us recommend activities that best suit your social needs</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="well-being-goals">Well-being Goals</label>
+                <textarea id="well-being-goals" name="wellBeingGoals" placeholder="What would you like to improve about your mental well-being? (e.g., reduce loneliness, find motivation, build confidence)" rows="3"></textarea>
+                <small>For users with severe loneliness, we provide additional AI support and therapeutic activities</small>
+            </div>
+            
+            <button type="submit" class="submit-btn">Save Profile & Continue</button>
+        </form>
+        
+        <div class="back-link">
+            <a href="index-duolingo.html">← Back to Welcome Page</a>
+        </div>
+        
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            console.log('Form submission started');
+            
+            // Get form data
+            const formData = new FormData(this);
+            const profileData = {};
+            
+            // Collect text inputs and selects
+            for (const [key, value] of formData.entries()) {
+                if (key !== 'interests') {
+                    profileData[key] = value;
+                }
+            }
+            
+            // Collect interests (multiple checkboxes)
+            const interests = formData.getAll('interests');
+            profileData.interests = interests;
+            
+            console.log('Profile data collected:', profileData);
+            
+            // Add mental well-being category based on loneliness level
+            const lonelinessLevel = profileData.lonelinessLevel;
+            if (lonelinessLevel === 'mild') {
+                profileData.mentalWellBeingCategory = 'social';
+            } else if (lonelinessLevel === 'moderate') {
+                profileData.mentalWellBeingCategory = 'balanced';
+            } else if (lonelinessLevel === 'severe') {
+                profileData.mentalWellBeingCategory = 'wellness';
+            }
+            
+            console.log('Mental well-being category set:', profileData.mentalWellBeingCategory);
+            
+            // Store in localStorage for persistence
+            try {
+                console.log('Attempting to save profile to localStorage');
+                localStorage.setItem('elderConnectProfile', JSON.stringify(profileData));
+                
+                // Verify that the profile was saved
+                const savedProfile = localStorage.getItem('elderConnectProfile');
+                console.log('Profile saved to localStorage:', savedProfile);
+                
+                // Show success message and redirect
+                alert(`Thank you, ${profileData.preferredName || 'valued member'}! Your profile has been saved successfully.`);
+                window.location.href = 'elder-connect-simple.html';
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                alert('There was an error saving your profile. Please try again.');
+            }
+        });
+        
+        // Check if user already has a profile
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedProfile = localStorage.getItem('elderConnectProfile');
+            if (savedProfile) {
+                try {
+                    const profileData = JSON.parse(savedProfile);
+                    console.log('Existing profile data loaded:', profileData);
+                    if (profileData.preferredName) {
+                        document.getElementById('preferred-name').value = profileData.preferredName;
+                    }
+                    if (profileData.age) {
+                        document.getElementById('age').value = profileData.age;
+                    }
+                    if (profileData.gender) {
+                        document.getElementById('gender').value = profileData.gender;
+                    }
+                    if (profileData.medicalNeeds) {
+                        document.getElementById('medical-needs').value = profileData.medicalNeeds;
+                    }
+                    if (profileData.interests && Array.isArray(profileData.interests)) {
+                        profileData.interests.forEach(interest => {
+                            const checkbox = document.querySelector(`input[value="${interest}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            }
+                        });
+                    }
+                    if (profileData.personality) {
+                        document.getElementById('personality').value = profileData.personality;
+                    }
+                    if (profileData.lonelinessLevel) {
+                        document.getElementById('loneliness-level').value = profileData.lonelinessLevel;
+                    }
+                    if (profileData.wellBeingGoals) {
+                        document.getElementById('well-being-goals').value = profileData.wellBeingGoals;
+                    }
+                } catch (e) {
+                    console.error('Error loading saved profile:', e);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elderly Images Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .image-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid #ecf0f1;
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            display: block !important;
+            visibility: visible !important;
+        }
+        .image-card h3 {
+            font-size: 1.3rem;
+            margin: 15px 15px 10px;
+            color: #2c3e50;
+        }
+        .image-card p {
+            color: #7f8c8d;
+            margin: 0 15px 15px;
+            font-size: 0.95rem;
+        }
+        .status {
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .loading {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Elderly Activities Images Test</h1>
+        
+        <div class="image-grid">
+            <div class="image-card">
+                <img id="img1" src="https://images.unsplash.com/photo-1557304205-98c066849c8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Board Games">
+                <h3>Board Games</h3>
+                <p>Elderly people playing board games together</p>
+                <div id="status1" class="status loading">Loading...</div>
+            </div>
+            
+            <div class="image-card">
+                <img id="img2" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Pottery">
+                <h3>Pottery</h3>
+                <p>Elderly people creating pottery</p>
+                <div id="status2" class="status loading">Loading...</div>
+            </div>
+            
+            <div class="image-card">
+                <img id="img3" src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baking">
+                <h3>Baking</h3>
+                <p>Elderly people baking together</p>
+                <div id="status3" class="status loading">Loading...</div>
+            </div>
+            
+            <div class="image-card">
+                <img id="img4" src="https://images.unsplash.com/photo-1542390007550-1a786c41651c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="More Activities">
+                <h3>More Activities</h3>
+                <p>Elderly people socializing</p>
+                <div id="status4" class="status loading">Loading...</div>
+            </div>
+            
+            <div class="image-card">
+                <img id="img5" src="https://images.unsplash.com/photo-1544367563-00fcf361f2d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Tai Chi">
+                <h3>Tai Chi</h3>
+                <p>Elderly people practicing Tai Chi</p>
+                <div id="status5" class="status loading">Loading...</div>
+            </div>
+            
+            <div class="image-card">
+                <img id="img6" src="https://images.unsplash.com/photo-1544367567-632458a26f3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Fishing">
+                <h3>Fishing</h3>
+                <p>Elderly people fishing</p>
+                <div id="status6" class="status loading">Loading...</div>
+            </div>
+            
+            <div class="image-card">
+                <img id="img7" src="https://images.unsplash.com/photo-1598240954737-5e77a385d48a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Charity Crochet">
+                <h3>Charity Crochet</h3>
+                <p>Elderly people doing crochet for charity</p>
+                <div id="status7" class="status loading">Loading...</div>
+            </div>
+            
+            <div class="image-card">
+                <img id="img8" src="https://images.unsplash.com/photo-1512100356356-15a94c6e5c6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Beach Cleaning">
+                <h3>Beach Cleaning</h3>
+                <p>Elderly people volunteering at beach cleanup</p>
+                <div id="status8" class="status loading">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkImage(imgId, statusId, altText) {
+            const img = document.getElementById(imgId);
+            const status = document.getElementById(statusId);
+            
+            img.onload = function() {
+                status.textContent = 'Image loaded successfully - Shows ' + altText;
+                status.className = 'status success';
+            };
+            
+            img.onerror = function() {
+                status.textContent = 'Failed to load image';
+                status.className = 'status error';
+            };
+        }
+        
+        // Check all images
+        checkImage('img1', 'status1', 'elderly people playing board games');
+        checkImage('img2', 'status2', 'elderly people creating pottery');
+        checkImage('img3', 'status3', 'elderly people baking together');
+        checkImage('img4', 'status4', 'elderly people socializing');
+        checkImage('img5', 'status5', 'elderly people practicing Tai Chi');
+        checkImage('img6', 'status6', 'elderly people fishing');
+        checkImage('img7', 'status7', 'elderly people doing crochet for charity');
+        checkImage('img8', 'status8', 'elderly people volunteering at beach cleanup');
+    </script>
+</body>
+</html>

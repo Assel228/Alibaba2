@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0"></script>
+</head>
+<body>
+    <h1>Supabase Connection Test</h1>
+    <button id="test-button">Test Supabase Connection</button>
+    <div id="result"></div>
+
+    <script>
+        // Supabase configuration
+        const SUPABASE_URL = 'https://smgxivzlexhahfhlrlrp.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtZ3hpdnpsZXhoYWhmaGxybHJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNjMwNTQsImV4cCI6MjA3NjkzOTA1NH0.UFt0TP0Zzo7aTl2h9xw870XP0KQBPoLVf6QA2DOLm1Y';
+        
+        // Initialize Supabase
+        const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        document.getElementById('test-button').addEventListener('click', async function() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing connection...</p>';
+            
+            try {
+                // Test insert
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .insert([
+                        {
+                            name: 'Test User',
+                            email: 'test@example.com',
+                            message: 'Test message from Supabase test page',
+                            created_at: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) {
+                    resultDiv.innerHTML = `<p style="color: red;">Insert Error: ${JSON.stringify(error)}</p>`;
+                    console.error('Insert error:', error);
+                } else {
+                    resultDiv.innerHTML = `<p style="color: green;">Insert successful! Data: ${JSON.stringify(data)}</p>`;
+                }
+                
+                // Test select
+                const { data: selectData, error: selectError } = await supabase
+                    .from('feedback')
+                    .select('*');
+                
+                if (selectError) {
+                    resultDiv.innerHTML += `<p style="color: red;">Select Error: ${JSON.stringify(selectError)}</p>`;
+                    console.error('Select error:', selectError);
+                } else {
+                    resultDiv.innerHTML += `<p style="color: green;">Select successful! Found ${selectData.length} records</p>`;
+                    console.log('Select data:', selectData);
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `<p style="color: red;">Exception: ${err.message}</p>`;
+                console.error('Exception:', err);
+            }
+        });
+    </script>
+</body>
+</html>

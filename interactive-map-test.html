@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map Test</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #map {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #34495e;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Interactive Map Test</h1>
+        <p>This page tests if the interactive map loads correctly.</p>
+        
+        <div id="status" class="status">
+            Initializing map...
+        </div>
+        
+        <div id="map"></div>
+        
+        <div>
+            <button onclick="initializeMap()">Initialize Map</button>
+            <button onclick="addMarkers()">Add Markers</button>
+            <button onclick="clearMap()">Clear Map</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        
+        function initializeMap() {
+            try {
+                // Clear previous map if exists
+                if (map) {
+                    map.remove();
+                }
+                
+                // Initialize map centered on Hong Kong
+                map = L.map('map').setView([22.3964, 114.1095], 11);
+                
+                // Add OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 18,
+                }).addTo(map);
+                
+                // Disable scroll wheel zoom for elderly users
+                map.scrollWheelZoom.disable();
+                
+                document.getElementById('status').innerHTML = '✅ Map initialized successfully!';
+                document.getElementById('status').className = 'status success';
+                
+                console.log('Map initialized successfully');
+            } catch (error) {
+                console.error('Error initializing map:', error);
+                document.getElementById('status').innerHTML = '❌ Error initializing map: ' + error.message;
+                document.getElementById('status').className = 'status error';
+            }
+        }
+        
+        function addMarkers() {
+            if (!map) {
+                document.getElementById('status').innerHTML = '❌ Please initialize the map first';
+                document.getElementById('status').className = 'status error';
+                return;
+            }
+            
+            try {
+                // Clear existing markers
+                markers.forEach(marker => map.removeLayer(marker));
+                markers = [];
+                
+                // Add markers for activity locations in Hong Kong
+                const locations = [
+                    {
+                        name: "Central Community Center",
+                        coords: [22.2844, 114.1567],
+                        description: "Community activities and events"
+                    },
+                    {
+                        name: "Victoria Park Pavilion",
+                        coords: [22.2793, 114.1875],
+                        description: "Outdoor activities and wellness programs"
+                    },
+                    {
+                        name: "Wan Chai Arts & Crafts Center",
+                        coords: [22.2799, 114.1722],
+                        description: "Creative workshops and art classes"
+                    },
+                    {
+                        name: "Causeway Bay Activity Hub",
+                        coords: [22.2804, 114.1839],
+                        description: "Various community activities"
+                    }
+                ];
+                
+                // Add markers to map
+                locations.forEach(function(location) {
+                    const marker = L.marker(location.coords).addTo(map);
+                    marker.bindPopup(`<b>${location.name}</b><br>${location.description}`);
+                    markers.push(marker);
+                });
+                
+                document.getElementById('status').innerHTML = '✅ Markers added successfully!';
+                document.getElementById('status').className = 'status success';
+                
+                console.log('Markers added successfully');
+            } catch (error) {
+                console.error('Error adding markers:', error);
+                document.getElementById('status').innerHTML = '❌ Error adding markers: ' + error.message;
+                document.getElementById('status').className = 'status error';
+            }
+        }
+        
+        function clearMap() {
+            if (map) {
+                markers.forEach(marker => map.removeLayer(marker));
+                markers = [];
+                document.getElementById('status').innerHTML = 'Map cleared';
+                document.getElementById('status').className = 'status';
+            }
+        }
+        
+        // Initialize map on load
+        window.addEventListener('load', function() {
+            initializeMap();
+            setTimeout(addMarkers, 1000);
+        });
+    </script>
+</body>
+</html>

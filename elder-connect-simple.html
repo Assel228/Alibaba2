@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElderConnect - Community Activities</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="elder-styles-simple-fixed.css">
+    <script>
+        // Check if user is registered - redirect if not
+        const savedProfile = localStorage.getItem('elderConnectProfile');
+        console.log('Checking for saved profile:', savedProfile);
+        if (!savedProfile) {
+            console.log('No profile found, redirecting to index.html');
+            window.location.href = 'index.html';
+        } else {
+            console.log('Profile found, continuing to app');
+        }
+    </script>
+    <!-- Add the image fallback script -->
+    <script src="image-fallbacks.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Elder<span>Connect</span></h1>
+            <div class="header-actions">
+                <button id="settings-button" class="profile-btn" style="margin-right: 10px;">
+                    <span class="profile-icon">⚙️</span>
+                    Settings
+                </button>
+                <button id="profile-button" class="profile-btn">
+                    <span class="profile-icon">👨‍🦳</span>
+                    My Profile
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Connect with Your Community</h2>
+            <p>Join activities that match your interests and meet like-minded people near you</p>
+        </div>
+    </section>
+
+    <section class="main-tabs">
+        <div class="container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="explore">Explore Activities</button>
+                <button class="tab-btn" data-tab="events">My Events</button>
+                <button class="tab-btn" data-tab="navigation">Find Locations</button>
+                <button class="tab-btn" data-tab="calendar">Event Calendar</button>
+                <button class="tab-btn" data-tab="chat">Chat</button>
+                <button class="tab-btn" data-tab="profile">My Profile</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="explore" class="tab-content active">
+        <div class="container">
+            <h2>Find Activities You'll Enjoy</h2>
+            
+            <div class="category-tabs">
+                <button class="category-btn active" data-category="social">Socialize & Have Fun</button>
+                <button class="category-btn" data-category="wellness">Physical & Mental Wellness</button>
+                <button class="category-btn" data-category="volunteer">Volunteering</button>
+            </div>
+            
+            <div class="activities-container">
+                <div class="category-content active" id="social-category">
+                    <div class="activity-card">
+                        <img src="https://images.unsplash.com/photo-1709105658901-ff3d88aac188?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Board Games" data-activity="board-games">
+                        <h3>Board Games</h3>
+                        <p>Join group sessions for mahjong, chess, and other classic games</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <div class="activity-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1661667132735-2d01aae2a60d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Pottery" data-activity="pottery">
+                        <h3>Pottery</h3>
+                        <p>Learn pottery and ceramic arts in a relaxed group setting</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <div class="activity-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1681999643427-dcd624dcbbb2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Baking" data-activity="baking">
+                        <h3>Baking</h3>
+                        <p>Join baking workshops and share recipes with others</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <!-- More Activities Section -->
+                    <div class="activity-card more-activities-card">
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">➕</div>
+                            <h3>More Activities</h3>
+                            <p>Discover additional social activities</p>
+                            <button class="join-btn" onclick="alert('More social activities coming soon!')">Explore More</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-content" id="wellness-category">
+                    <div class="activity-card">
+                        <img src="https://images.unsplash.com/photo-1576237652526-111d7669d9cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1169" alt="Tai Chi" data-activity="tai-chi">
+                        <h3>Tai Chi</h3>
+                        <p>Gentle exercise and meditation in the park</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <div class="activity-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1673912605401-1233e2dd4bea?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Fishing" data-activity="fishing">
+                        <h3>Fishing</h3>
+                        <p>Relaxing fishing trips with fellow enthusiasts</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <div class="activity-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1726718438477-f23e74bf7033?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Gentle Yoga" data-activity="yoga">
+                        <h3>Gentle Yoga</h3>
+                        <p>Improve flexibility and balance with guided yoga sessions</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <!-- More Activities Section -->
+                    <div class="activity-card more-activities-card">
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">➕</div>
+                            <h3>More Activities</h3>
+                            <p>Discover additional wellness activities</p>
+                            <button class="join-btn" onclick="alert('More wellness activities coming soon!')">Explore More</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-content" id="volunteer-category">
+                    <div class="activity-card">
+                        <img src="https://images.unsplash.com/photo-1674802401374-eec8be656e35?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Charity Crochet" data-activity="charity">
+                        <h3>Charity Crochet</h3>
+                        <p>Create blankets for charity and socialize</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <div class="activity-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1679689587760-3fe7530a0ea1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="Beach Cleaning" data-activity="beach">
+                        <h3>Beach Cleaning</h3>
+                        <p>Volunteer for environmental cleanup activities</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <div class="activity-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1680286739871-01142bc609df?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Community Garden" data-activity="garden">
+                        <h3>Community Garden</h3>
+                        <p>Help maintain local gardens and grow fresh produce</p>
+                        <button class="join-btn">Join Group</button>
+                    </div>
+                    
+                    <!-- More Activities Section -->
+                    <div class="activity-card more-activities-card">
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">➕</div>
+                            <h3>More Activities</h3>
+                            <p>Discover additional volunteer opportunities</p>
+                            <button class="join-btn" onclick="alert('More volunteer opportunities coming soon!')">Explore More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="tab-content">
+        <div class="container">
+            <h2>My Upcoming Events</h2>
+            
+            <div class="events-list">
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1709105658901-ff3d88aac188?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Board Games Club" data-activity="board-games">
+                    </div>
+                    <div class="event-header">
+                        <h3>Board Games Club</h3>
+                        <span class="event-status upcoming">Today</span>
+                    </div>
+                    <div class="event-details">
+                        <p><strong>When:</strong> Today, 2:00 PM</p>
+                        <p><strong>Where:</strong> Community Center, Room 3</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="action-btn directions">Get Directions</button>
+                        <button class="action-btn chat">Chat with Group</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1576237652526-111d7669d9cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1169" alt="Tai Chi Session" data-activity="tai-chi">
+                    </div>
+                    <div class="event-header">
+                        <h3>Tai Chi Session</h3>
+                        <span class="event-status upcoming">Tomorrow</span>
+                    </div>
+                    <div class="event-details">
+                        <p><strong>When:</strong> Tomorrow, 9:00 AM</p>
+                        <p><strong>Where:</strong> Park Pavilion</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="action-btn directions">Get Directions</button>
+                        <button class="action-btn chat">Chat with Group</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://plus.unsplash.com/premium_photo-1661667132735-2d01aae2a60d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Pottery Workshop" data-activity="pottery">
+                    </div>
+                    <div class="event-header">
+                        <h3>Pottery Workshop</h3>
+                        <span class="event-status finished">Finished</span>
+                    </div>
+                    <div class="event-details">
+                        <p><strong>When:</strong> Yesterday, 10:00 AM</p>
+                        <p><strong>Where:</strong> Arts & Crafts Center</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="action-btn rate">Rate Volunteer</button>
+                        <button class="action-btn report">Report Issue</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Explore More Section -->
+            <div class="more-activities">
+                <h3>Explore More Activities</h3>
+                <p>Discover additional activities you might enjoy</p>
+                
+                <div class="activities-grid">
+                    <div class="activity-item">
+                        <img src="https://plus.unsplash.com/premium_photo-1681999643427-dcd624dcbbb2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Baking" data-activity="baking">
+                        <h4>Baking</h4>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <img src="https://plus.unsplash.com/premium_photo-1661667132735-2d01aae2a60d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Fishing" data-activity="fishing">
+                        <h4>Fishing</h4>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <img src="https://images.unsplash.com/photo-1674802401374-eec8be656e35?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Charity Crochet" data-activity="charity">
+                        <h4>Charity Crochet</h4>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <img src="https://plus.unsplash.com/premium_photo-1679689587760-3fe7530a0ea1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="Beach Cleaning" data-activity="beach">
+                        <h4>Beach Cleaning</h4>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 25px;">
+                    <button class="action-btn" onclick="switchToTab('explore')" style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); color: white; border: none; padding: 14px 28px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(24, 90, 157, 0.3);">
+                        View All Activities
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="navigation" class="tab-content">
+        <div class="container">
+            <h2>Find Activities Near You</h2>
+            
+            <div class="navigation-container">
+                <div class="map-section">
+                    <!-- Interactive map container -->
+                    <div id="map" style="width:100%;height:400px;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.1);position:relative;background-color:#e0e0e0;display:block !important;visibility:visible !important;">
+                        <!-- Loading indicator -->
+                        <div id="map-loader" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;background-color:#f8f9fa;z-index:1000;">
+                            <div style="text-align:center;">
+                                <div style="border: 4px solid #f3f3f3; border-top: 4px solid #34495e; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;margin:0 auto;"></div>
+                                <p style="margin-top:10px;color:#2c3e50;font-weight:500;">Loading map...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Route details button (top right corner) -->
+                        <button id="route-details-btn" style="position: absolute; top: 10px; right: 10px; z-index: 1000; background: white; border: 2px solid #34495e; border-radius: 4px; padding: 8px 12px; font-weight: bold; cursor: pointer; display: none;">
+                            📋 Route Details
+                        </button>
+                    </div>
+                    
+                    <!-- Route details panel -->
+                    <div id="route-details-panel" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="margin: 0; color: #2c3e50;">Route Details</h3>
+                            <button id="close-route-details" style="background: #e74c3c; color: white; border: none; border-radius: 4px; padding: 6px 12px; cursor: pointer;">×</button>
+                        </div>
+                        <div id="route-instructions" style="max-height: 300px; overflow-y: auto;">
+                            <!-- Route instructions will be populated here -->
+                        </div>
+                    </div>
+                    <p style="text-align:center;margin-top:10px;color:#7f8c8d;font-weight:500;">Interactive map of Hong Kong showing activity locations sorted by distance from your location</p>
+                    
+                    <!-- Map legend -->
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 15px; padding: 10px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #ecf0f1;">
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #27ae60; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; font-size: 12px;">1</div>
+                            <span style="font-size: 14px; color: #2c3e50;">Closest</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #3498db; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; font-size: 12px;">2</div>
+                            <span style="font-size: 14px; color: #2c3e50;">2nd Closest</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #f39c12; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; font-size: 12px;">3</div>
+                            <span style="font-size: 14px; color: #2c3e50;">3rd Closest</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #e74c3c; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; font-size: 12px;">4</div>
+                            <span style="font-size: 14px; color: #2c3e50;">Farther</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-form">
+                    <h3>Get Directions</h3>
+                    <p style="color: #7f8c8d; font-size: 0.9rem; margin-top: 0; margin-bottom: 15px;">
+                        Click "Detect My Location" to find activities closest to you
+                    </p>
+                    <div class="form-group">
+                        <label for="current-location">Your Location:</label>
+                        <input type="text" id="current-location" placeholder="Enter your address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="button" id="detect-location-btn" class="submit-btn" style="margin-bottom: 15px; width: 100%;">
+                            Detect My Location
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="destination">Destination:</label>
+                        <select id="destination">
+                            <option value="">Select an activity location</option>
+                            <option value="central">Central Community Center</option>
+                            <option value="admiralty">Admiralty Community Hall</option>
+                            <option value="wan-chai-sports">Wan Chai Sports Ground</option>
+                            <option value="causeway">Causeway Bay Community Center</option>
+                            <option value="north-point">North Point Community Center</option>
+                            <option value="quarry-bay">Quarry Bay Community Hall</option>
+                            <option value="sai-wan-ho">Sai Wan Ho Community Center</option>
+                            <option value="shau-kei-wan">Shau Kei Wan Community Center</option>
+                            <option value="chai-wan">Chai Wan Community Center</option>
+                            <option value="stanley">Stanley Beach Community Center</option>
+                            <option value="aberdeen-hall">Aberdeen Community Hall</option>
+                            <option value="aberdeen-sports">Aberdeen Sports Ground</option>
+                            <option value="tsim-sha-tsui">Tsim Sha Tsui Community Center</option>
+                            <option value="mong-kok">Mong Kok Community Center</option>
+                            <option value="prince-edward">Prince Edward Sports Ground</option>
+                            <option value="kowloon-tong">Kowloon Tong Community Center</option>
+                            <option value="lok-fu">Lok Fu Community Center</option>
+                            <option value="kowloon-city">Kowloon City Community Center</option>
+                            <option value="to-kwa-wan">To Kwa Wan Community Center</option>
+                            <option value="ma-tau-kok">Ma Tau Kok Community Center</option>
+                            <option value="ma-on-shan">Ma On Shan Community Center</option>
+                            <option value="sha-tin">Sha Tin Community Center</option>
+                            <option value="fo-tan">Fo Tan Community Center</option>
+                            <option value="tai-wai">Tai Wai Community Center</option>
+                            <option value="kwai-chung">Kwai Chung Community Center</option>
+                            <option value="tsuen-wan">Tsuen Wan Community Center</option>
+                            <option value="tuen-mun">Tuen Mun Community Center</option>
+                            <option value="yuen-long">Yuen Long Community Center</option>
+                            <option value="tin-shui-wai">Tin Shui Wai Community Center</option>
+                            <option value="fanling">Fanling Community Center</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Travel Mode:</label>
+                        <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                            <button type="button" class="route-mode-btn active" data-mode="car">🚗 Car</button>
+                            <button type="button" class="route-mode-btn" data-mode="walking">🚶 Walking</button>
+                            <button type="button" class="route-mode-btn" data-mode="transit">🚇 MTR</button>
+                        </div>
+                    </div>
+                    
+                    <button class="get-directions-btn">Get Directions</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calendar" class="tab-content">
+        <div class="container">
+            <h2>Event Calendar</h2>
+            <p>View your upcoming and finished activities in calendar format.</p>
+            
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prev-month-main" class="nav-btn">←</button>
+                    <h3 id="current-month-main">Loading...</h3>
+                    <button id="next-month-main" class="nav-btn">→</button>
+                </div>
+                
+                <div class="calendar-grid" id="calendar-grid-main">
+                    <!-- Calendar will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Day Detail View -->
+            <div id="day-detail-view" class="day-detail-view" style="display: none;">
+                <div class="day-detail-header">
+                    <h3 id="detail-date">Events for <span id="detail-date-text"></span></h3>
+                    <button id="close-detail" class="close-btn">×</</button>
+                </div>
+                <div id="detail-events-container">
+                    <!-- Events will be populated here -->
+                </div>
+            </div>
+            
+            <!-- Calendar Overlay -->
+            <div id="calendar-overlay" class="calendar-overlay" style="display: none;"></div>
+            
+            <div class="event-legend">
+                <div class="legend-item">
+                    <div class="legend-color upcoming"></div>
+                    <span>Upcoming Events</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color finished"></div>
+                    <span>Finished Events</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chat" class="tab-content">
+        <div class="container">
+            <h2>Community Chat</h2>
+            <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Connect with your group members and community</p>
+            
+            <div class="chat-container" style="max-width: 800px; margin: 0 auto;">
+                <!-- Notification Box -->
+                <div class="notification-box" style="background: #e3f2fd; border-radius: 8px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+                    <h3 style="margin-top: 0; color: #0d47a1;">🔔 Recent Notifications</h3>
+                    <div id="notifications-list">
+                        <div class="notification-item" style="padding: 10px 0; border-bottom: 1px solid #bbdefb;">
+                            <p style="margin: 0;"><strong>New Message:</strong> Board Games group - "See you tomorrow!"</p>
+                            <small style="color: #546e7a;">2 minutes ago</small>
+                        </div>
+                        <div class="notification-item" style="padding: 10px 0; border-bottom: 1px solid #bbdefb;">
+                            <p style="margin: 0;"><strong>Event Reminder:</strong> Tai Chi session starts in 30 minutes</p>
+                            <small style="color: #546e7a;">5 minutes ago</small>
+                        </div>
+                        <div class="notification-item" style="padding: 10px 0;">
+                            <p style="margin: 0;"><strong>Group Update:</strong> Pottery class rescheduled to next week</p>
+                            <small style="color: #546e7a;">1 hour ago</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Messages -->
+                <div class="chat-messages-container" style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px;">
+                    <h3 style="margin-top: 0; color: #2c3e50;">💬 Group Chats</h3>
+                    
+                    <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Board Games')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Board Games Group</h4>
+                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Margaret: See you all tomorrow! 🎲</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">2 min ago</span>
+                                <span style="display: block; background: #e74c3c; color: white; border-radius: 50%; width: 20px; height: 20px; text-align: center; line-height: 20px; font-size: 0.7rem; margin-top: 5px;">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Tai Chi')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Tai Chi Group</h4>
+                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Robert: Don't forget our session today! 🧘</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">15 min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Pottery')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Pottery Class</h4>
+                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">System: Class rescheduled to next Monday</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-group" style="padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Community')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Community Announcements</h4>
+                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Admin: New activities added this month! 🎉</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">3 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions" style="text-align: center;">
+                    <button class="submit-btn" onclick="openNewChat()" style="margin-right: 10px;">Start New Chat</button>
+                    <button class="submit-btn" style="background: #95a5a6;" onclick="markAllRead()">Mark All Read</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="profile" class="tab-content">
+        <div class="container">
+            <h2>Your Profile</h2>
+            <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Your profile information</p>
+            
+            <div class="profile-form-container">
+                <form id="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="preferred-name">Preferred Name</label>
+                            <input type="text" id="preferred-name" name="preferredName" placeholder="Enter your preferred name" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" min="50" max="110" placeholder="Enter your age" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <input type="text" id="gender" name="gender" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="medical-needs">Medical Needs or Disabilities</label>
+                        <textarea id="medical-needs" name="medicalNeeds" placeholder="Any medical conditions, mobility issues, or special requirements we should know about?" rows="3" readonly></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Interests and Hobbies</label>
+                        <div id="interests-display"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personality">Personality Type</label>
+                        <input type="text" id="personality" name="personality" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loneliness-level">Loneliness Level</label>
+                        <input type="text" id="loneliness-level" name="lonelinessLevel" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="well-being-goals">Well-being Goals</label>
+                        <textarea id="well-being-goals" name="wellBeingGoals" placeholder="Your well-being goals" rows="3" readonly></textarea>
+                    </div>
+                    
+                    <button type="button" id="edit-profile-btn" class="submit-btn">Edit Profile</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ElderConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="chat-modal" style="display: none;">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3 id="chat-group-name">Group Chat</h3>
+                <button id="close-chat" class="close-btn">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+            <div class="chat-input-container">
+                <div class="input-group">
+                    <input type="text" id="message-input" placeholder="Type your message here..." />
+                    <button id="send-message" class="send-btn">Send</button>
+                </div>
+                <div class="audio-controls">
+                    <button id="record-audio" class="record-btn">🎤 Record Audio</button>
+                    <button id="stop-record" class="stop-btn" style="display: none;">⏹ Stop Recording</button>
+                </div>
+                <div id="recording-indicator" class="recording-indicator" style="display: none;">
+                    <span class="recording-dot"></span>
+                    <span>Recording...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script src="elder-script-simple.js"></script>
+</body>
+</html>

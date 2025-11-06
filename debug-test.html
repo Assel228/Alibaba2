@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Supabase Issues</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            padding: 12px 24px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .loading { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Supabase Debug Test</h1>
+        <p>This test will help identify why data isn't appearing in your Supabase table.</p>
+        
+        <button id="run-full-test">Run Full Debug Test</button>
+        <div id="full-test-result" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>Manual Steps</h2>
+        <button id="step1">1. Initialize Client</button>
+        <button id="step2">2. Test Connection</button>
+        <button id="step3">3. Try Insert</button>
+        <button id="step4">4. Check Data</button>
+        
+        <div id="step-results" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>Direct SQL Commands</h2>
+        <p>Run these in your Supabase SQL Editor:</p>
+        <textarea id="sql-commands" readonly>
+-- Check if table exists
+SELECT EXISTS (
+   SELECT FROM information_schema.tables 
+   WHERE table_schema = 'public' 
+   AND table_name = 'feedback'
+);
+
+-- If table doesn't exist, create it
+CREATE TABLE IF NOT EXISTS feedback (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable RLS
+ALTER TABLE feedback ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies
+DROP POLICY IF EXISTS "Allow public inserts" ON feedback;
+DROP POLICY IF EXISTS "Allow public selects" ON feedback;
+
+-- Create new policies
+CREATE POLICY "Allow public inserts" ON feedback
+    FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow public selects" ON feedback
+    FOR SELECT USING (true);
+
+-- Grant permissions
+GRANT INSERT, SELECT ON TABLE feedback TO anon;
+GRANT USAGE ON SEQUENCE feedback_id_seq TO anon;
+
+-- Insert test record
+INSERT INTO feedback (name, email, message) 
+VALUES ('Debug Test', 'debug@test.com', 'Debug test message')
+RETURNING *;
+
+-- Check all records
+SELECT * FROM feedback ORDER BY created_at DESC;</textarea>
+    </div>
+
+    <script>
+        // Supabase configuration
+        const SUPABASE_URL = 'https://smgxivzlexhahfhlrlrp.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtZ3hpdnpsZXhoYWhmaGxybHJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNjMwNTQsImV4cCI6MjA3NjkzOTA1NH0.UFt0TP0Zzo7aTl2h9xw870XP0KQBPoLVf6QA2DOLm1Y';
+        
+        let supabase;
+
+        function updateResult(content, type = 'info') {
+            const element = document.getElementById('step-results');
+            element.textContent = content;
+            element.className = `result ${type}`;
+        }
+
+        function updateFullTest(content, type = 'info') {
+            const element = document.getElementById('full-test-result');
+            element.textContent = content;
+            element.className = `result ${type}`;
+        }
+
+        // Step 1: Initialize Client
+        document.getElementById('step1').addEventListener('click', function() {
+            try {
+                supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_KEY);
+                updateResult('✅ Supabase client initialized successfully!', 'success');
+            } catch (error) {
+                updateResult(`❌ Failed to initialize client: ${error.message}`, 'error');
+            }
+        });
+
+        // Step 2: Test Connection
+        document.getElementById('step2').addEventListener('click', async function() {
+            if (!supabase) {
+                updateResult('❌ Initialize client first!', 'error');
+                return;
+            }
+            
+            updateResult('⏳ Testing connection...', 'loading');
+            
+            try {
+                // Try to get table info
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .select('count')
+                    .single();
+                
+                if (error) {
+                    if (error.code === '42P01') {
+                        updateResult('📋 Table does not exist yet (this is expected if you haven\'t created it)', 'info');
+                    } else {
+                        updateResult(`❌ Connection test failed: ${error.message}\nCode: ${error.code}`, 'error');
+                    }
+                } else {
+                    updateResult('✅ Connection successful!', 'success');
+                }
+            } catch (error) {
+                updateResult(`❌ Connection test error: ${error.message}`, 'error');
+            }
+        });
+
+        // Step 3: Try Insert
+        document.getElementById('step3').addEventListener('click', async function() {
+            if (!supabase) {
+                updateResult('❌ Initialize client first!', 'error');
+                return;
+            }
+            
+            updateResult('⏳ Attempting to insert test data...', 'loading');
+            
+            try {
+                const testData = {
+                    name: 'Debug Test User',
+                    email: 'debug@test.com',
+                    message: 'Debug test message from ' + new Date().toISOString(),
+                    created_at: new Date().toISOString()
+                };
+                
+                console.log('Sending data:', testData);
+                
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .insert([testData]);
+                
+                console.log('Response:', { data, error });
+                
+                if (error) {
+                    updateResult(`❌ Insert failed: ${error.message}\nCode: ${error.code}\nHint: ${error.hint || 'None'}\nDetails: ${JSON.stringify(error, null, 2)}`, 'error');
+                } else {
+                    updateResult('✅ Insert successful! Data: ' + JSON.stringify(data, null, 2), 'success');
+                }
+            } catch (error) {
+                updateResult(`❌ Insert error: ${error.message}`, 'error');
+            }
+        });
+
+        // Step 4: Check Data
+        document.getElementById('step4').addEventListener('click', async function() {
+            if (!supabase) {
+                updateResult('❌ Initialize client first!', 'error');
+                return;
+            }
+            
+            updateResult('⏳ Checking for data...', 'loading');
+            
+            try {
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(10);
+                
+                if (error) {
+                    updateResult(`❌ Data check failed: ${error.message}\nCode: ${error.code}`, 'error');
+                } else {
+                    if (data && data.length > 0) {
+                        updateResult(`✅ Found ${data.length} records:\n\n${JSON.stringify(data, null, 2)}`, 'success');
+                    } else {
+                        updateResult('📋 No records found in feedback table', 'info');
+                    }
+                }
+            } catch (error) {
+                updateResult(`❌ Data check error: ${error.message}`, 'error');
+            }
+        });
+
+        // Full test
+        document.getElementById('run-full-test').addEventListener('click', async function() {
+            updateFullTest('⏳ Running full test...\n', 'loading');
+            
+            let results = '';
+            
+            try {
+                // Step 1: Initialize
+                results += '1. Initializing client...\n';
+                supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_KEY);
+                results += '   ✅ Client initialized\n\n';
+                
+                // Step 2: Test connection
+                results += '2. Testing connection...\n';
+                try {
+                    const { data, error } = await supabase
+                        .from('feedback')
+                        .select('count')
+                        .single();
+                    
+                    if (error) {
+                        if (error.code === '42P01') {
+                            results += '   ℹ️  Table does not exist yet\n\n';
+                        } else {
+                            results += `   ❌ Connection failed: ${error.message}\n\n`;
+                        }
+                    } else {
+                        results += '   ✅ Connection successful\n\n';
+                    }
+                } catch (error) {
+                    results += `   ❌ Connection error: ${error.message}\n\n`;
+                }
+                
+                // Step 3: Try insert
+                results += '3. Attempting insert...\n';
+                try {
+                    const testData = {
+                        name: 'Full Test User',
+                        email: 'fulltest@test.com',
+                        message: 'Full test message',
+                        created_at: new Date().toISOString()
+                    };
+                    
+                    const { data, error } = await supabase
+                        .from('feedback')
+                        .insert([testData]);
+                    
+                    if (error) {
+                        results += `   ❌ Insert failed: ${error.message}
+   Code: ${error.code}
+   Hint: ${error.hint || 'None'}
+
+`;
+                    } else {
+                        results += '   ✅ Insert successful\n\n';
+                    }
+                } catch (error) {
+                    results += `   ❌ Insert error: ${error.message}\n\n`;
+                }
+                
+                // Step 4: Check data
+                results += '4. Checking data...\n';
+                try {
+                    const { data, error } = await supabase
+                        .from('feedback')
+                        .select('*')
+                        .order('created_at', { ascending: false })
+                        .limit(5);
+                    
+                    if (error) {
+                        results += `   ❌ Data check failed: ${error.message}\n\n`;
+                    } else {
+                        if (data && data.length > 0) {
+                            results += `   ✅ Found ${data.length} records\n\n`;
+                        } else {
+                            results += '   ℹ️  No records found\n\n';
+                        }
+                    }
+                } catch (error) {
+                    results += `   ❌ Data check error: ${error.message}\n\n`;
+                }
+                
+                updateFullTest(results, 'info');
+            } catch (error) {
+                results += `❌ Test failed with error: ${error.message}\n`;
+                updateFullTest(results, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

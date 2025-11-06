@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Database Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 3px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supabase Database Test</h1>
+    
+    <div class="test-section">
+        <h2>Database Connection Test</h2>
+        <button id="test-connection">Test Connection</button>
+        <div id="connection-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Table Creation</h2>
+        <button id="create-table">Create Feedback Table</button>
+        <div id="create-table-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Insert Test Data</h2>
+        <button id="insert-data">Insert Test Record</button>
+        <div id="insert-data-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>View Data</h2>
+        <button id="view-data">View All Records</button>
+        <div id="view-data-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Setup RLS (Row Level Security)</h2>
+        <button id="setup-rls">Setup RLS Policies</button>
+        <div id="setup-rls-result" class="result"></div>
+    </div>
+
+    <script>
+        // Supabase configuration
+        const SUPABASE_URL = 'https://smgxivzlexhahfhlrlrp.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtZ3hpdnpsZXhoYWhmaGxybHJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNjMwNTQsImV4cCI6MjA3NjkzOTA1NH0.UFt0TP0Zzo7aTl2h9xw870XP0KQBPoLVf6QA2DOLm1Y';
+        
+        // Initialize Supabase
+        const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        // Test connection
+        document.getElementById('test-connection').addEventListener('click', async function() {
+            const resultDiv = document.getElementById('connection-result');
+            try {
+                const { data, error } = await supabase.from('feedback').select('count').single();
+                if (error && error.code !== '42P01') { // 42P01 = table doesn't exist, which is OK
+                    throw error;
+                }
+                resultDiv.innerHTML = '✅ Connection successful!';
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Connection failed: ${error.message}`;
+                resultDiv.className = 'result error';
+                console.error('Connection error:', error);
+            }
+        });
+        
+        // Create table
+        document.getElementById('create-table').addEventListener('click', async function() {
+            const resultDiv = document.getElementById('create-table-result');
+            try {
+                // This would normally be done via SQL in Supabase, but we'll show the SQL needed
+                const sql = `
+                    CREATE TABLE IF NOT EXISTS feedback (
+                        id SERIAL PRIMARY KEY,
+                        name TEXT NOT NULL,
+                        email TEXT NOT NULL,
+                        message TEXT NOT NULL,
+                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+                    );
+                `;
+                resultDiv.innerHTML = `📋 SQL to run in Supabase SQL Editor:\n\n${sql}`;
+                resultDiv.className = 'result';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        });
+        
+        // Insert test data
+        document.getElementById('insert-data').addEventListener('click', async function() {
+            const resultDiv = document.getElementById('insert-data-result');
+            try {
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .insert([
+                        {
+                            name: 'Test User',
+                            email: 'test@example.com',
+                            message: 'This is a test message from the database test page.',
+                            created_at: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                resultDiv.innerHTML = '✅ Test record inserted successfully!';
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Insert failed: ${error.message}`;
+                resultDiv.className = 'result error';
+                console.error('Insert error:', error);
+            }
+        });
+        
+        // View data
+        document.getElementById('view-data').addEventListener('click', async function() {
+            const resultDiv = document.getElementById('view-data-result');
+            try {
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                if (data && data.length > 0) {
+                    resultDiv.innerHTML = `📋 Found ${data.length} records:\n\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultDiv.innerHTML = '📋 No records found in the feedback table.';
+                }
+                resultDiv.className = 'result';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Query failed: ${error.message}`;
+                resultDiv.className = 'result error';
+                console.error('Query error:', error);
+            }
+        });
+        
+        // Setup RLS
+        document.getElementById('setup-rls').addEventListener('click', async function() {
+            const resultDiv = document.getElementById('setup-rls-result');
+            try {
+                // This would normally be done via SQL in Supabase, but we'll show the SQL needed
+                const sql = `
+                    -- Enable Row Level Security
+                    ALTER TABLE feedback ENABLE ROW LEVEL SECURITY;
+                    
+                    -- Create policy to allow anyone to insert feedback
+                    CREATE POLICY "Allow public inserts" ON feedback
+                        FOR INSERT WITH CHECK (true);
+                    
+                    -- Create policy to allow anyone to read feedback
+                    CREATE POLICY "Allow public selects" ON feedback
+                        FOR SELECT USING (true);
+                    
+                    -- Grant necessary permissions
+                    GRANT INSERT, SELECT ON TABLE feedback TO anon;
+                `;
+                resultDiv.innerHTML = `📋 SQL to run in Supabase SQL Editor:\n\n${sql}`;
+                resultDiv.className = 'result';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        });
+    </script>
+</body>
+</html>

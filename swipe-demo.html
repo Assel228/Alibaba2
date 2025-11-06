@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMatch - Swipe Demo</title>
+    <link rel="stylesheet" href="swipe-styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">MovieMatch</h1>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </header>
+
+    <section class="swipe-demo">
+        <div class="container">
+            <h2>Swipe to Match Movies</h2>
+            <p>Swipe right to like a movie, left to pass. When all group members like the same movie, it's a match!</p>
+            
+            <div class="swipe-container">
+                <div class="movie-card" id="movie-card">
+                    <div class="movie-poster">
+                        <div class="poster-placeholder">🎬</div>
+                    </div>
+                    <div class="movie-info">
+                        <h3 id="movie-title">Inception</h3>
+                        <p id="movie-genre">Sci-Fi, Thriller</p>
+                        <p id="movie-year">2010</p>
+                        <p id="movie-rating">⭐ 8.8/10</p>
+                        <p id="movie-description">A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.</p>
+                    </div>
+                </div>
+                
+                <div class="swipe-buttons">
+                    <button class="swipe-btn pass" id="pass-btn">✕ Pass</button>
+                    <button class="swipe-btn like" id="like-btn">♥ Like</button>
+                </div>
+                
+                <div class="group-status">
+                    <h3>Group Status</h3>
+                    <div class="status-item">
+                        <span>Alex:</span>
+                        <span class="status liked">Liked</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Jamie:</span>
+                        <span class="status pending">Pending</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Sam:</span>
+                        <span class="status liked">Liked</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="swipe-script.js"></script>
+</body>
+</html>

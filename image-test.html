@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        .status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Image Loading Test</h1>
+    
+    <div class="image-container">
+        <h2>Board Games Image</h2>
+        <img id="img1" src="https://images.unsplash.com/photo-1557304205-98c066849c8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Board Games">
+        <div id="status1" class="status">Loading...</div>
+    </div>
+    
+    <div class="image-container">
+        <h2>Pottery Image</h2>
+        <img id="img2" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Pottery">
+        <div id="status2" class="status">Loading...</div>
+    </div>
+    
+    <div class="image-container">
+        <h2>Baking Image</h2>
+        <img id="img3" src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baking">
+        <div id="status3" class="status">Loading...</div>
+    </div>
+
+    <script>
+        function checkImage(imgId, statusId) {
+            const img = document.getElementById(imgId);
+            const status = document.getElementById(statusId);
+            
+            img.onload = function() {
+                status.textContent = 'Image loaded successfully';
+                status.className = 'status success';
+            };
+            
+            img.onerror = function() {
+                status.textContent = 'Failed to load image';
+                status.className = 'status error';
+            };
+        }
+        
+        // Check all images
+        checkImage('img1', 'status1');
+        checkImage('img2', 'status2');
+        checkImage('img3', 'status3');
+    </script>
+</body>
+</html>

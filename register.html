@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ElderConnect</title>
+    <link rel="stylesheet" href="elder-styles-simple.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .register-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #34495e;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #ffffff;
+        }
+        
+        /* Special styling for loneliness level selection */
+        #loneliness-level {
+            border: 2px solid #3498db;
+            background-color: #e3f2fd;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-top: 4px;
+        }
+        
+        .submit-btn {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo">ElderConnect</div>
+        <h1>Create Your Profile</h1>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Help us personalize your experience and connect you with activities that match your interests</p>
+        
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="preferred-name">Preferred Name *</label>
+                <input type="text" id="preferred-name" name="preferredName" placeholder="Enter your preferred name" required>
+                <small>The app will call you by this name</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age *</label>
+                <input type="number" id="age" name="age" min="50" max="110" placeholder="Enter your age" required>
+                <small>To group you with similar age participants</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender *</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="medical-needs">Medical Needs or Disabilities</label>
+                <textarea id="medical-needs" name="medicalNeeds" placeholder="Any medical conditions, mobility issues, or special requirements we should know about?" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Interests and Hobbies *</label>
+                <small>Select all that apply</small>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest1" name="interests" value="Board Games">
+                        <label for="interest1">Board Games</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest2" name="interests" value="Gardening">
+                        <label for="interest2">Gardening</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest3" name="interests" value="Reading">
+                        <label for="interest3">Reading</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest4" name="interests" value="Cooking">
+                        <label for="interest4">Cooking</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest5" name="interests" value="Arts & Crafts">
+                        <label for="interest5">Arts & Crafts</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest6" name="interests" value="Music">
+                        <label for="interest6">Music</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest7" name="interests" value="Walking">
+                        <label for="interest7">Walking</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest8" name="interests" value="Travel">
+                        <label for="interest8">Travel</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest9" name="interests" value="Volunteering">
+                        <label for="interest9">Volunteering</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interest10" name="interests" value="Technology">
+                        <label for="interest10">Technology</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="personality">Personality Type *</label>
+                <select id="personality" name="personality" required>
+                    <option value="">Select your personality type</option>
+                    <option value="introvert">Introvert</option>
+                    <option value="extrovert">Extrovert</option>
+                    <option value="ambivert">Ambivert</option>
+                </select>
+            </div>
+            
+            <!-- Mental Well-being Assessment -->
+            <div class="form-group">
+                <label for="loneliness-level">Loneliness Level *</label>
+                <select id="loneliness-level" name="lonelinessLevel" required>
+                    <option value="">Select your current loneliness level</option>
+                    <option value="mild">Mild - I feel generally connected but sometimes lonely</option>
+                    <option value="moderate">Moderate - I often feel lonely and seek more connections</option>
+                    <option value="severe">Severe - I feel isolated and need significant support</option>
+                </select>
+                <small>This helps us recommend activities that best suit your social needs</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="well-being-goals">Well-being Goals</label>
+                <textarea id="well-being-goals" name="wellBeingGoals" placeholder="What would you like to improve about your mental well-being? (e.g., reduce loneliness, find motivation, build confidence)" rows="3"></textarea>
+                <small>For users with severe loneliness, we provide additional AI support and therapeutic activities</small>
+            </div>
+            
+            <button type="submit" class="submit-btn">Save Profile & Continue</button>
+        </form>
+        
+        <div class="back-link">
+            <a href="index.html">← Back to Welcome Page</a>
+        </div>
+        
+        <div class="back-link" style="margin-top: 10px;">
+            <a href="settings.html">⚙️ Account Settings</a>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            console.log('Form submission started');
+            
+            // Get form data
+            const formData = new FormData(this);
+            const profileData = {};
+            
+            // Collect text inputs and selects
+            for (const [key, value] of formData.entries()) {
+                if (key !== 'interests') {
+                    profileData[key] = value;
+                }
+            }
+            
+            // Collect interests (multiple checkboxes)
+            const interests = formData.getAll('interests');
+            profileData.interests = interests;
+            
+            console.log('Profile data collected:', profileData);
+            
+            // Add mental well-being category based on loneliness level
+            const lonelinessLevel = profileData.lonelinessLevel;
+            if (lonelinessLevel === 'mild') {
+                profileData.mentalWellBeingCategory = 'social';
+            } else if (lonelinessLevel === 'moderate') {
+                profileData.mentalWellBeingCategory = 'balanced';
+            } else if (lonelinessLevel === 'severe') {
+                profileData.mentalWellBeingCategory = 'wellness';
+            }
+            
+            console.log('Mental well-being category set:', profileData.mentalWellBeingCategory);
+            
+            // Store in localStorage for persistence
+            try {
+                console.log('Attempting to save profile to localStorage');
+                localStorage.setItem('elderConnectProfile', JSON.stringify(profileData));
+                
+                // Verify that the profile was saved
+                const savedProfile = localStorage.getItem('elderConnectProfile');
+                console.log('Profile saved to localStorage:', savedProfile);
+                
+                // Show success message and redirect
+                alert(`Thank you, ${profileData.preferredName || 'valued member'}! Your profile has been saved successfully.`);
+                window.location.href = 'elder-connect-simple.html';
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                alert('There was an error saving your profile. Please try again.');
+            }
+        });
+        
+        // Check if user already has a profile
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedProfile = localStorage.getItem('elderConnectProfile');
+            if (savedProfile) {
+                try {
+                    const profileData = JSON.parse(savedProfile);
+                    console.log('Existing profile data loaded:', profileData);
+                    if (profileData.preferredName) {
+                        document.getElementById('preferred-name').value = profileData.preferredName;
+                    }
+                    if (profileData.age) {
+                        document.getElementById('age').value = profileData.age;
+                    }
+                    if (profileData.gender) {
+                        document.getElementById('gender').value = profileData.gender;
+                    }
+                    if (profileData.medicalNeeds) {
+                        document.getElementById('medical-needs').value = profileData.medicalNeeds;
+                    }
+                    if (profileData.interests && Array.isArray(profileData.interests)) {
+                        profileData.interests.forEach(interest => {
+                            const checkbox = document.querySelector(`input[value="${interest}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            }
+                        });
+                    }
+                    if (profileData.personality) {
+                        document.getElementById('personality').value = profileData.personality;
+                    }
+                    if (profileData.lonelinessLevel) {
+                        document.getElementById('loneliness-level').value = profileData.lonelinessLevel;
+                    }
+                    if (profileData.wellBeingGoals) {
+                        document.getElementById('well-being-goals').value = profileData.wellBeingGoals;
+                    }
+                } catch (e) {
+                    console.error('Error loading saved profile:', e);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

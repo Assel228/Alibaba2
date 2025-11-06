@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Supabase Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            padding: 12px 24px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .loading {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .test-step {
+            margin-bottom: 30px;
+        }
+        .step-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .credentials {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #007bff;
+        }
+        .credentials pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive Supabase Test</h1>
+    
+    <div class="test-container">
+        <h2>Connection Information</h2>
+        <div class="credentials">
+            <strong>Supabase URL:</strong>
+            <pre id="supabase-url">https://smgxivzlexhahfhlrlrp.supabase.co</pre>
+            <strong>API Key:</strong>
+            <pre id="api-key">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtZ3hpdnpsZXhoYWhmaGxybHJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNjMwNTQsImV4cCI6MjA3NjkzOTA1NH0.UFt0TP0Zzo7aTl2h9xw870XP0KQBPoLVf6QA2DOLm1Y</pre>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <div class="test-step">
+            <div class="step-title">
+                <div class="step-number">1</div>
+                <h2>Initialize Supabase Client</h2>
+            </div>
+            <button id="init-client">Initialize Supabase Client</button>
+            <div id="init-result" class="result"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <div class="test-step">
+            <div class="step-title">
+                <div class="step-number">2</div>
+                <h2>Test Database Connection</h2>
+            </div>
+            <button id="test-connection" disabled>Test Connection</button>
+            <div id="connection-result" class="result"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <div class="test-step">
+            <div class="step-title">
+                <div class="step-number">3</div>
+                <h2>Check if Feedback Table Exists</h2>
+            </div>
+            <button id="check-table" disabled>Check Table</button>
+            <div id="table-result" class="result"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <div class="test-step">
+            <div class="step-title">
+                <div class="step-number">4</div>
+                <h2>Create Feedback Table (if needed)</h2>
+            </div>
+            <button id="create-table" disabled>Create Table</button>
+            <div id="create-table-result" class="result"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <div class="test-step">
+            <div class="step-title">
+                <div class="step-number">5</div>
+                <h2>Setup RLS and Permissions</h2>
+            </div>
+            <button id="setup-rls" disabled>Setup RLS</button>
+            <div id="rls-result" class="result"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <div class="test-step">
+            <div class="step-title">
+                <div class="step-number">6</div>
+                <h2>Insert Test Data</h2>
+            </div>
+            <button id="insert-data" disabled>Insert Test Data</button>
+            <div id="insert-result" class="result"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <div class="test-step">
+            <div class="step-title">
+                <div class="step-number">7</div>
+                <h2>Retrieve Data</h2>
+            </div>
+            <button id="retrieve-data" disabled>Retrieve Data</button>
+            <div id="retrieve-result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase configuration
+        const SUPABASE_URL = 'https://smgxivzlexhahfhlrlrp.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtZ3hpdnpsZXhoYWhmaGxybHJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNjMwNTQsImV4cCI6MjA3NjkzOTA1NH0.UFt0TP0Zzo7aTl2h9xw870XP0KQBPoLVf6QA2DOLm1Y';
+        
+        let supabase;
+        let isConnected = false;
+
+        // Utility function to update result display
+        function updateResult(elementId, content, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.textContent = content;
+            element.className = `result ${type}`;
+        }
+
+        // Step 1: Initialize Supabase Client
+        document.getElementById('init-client').addEventListener('click', function() {
+            try {
+                supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_KEY);
+                updateResult('init-result', '✅ Supabase client initialized successfully!', 'success');
+                
+                // Enable next steps
+                document.getElementById('test-connection').disabled = false;
+            } catch (error) {
+                updateResult('init-result', `❌ Failed to initialize Supabase client: ${error.message}`, 'error');
+            }
+        });
+
+        // Step 2: Test Database Connection
+        document.getElementById('test-connection').addEventListener('click', async function() {
+            updateResult('connection-result', '⏳ Testing connection...', 'loading');
+            
+            try {
+                // Try a simple query to test connection
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .select('count')
+                    .single();
+                
+                if (error && error.code !== '42P01') { // 42P01 = table doesn't exist, which is OK
+                    throw error;
+                }
+                
+                isConnected = true;
+                updateResult('connection-result', '✅ Database connection successful!', 'success');
+                
+                // Enable next steps
+                document.getElementById('check-table').disabled = false;
+            } catch (error) {
+                updateResult('connection-result', `❌ Database connection failed: ${error.message}`, 'error');
+                console.error('Connection error:', error);
+            }
+        });
+
+        // Step 3: Check if Feedback Table Exists
+        document.getElementById('check-table').addEventListener('click', async function() {
+            updateResult('table-result', '⏳ Checking if feedback table exists...', 'loading');
+            
+            try {
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .select('*')
+                    .limit(1);
+                
+                if (error) {
+                    if (error.code === '42P01') {
+                        updateResult('table-result', '📋 Feedback table does not exist yet. You need to create it.', 'info');
+                    } else {
+                        throw error;
+                    }
+                } else {
+                    updateResult('table-result', `✅ Feedback table exists and contains ${data.length} records.`, 'success');
+                }
+                
+                // Enable next steps
+                document.getElementById('create-table').disabled = false;
+            } catch (error) {
+                updateResult('table-result', `❌ Error checking table: ${error.message}`, 'error');
+                console.error('Table check error:', error);
+            }
+        });
+
+        // Step 4: Create Feedback Table
+        document.getElementById('create-table').addEventListener('click', async function() {
+            updateResult('create-table-result', '📋 To create the feedback table, run this SQL in your Supabase SQL Editor:\n\n' +
+                'CREATE TABLE IF NOT EXISTS feedback (\n' +
+                '    id SERIAL PRIMARY KEY,\n' +
+                '    name TEXT NOT NULL,\n' +
+                '    email TEXT NOT NULL,\n' +
+                '    message TEXT NOT NULL,\n' +
+                '    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()\n' +
+                ');', 'info');
+            
+            // Enable next steps
+            document.getElementById('setup-rls').disabled = false;
+        });
+
+        // Step 5: Setup RLS and Permissions
+        document.getElementById('setup-rls').addEventListener('click', async function() {
+            updateResult('rls-result', '📋 To setup RLS and permissions, run these SQL commands in your Supabase SQL Editor:\n\n' +
+                '-- Enable Row Level Security\n' +
+                'ALTER TABLE feedback ENABLE ROW LEVEL SECURITY;\n\n' +
+                '-- Create policy to allow anyone to insert feedback\n' +
+                'CREATE POLICY "Allow public inserts" ON feedback\n' +
+                '    FOR INSERT WITH CHECK (true);\n\n' +
+                '-- Create policy to allow anyone to read feedback\n' +
+                'CREATE POLICY "Allow public selects" ON feedback\n' +
+                '    FOR SELECT USING (true);\n\n' +
+                '-- Grant necessary permissions\n' +
+                'GRANT INSERT, SELECT ON TABLE feedback TO anon;\n\n' +
+                '-- Grant usage on sequence for id auto-increment\n' +
+                'GRANT USAGE ON SEQUENCE feedback_id_seq TO anon;', 'info');
+            
+            // Enable next steps
+            document.getElementById('insert-data').disabled = false;
+        });
+
+        // Step 6: Insert Test Data
+        document.getElementById('insert-data').addEventListener('click', async function() {
+            updateResult('insert-result', '⏳ Inserting test data...', 'loading');
+            
+            try {
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .insert([
+                        {
+                            name: 'Test User',
+                            email: 'test@example.com',
+                            message: 'This is a test message from the comprehensive test page.',
+                            created_at: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                updateResult('insert-result', '✅ Test data inserted successfully!', 'success');
+                
+                // Enable next steps
+                document.getElementById('retrieve-data').disabled = false;
+            } catch (error) {
+                updateResult('insert-result', `❌ Failed to insert test data: ${error.message}\n\nCode: ${error.code}\nHint: ${error.hint || 'No hint available'}`, 'error');
+                console.error('Insert error:', error);
+            }
+        });
+
+        // Step 7: Retrieve Data
+        document.getElementById('retrieve-data').addEventListener('click', async function() {
+            updateResult('retrieve-result', '⏳ Retrieving data...', 'loading');
+            
+            try {
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(10);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                if (data && data.length > 0) {
+                    updateResult('retrieve-result', `✅ Retrieved ${data.length} records:\n\n${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    updateResult('retrieve-result', '📋 No records found in the feedback table.', 'info');
+                }
+            } catch (error) {
+                updateResult('retrieve-result', `❌ Failed to retrieve data: ${error.message}\n\nCode: ${error.code}\nHint: ${error.hint || 'No hint available'}`, 'error');
+                console.error('Retrieve error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
