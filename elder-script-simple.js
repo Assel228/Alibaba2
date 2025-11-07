@@ -1307,10 +1307,48 @@ function openChat(groupName) {
     // Clear previous messages
     document.getElementById('chat-messages').innerHTML = '';
     
-    // Add some sample messages to start the conversation
+    // Clear quick replies
+    document.getElementById('quick-replies').innerHTML = '';
+    
+    // Add welcome message and quick replies based on group
     addMessage('Welcome to the ' + groupName + ' group!', 'System', new Date(), 'received');
-    addMessage('Hello everyone! Looking forward to our activity.', 'Margaret', new Date(Date.now() - 300000), 'received');
-    addMessage('Me too! See you all there.', 'Robert', new Date(Date.now() - 180000), 'received');
+    
+    // Add group-specific quick replies
+    if (groupName === 'Board Games') {
+        addMessage('Hello everyone! Looking forward to our game tomorrow.', 'Margaret', new Date(Date.now() - 300000), 'received');
+        addMessage('Me too! See you all there.', 'Robert', new Date(Date.now() - 180000), 'received');
+        showQuickReplies([
+            'What time does it start?',
+            'What games will we play?',
+            'Can I bring a friend?',
+            'See you tomorrow!'
+        ]);
+    } else if (groupName === 'Tai Chi') {
+        addMessage('Don\'t forget our session starts at 9 AM sharp!', 'Instructor Chen', new Date(Date.now() - 600000), 'received');
+        addMessage('Thanks for the reminder!', 'Participant', new Date(Date.now() - 300000), 'received');
+        showQuickReplies([
+            'What should I bring?',
+            'Is it raining tomorrow?',
+            'Can beginners join?',
+            'See you there!'
+        ]);
+    } else if (groupName === 'Pottery') {
+        addMessage('Just a reminder that our class has been rescheduled to next Monday.', 'Instructor Wong', new Date(Date.now() - 900000), 'received');
+        showQuickReplies([
+            'What time is the new session?',
+            'Will we continue with the same project?',
+            'Can I get a refund?',
+            'Understood, thanks!'
+        ]);
+    } else {
+        addMessage('This is the beginning of your conversation.', 'System', new Date(), 'received');
+        showQuickReplies([
+            'Hello!',
+            'How are you?',
+            'What\'s new?',
+            'Thanks!'
+        ]);
+    }
 }
 
 function closeChat() {
@@ -1326,6 +1364,10 @@ function sendMessage() {
         const now = new Date();
         addMessage(message, 'You', now, 'sent');
         messageInput.value = '';
+        
+        // Hide quick replies after sending a message
+        const quickRepliesContainer = document.getElementById('quick-replies');
+        quickRepliesContainer.innerHTML = '';
         
         // Check if this is the AI Wellness Companion chat
         const chatGroupName = document.getElementById('chat-group-name').textContent;
@@ -1346,6 +1388,14 @@ function sendMessage() {
                 ];
                 const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
                 addMessage(randomResponse, 'AI Wellness Companion', new Date(), 'received');
+                
+                // Show quick replies after AI response
+                showQuickReplies([
+                    'Thank you for understanding',
+                    'Can you suggest an activity?',
+                    'I feel better now',
+                    'I need some time'
+                ]);
             }, 2000);
         } else {
             // Simulate a regular group reply after a short delay
@@ -1360,6 +1410,14 @@ function sendMessage() {
                 ];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
                 addMessage(randomReply, 'Group Member', new Date(), 'received');
+                
+                // Show quick replies after group response
+                showQuickReplies([
+                    'Thanks!',
+                    'See you there!',
+                    'Can\'t wait!',
+                    'Have a great day!'
+                ]);
             }, 2000);
         }
     }
@@ -1382,6 +1440,25 @@ function addMessage(content, sender, timestamp, type) {
     
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function showQuickReplies(replies) {
+    const quickRepliesContainer = document.getElementById('quick-replies');
+    quickRepliesContainer.innerHTML = '';
+    
+    replies.forEach(reply => {
+        const button = document.createElement('button');
+        button.className = 'quick-reply-btn';
+        button.textContent = reply;
+        button.onclick = function() {
+            // Send the quick reply as a message
+            document.getElementById('message-input').value = reply;
+            sendMessage();
+            // Hide quick replies after selection
+            quickRepliesContainer.innerHTML = '';
+        };
+        quickRepliesContainer.appendChild(button);
+    });
 }
 
 function startRecording() {
@@ -1568,6 +1645,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         } else {
                             initializeInteractiveMap();
                         }
+                    }, 100);
+                }
+                
+                // If we're showing the account tab, initialize account tab switching
+                if (tabId === 'account') {
+                    // Small delay to ensure tab is fully visible
+                    setTimeout(function() {
+                        initializeAccountTabs();
                     }, 100);
                 }
             }
@@ -1788,6 +1873,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Chat event listeners
     document.getElementById('close-chat').addEventListener('click', closeChat);
+    
+    // Close buttons for settings and profile tabs removed as per requirements
     document.getElementById('send-message').addEventListener('click', sendMessage);
     document.getElementById('message-input').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -2184,15 +2271,40 @@ function initializeCalendar() {
         }
     ];
     
-    // Function to update event statuses based on date
-    function updateEventStatuses(currentDate) {
+    // Function to update event statuses based on date and time in Hong Kong
+    function updateEventStatuses() {
+        // Get current time in Hong Kong
+        const hongKongTimeString = new Date().toLocaleString("en-US", {timeZone: "Asia/Hong_Kong"});
+        const hongKongDate = new Date(hongKongTimeString);
+        
         calendarEvents.forEach(event => {
-            // Convert event date string to Date object
-            const eventDateParts = event.date.split('-');
-            const eventDate = new Date(eventDateParts[0], eventDateParts[1] - 1, eventDateParts[2]);
+            // Convert event date and time to Hong Kong time
+            const eventDateTimeString = `${event.date} ${event.time}`;
+            // Assuming the time is in 12-hour format, we need to parse it properly
+            let eventDateTime;
             
-            // If event date is before current date, mark as finished
-            if (eventDate < currentDate && event.status === 'upcoming') {
+            // Parse time
+            const timeParts = event.time.split(' ');
+            const time = timeParts[0]; // e.g., "9:00"
+            const period = timeParts[1]; // e.g., "AM" or "PM"
+            
+            const timeComponents = time.split(':');
+            let hours = parseInt(timeComponents[0]);
+            const minutes = parseInt(timeComponents[1]);
+            
+            // Convert to 24-hour format
+            if (period === 'PM' && hours !== 12) {
+                hours += 12;
+            } else if (period === 'AM' && hours === 12) {
+                hours = 0;
+            }
+            
+            // Create event date time in Hong Kong timezone
+            const eventDateParts = event.date.split('-');
+            eventDateTime = new Date(eventDateParts[0], eventDateParts[1] - 1, eventDateParts[2], hours, minutes);
+            
+            // If event date time is before current Hong Kong time, mark as finished
+            if (eventDateTime < hongKongDate && event.status === 'upcoming') {
                 event.status = 'finished';
             }
         });
@@ -2231,8 +2343,8 @@ function initializeCalendar() {
         const hkMonth = hongKongDate.getMonth();
         const hkDay = hongKongDate.getDate();
         
-        // Update event statuses based on date
-        updateEventStatuses(hongKongDate);
+        // Update event statuses based on date and time
+        updateEventStatuses();
         
         // Add empty cells for days before the first day of the month
         for (let i = 0; i < firstDay; i++) {
@@ -2390,10 +2502,16 @@ function switchToTab(tabId) {
     });
     
     // Show the selected tab content
-    document.getElementById(tabId).classList.add('active');
+    const tabElement = document.getElementById(tabId);
+    if (tabElement) {
+        tabElement.classList.add('active');
+    }
     
     // Set the corresponding tab button as active
-    document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+    const tabButton = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+    if (tabButton) {
+        tabButton.classList.add('active');
+    }
 }
 
 // Chat functions
@@ -2405,19 +2523,47 @@ function openChat(groupName) {
     const chatMessages = document.getElementById('chat-messages');
     chatMessages.innerHTML = '';
     
+    // Clear quick replies
+    const quickRepliesContainer = document.getElementById('quick-replies');
+    quickRepliesContainer.innerHTML = '';
+    
     // Add some sample messages to start the conversation
     addMessage(`Welcome to the ${groupName} group chat!`, 'System', new Date(), 'received');
     
     if (groupName === 'Board Games') {
         addMessage('Hello everyone! Looking forward to our game tomorrow.', 'Margaret', new Date(Date.now() - 300000), 'received');
         addMessage('Me too! See you all there.', 'Robert', new Date(Date.now() - 180000), 'received');
+        showQuickReplies([
+            'What time does it start?',
+            'What games will we play?',
+            'Can I bring a friend?',
+            'See you tomorrow!'
+        ]);
     } else if (groupName === 'Tai Chi') {
         addMessage('Don\'t forget our session starts at 9 AM sharp!', 'Instructor Chen', new Date(Date.now() - 600000), 'received');
         addMessage('Thanks for the reminder!', 'Participant', new Date(Date.now() - 300000), 'received');
+        showQuickReplies([
+            'What should I bring?',
+            'Is it raining tomorrow?',
+            'Can beginners join?',
+            'See you there!'
+        ]);
     } else if (groupName === 'Pottery') {
         addMessage('Just a reminder that our class has been rescheduled to next Monday.', 'Instructor Wong', new Date(Date.now() - 900000), 'received');
+        showQuickReplies([
+            'What time is the new session?',
+            'Will we continue with the same project?',
+            'Can I get a refund?',
+            'Understood, thanks!'
+        ]);
     } else {
         addMessage('This is the beginning of your conversation.', 'System', new Date(), 'received');
+        showQuickReplies([
+            'Hello!',
+            'How are you?',
+            'What\'s new?',
+            'Thanks!'
+        ]);
     }
     
     // Show the chat modal
@@ -2434,6 +2580,42 @@ function openNewChat() {
 function markAllRead() {
     // In a real implementation, this would mark all notifications as read
     alert('All notifications marked as read!');
+}
+
+function openSocialApp(appName) {
+    // Try to open the respective app directly
+    let appUrl = '';
+    let webUrl = '';
+    
+    switch(appName) {
+        case 'whatsapp':
+            appUrl = 'whatsapp://';
+            webUrl = 'https://web.whatsapp.com';
+            break;
+        case 'telegram':
+            appUrl = 'tg://';
+            webUrl = 'https://web.telegram.org';
+            break;
+        case 'facebook':
+            appUrl = 'fb-messenger://';
+            webUrl = 'https://messenger.com';
+            break;
+        case 'wechat':
+            appUrl = 'weixin://';
+            webUrl = 'https://web.wechat.com';
+            break;
+        default:
+            alert('Please make sure the app is installed on your device.');
+            return;
+    }
+    
+    // Try to open the app directly
+    window.open(appUrl, '_blank');
+    
+    // If that doesn't work, open the web version after a short delay
+    setTimeout(function() {
+        window.open(webUrl, '_blank');
+    }, 1000);
 }
 
 function addMessage(content, sender, timestamp, type) {
@@ -2454,3 +2636,77 @@ function addMessage(content, sender, timestamp, type) {
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+
+// Initialize account tab switching
+function initializeAccountTabs() {
+    const accountTabButtons = document.querySelectorAll('.account-tab-btn');
+    const accountTabContents = document.querySelectorAll('.account-tab-content');
+    
+    accountTabButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons and contents
+            accountTabButtons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            
+            accountTabContents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Show corresponding content
+            const tabId = this.getAttribute('data-account-tab');
+            const targetContent = document.getElementById(tabId + '-tab');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// Initialize account tabs when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize account tabs if account tab is already active
+    const accountTab = document.getElementById('account');
+    if (accountTab && accountTab.classList.contains('active')) {
+        initializeAccountTabs();
+    }
+    
+    // Close button for account tab
+    const closeAccountButton = document.getElementById('close-account');
+    if (closeAccountButton) {
+        closeAccountButton.addEventListener('click', function() {
+            // Switch back to explore tab
+            switchToTab('explore');
+        });
+    }
+    
+    // Settings button in header
+    const settingsButton = document.getElementById('settings-button');
+    if (settingsButton) {
+        settingsButton.addEventListener('click', function() {
+            // Redirect to settings page
+            window.location.href = 'settings.html';
+        });
+    }
+    
+    // Profile button in header
+    const profileButton = document.getElementById('profile-button');
+    if (profileButton) {
+        profileButton.addEventListener('click', function() {
+            // Switch to profile tab
+            switchToTab('profile');
+        });
+    }
+    
+    // Close button for profile tab
+    const closeProfileButton = document.getElementById('close-profile');
+    if (closeProfileButton) {
+        closeProfileButton.addEventListener('click', function() {
+            // Switch back to explore tab
+            switchToTab('explore');
+        });
+    }
+});
