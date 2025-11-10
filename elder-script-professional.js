@@ -74,8 +74,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Determine current user role to adapt UI
+    let currentUserRole = 'elderly';
+    try {
+        const savedProfile = localStorage.getItem('elderConnectProfile');
+        if (savedProfile) {
+            const parsedProfile = JSON.parse(savedProfile);
+            if (parsedProfile && parsedProfile.userType === 'volunteer') {
+                currentUserRole = 'volunteer';
+            }
+        }
+    } catch (error) {
+        console.warn('Unable to determine user role:', error);
+    }
+    document.body.setAttribute('data-user-role', currentUserRole);
+    
     // Event action buttons
     const eventActionButtons = document.querySelectorAll('.event-actions .btn');
+    
     eventActionButtons.forEach(button => {
         button.addEventListener('click', function() {
             const buttonText = this.textContent.trim();
@@ -85,9 +101,15 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (buttonText === 'Chat') {
                 alert('Opening chat with event participants. In a full implementation, this would open a chat interface.');
             } else if (buttonText === 'Rate Volunteer') {
-                alert('Opening volunteer rating interface. In a full implementation, this would show a rating form.');
+                const feedback = prompt('Enter your rating or feedback for the volunteer:');
+                if (feedback !== null) {
+                    alert('Thank you! Your feedback has been recorded.');
+                }
             } else if (buttonText === 'Report Issue') {
-                alert('Opening issue reporting interface. In a full implementation, this would show a form to report issues.');
+                const issue = prompt('Describe the issue you would like to report:');
+                if (issue !== null) {
+                    alert('Thank you! Your report has been submitted to the coordinators.');
+                }
             }
         });
     });

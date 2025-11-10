@@ -5,254 +5,706 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - ElderConnect</title>
     <link rel="stylesheet" href="elder-styles-simple.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
     <style>
+        :root {
+            --primary: #4472ca;
+            --primary-dark: #34558f;
+            --secondary: #a8d5ba;
+            --accent: #bfd7ea;
+            --surface: #f9fbff;
+            --surface-alt: #f4f4f0;
+            --outline: #d0d8e6;
+            --text-main: #223a5e;
+            --text-muted: #566680;
+        }
+
         body {
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-            min-height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: radial-gradient(circle at 18% 20%, rgba(191, 215, 234, 0.32), transparent 55%),
+                        radial-gradient(circle at 82% 78%, rgba(168, 213, 186, 0.25), transparent 60%),
+                        var(--surface-alt);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
         }
-        
+
         .register-container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-            width: 100%;
-            max-width: 600px;
+            background: var(--surface);
+            border-radius: 28px;
+            box-shadow: 0 26px 60px rgba(52, 85, 143, 0.18);
+            overflow: hidden;
+            width: min(720px, 100%);
+            padding: clamp(32px, 5vw, 48px);
         }
-        
+
+        .form-section {
+            background: var(--surface);
+        }
+
         .logo {
-            font-size: 2rem;
+            font-size: 2.4rem;
             font-weight: 700;
-            color: #34495e;
+            color: var(--primary);
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 18px;
         }
-        
+
         h1 {
-            color: #2c3e50;
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            color: var(--text-main);
+            margin: 0 0 16px 0;
         }
-        
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin: 0 0 30px 0;
+            font-size: 1rem;
+        }
+
+        .trust-banner {
+            background: rgba(191, 215, 234, 0.35);
+            border: 1px solid rgba(140, 160, 215, 0.4);
+            border-radius: 16px;
+            padding: 12px 18px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
-        
-        .form-group label {
+
+        label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-main);
+            letter-spacing: 0.2px;
         }
-        
-        .form-group small {
-            display: block;
-            margin-top: 5px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #bdc3c7;
-            border-radius: 4px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--outline);
+            background: rgba(255, 255, 255, 0.96);
+            font-size: 0.98rem;
             font-family: inherit;
-            font-size: 1rem;
-            background-color: #ffffff;
+            color: var(--text-main);
+            transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
         }
-        
-        /* Special styling for loneliness level selection */
-        #loneliness-level {
-            border: 2px solid #3498db;
-            background-color: #e3f2fd;
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(68, 114, 202, 0.22);
+            transform: translateY(-1px);
         }
-        
-        .checkbox-group {
+
+        textarea {
+            resize: vertical;
+        }
+
+        .radio-group,
+        .checkbox-group,
+        .volunteer-focus-group {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
         }
-        
+
+        .radio-item,
         .checkbox-item {
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--outline);
+            background: rgba(255, 255, 255, 0.9);
             display: flex;
-            align-items: flex-start;
             gap: 10px;
+            align-items: flex-start;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
         }
-        
-        .checkbox-item input[type="checkbox"] {
-            width: auto;
-            margin-top: 4px;
+
+        .radio-item:hover,
+        .checkbox-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 16px 30px rgba(68, 114, 202, 0.16);
         }
-        
+
+        .radio-item input,
+        .checkbox-item input {
+            margin-top: 6px;
+        }
+
         .submit-btn {
-            background-color: #34495e;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 14px 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin-top: 12px;
             width: 100%;
-            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 18px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #f9fbff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            box-shadow: 0 22px 40px rgba(68, 114, 202, 0.26);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        
+
         .submit-btn:hover {
-            background-color: #2c3e50;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 26px 48px rgba(52, 85, 143, 0.32);
         }
-        
+
+        small,
+        .field-note {
+            display: block;
+            margin-top: 6px;
+            color: rgba(83, 97, 124, 0.85);
+            font-size: 0.85rem;
+        }
+
+        .double-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .survey-section,
+        .volunteer-section,
+        #elder-wellbeing-section {
+            background: rgba(191, 215, 234, 0.2);
+            border-radius: 22px;
+            border: 1px solid rgba(140, 160, 215, 0.3);
+            padding: 26px;
+            margin-top: 28px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+        }
+
+        .survey-section h2,
+        .volunteer-section h2 {
+            margin: 0 0 16px 0;
+            font-size: 1.35rem;
+            color: var(--text-main);
+        }
+
         .back-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 28px;
         }
-        
+
         .back-link a {
-            color: #3498db;
+            color: var(--primary);
+            font-weight: 600;
             text-decoration: none;
         }
-        
+
         .back-link a:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 900px) {
+            body {
+                padding: 16px;
+            }
+            .register-container {
+                grid-template-columns: 1fr;
+                border-radius: 24px;
+            }
+            .illustration-section {
+                padding: 36px 32px;
+            }
+            .form-section {
+                padding: 36px 28px;
+            }
+        }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="register-container">
+      <div class="form-section">
         <div class="logo">ElderConnect</div>
+        <div class="trust-banner">🔒 Your data is safe and never shared outside ElderConnect.</div>
         <h1>Create Your Profile</h1>
-        <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Help us personalize your experience and connect you with activities that match your interests</p>
-        
+        <p class="subtitle">Help us personalize your experience and connect you with activities that match your interests.</p>
+
         <form id="registration-form">
-            <div class="form-group">
-                <label for="preferred-name">Preferred Name *</label>
-                <input type="text" id="preferred-name" name="preferredName" placeholder="Enter your preferred name" required>
-                <small>The app will call you by this name</small>
+          <div class="form-group">
+            <label>Your Role *</label>
+            <div class="radio-group">
+              <label class="radio-item">
+                <input type="radio" id="role-elderly" name="userType" value="elderly" checked>
+                <span>Elderly User (looking for activities and companionship)</span>
+              </label>
+              <label class="radio-item">
+                <input type="radio" id="role-volunteer" name="userType" value="volunteer">
+                <span>Volunteer (supporting elderly members)</span>
+              </label>
             </div>
-            
+            <small>Volunteers get access to rating tools and wellness check-ins so they can help seniors thrive.</small>
+          </div>
+
+          <div class="volunteer-section" id="volunteer-focus-section" style="display: none;">
+            <h2>Volunteer Preferences</h2>
             <div class="form-group">
-                <label for="age">Age *</label>
-                <input type="number" id="age" name="age" min="50" max="110" placeholder="Enter your age" required>
-                <small>To group you with similar age participants</small>
+              <label for="volunteer-experience">Previous experience supporting seniors *</label>
+              <select id="volunteer-experience" name="volunteerExperience" class="volunteer-field" required>
+                <option value="">Select your experience level</option>
+                <option value="first-time">First-time volunteer</option>
+                <option value="some-experience">Some informal experience</option>
+                <option value="professional">Professional caregiver / social worker</option>
+              </select>
             </div>
-            
             <div class="form-group">
-                <label for="gender">Gender *</label>
-                <select id="gender" name="gender" required>
-                    <option value="">Select your gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="non-binary">Non-binary</option>
-                    <option value="prefer-not-to-say">Prefer not to say</option>
-                </select>
+              <label>How would you like to help? *</label>
+              <div class="checkbox-group volunteer-focus-group">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="volunteerFocus" value="companionship" class="volunteer-field">
+                  Friendly companionship &amp; conversation circles
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="volunteerFocus" value="wellness-checks" class="volunteer-field">
+                  Wellness check-ins &amp; confidence coaching
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="volunteerFocus" value="event-support" class="volunteer-field">
+                  Event support &amp; activity coordination
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="volunteerFocus" value="logistics" class="volunteer-field">
+                  Logistics (transport, reminders, scheduling)
+                </label>
+              </div>
             </div>
-            
             <div class="form-group">
-                <label for="medical-needs">Medical Needs or Disabilities</label>
-                <textarea id="medical-needs" name="medicalNeeds" placeholder="Any medical conditions, mobility issues, or special requirements we should know about?" rows="3"></textarea>
+              <label for="volunteer-qualifications">Relevant qualifications or training</label>
+              <textarea id="volunteer-qualifications" name="volunteerQualifications" class="volunteer-field" rows="3" placeholder="List any caregiving, counselling, social work or specialised training"></textarea>
             </div>
-            
             <div class="form-group">
-                <label>Interests and Hobbies *</label>
-                <small>Select all that apply</small>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest1" name="interests" value="Board Games">
-                        <label for="interest1">Board Games</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest2" name="interests" value="Gardening">
-                        <label for="interest2">Gardening</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest3" name="interests" value="Reading">
-                        <label for="interest3">Reading</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest4" name="interests" value="Cooking">
-                        <label for="interest4">Cooking</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest5" name="interests" value="Arts & Crafts">
-                        <label for="interest5">Arts & Crafts</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest6" name="interests" value="Music">
-                        <label for="interest6">Music</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest7" name="interests" value="Walking">
-                        <label for="interest7">Walking</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest8" name="interests" value="Travel">
-                        <label for="interest8">Travel</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest9" name="interests" value="Volunteering">
-                        <label for="interest9">Volunteering</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="interest10" name="interests" value="Technology">
-                        <label for="interest10">Technology</label>
-                    </div>
-                </div>
+              <label>Do you hold a valid first-aid certificate? *</label>
+              <div class="radio-group volunteer-first-aid">
+                <label class="radio-item">
+                  <input type="radio" id="first-aid-yes" name="volunteerFirstAid" value="yes" class="volunteer-field" required>
+                  Yes, within the last 2 years
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="first-aid-in-progress" name="volunteerFirstAid" value="in-progress" class="volunteer-field">
+                  Currently training / scheduled
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="first-aid-no" name="volunteerFirstAid" value="no" class="volunteer-field">
+                  Not yet, would like support
+                </label>
+              </div>
             </div>
-            
             <div class="form-group">
-                <label for="personality">Personality Type *</label>
-                <select id="personality" name="personality" required>
-                    <option value="">Select your personality type</option>
-                    <option value="introvert">Introvert</option>
-                    <option value="extrovert">Extrovert</option>
-                    <option value="ambivert">Ambivert</option>
-                </select>
+              <label for="volunteer-motivation">What motivates you to volunteer?</label>
+              <textarea id="volunteer-motivation" name="volunteerMotivation" class="volunteer-field" rows="3" placeholder="Tell us about the impact you want to make"></textarea>
             </div>
-            
-            <!-- Mental Well-being Assessment -->
+          </div>
+
+          <div class="form-group">
+            <label for="preferred-name">Preferred Name *</label>
+            <input type="text" id="preferred-name" name="preferredName" placeholder="Enter your preferred name" required>
+            <small>The app will call you by this name</small>
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age *</label>
+            <input type="number" id="age" name="age" min="50" data-elder-min="50" data-elder-placeholder="Enter your age (50+)" data-volunteer-placeholder="Enter your age" placeholder="Enter your age (50+)" required>
+            <small>To group you with similar age participants</small>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender *</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select your gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="non-binary">Non-binary</option>
+              <option value="prefer-not-to-say">Prefer not to say</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="medical-needs">Medical Needs or Disabilities</label>
+            <textarea id="medical-needs" name="medicalNeeds" placeholder="Any medical conditions, mobility issues, or special requirements we should know about?" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Interests and Hobbies *</label>
+            <small>Select all that apply</small>
+            <div class="checkbox-group">
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest1" name="interests" value="Board Games">
+                Board Games
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest2" name="interests" value="Gardening">
+                Gardening
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest3" name="interests" value="Reading">
+                Reading
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest4" name="interests" value="Cooking">
+                Cooking
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest5" name="interests" value="Arts &amp; Crafts">
+                Arts &amp; Crafts
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest6" name="interests" value="Music">
+                Music
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest7" name="interests" value="Walking">
+                Walking
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest8" name="interests" value="Travel">
+                Travel
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest9" name="interests" value="Volunteering">
+                Volunteering
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="interest10" name="interests" value="Technology">
+                Technology
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="personality">Personality Type *</label>
+            <select id="personality" name="personality" required>
+              <option value="">Select your personality type</option>
+              <option value="introvert">Introvert</option>
+              <option value="extrovert">Extrovert</option>
+              <option value="ambivert">Ambivert</option>
+            </select>
+          </div>
+
+          <div class="elder-wellbeing" id="elder-wellbeing-section">
             <div class="form-group">
-                <label for="loneliness-level">Loneliness Level *</label>
-                <select id="loneliness-level" name="lonelinessLevel" required>
-                    <option value="">Select your current loneliness level</option>
-                    <option value="mild">Mild - I feel generally connected but sometimes lonely</option>
-                    <option value="moderate">Moderate - I often feel lonely and seek more connections</option>
-                    <option value="severe">Severe - I feel isolated and need significant support</option>
-                </select>
-                <small>This helps us recommend activities that best suit your social needs</small>
+              <label for="loneliness-level">Loneliness Level *</label>
+              <select id="loneliness-level" name="lonelinessLevel" class="survey-field" required>
+                <option value="">Select your current loneliness level</option>
+                <option value="mild">Mild - I feel generally connected but sometimes lonely</option>
+                <option value="moderate">Moderate - I often feel lonely and seek more connections</option>
+                <option value="severe">Severe - I feel isolated and need significant support</option>
+              </select>
+              <small>This helps us recommend activities that best suit your social needs</small>
             </div>
-            
+
             <div class="form-group">
-                <label for="well-being-goals">Well-being Goals</label>
-                <textarea id="well-being-goals" name="wellBeingGoals" placeholder="What would you like to improve about your mental well-being? (e.g., reduce loneliness, find motivation, build confidence)" rows="3"></textarea>
-                <small>For users with severe loneliness, we provide additional AI support and therapeutic activities</small>
+              <label for="well-being-goals">Well-being Goals</label>
+              <textarea id="well-being-goals" name="wellBeingGoals" class="survey-field" placeholder="What would you like to improve about your mental well-being? (e.g., reduce loneliness, find motivation, build confidence)" rows="3"></textarea>
+              <small>For users with severe loneliness, we provide additional AI support and therapeutic activities</small>
             </div>
-            
-            <button type="submit" class="submit-btn">Save Profile & Continue</button>
+          </div>
+
+          <div class="survey-section" id="elder-survey-section">
+            <h2>Account Registration Survey</h2>
+
+            <div class="form-group">
+              <label for="daily-talking-time">How long do you spend talking with people every day? *</label>
+              <input type="text" id="daily-talking-time" name="dailyTalkingTime" class="survey-field" placeholder="e.g., 2 hours, 30 minutes, etc." required>
+            </div>
+
+            <div class="form-group">
+              <label>How often do you feel that you lack companionship? *</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input type="radio" id="companionship-never" name="lackCompanionship" class="survey-field" value="never" required>
+                  Never
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="companionship-seldom" name="lackCompanionship" class="survey-field" value="seldom">
+                  Seldom
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="companionship-sometimes" name="lackCompanionship" class="survey-field" value="sometimes">
+                  Sometimes
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="companionship-always" name="lackCompanionship" class="survey-field" value="always">
+                  Always
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>How often do you feel lonely? *</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input type="radio" id="lonely-never" name="feelLonely" class="survey-field" value="never" required>
+                  Never
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="lonely-seldom" name="feelLonely" class="survey-field" value="seldom">
+                  Seldom
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="lonely-sometimes" name="feelLonely" class="survey-field" value="sometimes">
+                  Sometimes
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="lonely-always" name="feelLonely" class="survey-field" value="always">
+                  Always
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Do you feel that you have someone to talk to when you need support? *</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input type="radio" id="support-yes" name="hasSupport" class="survey-field" value="yes" required>
+                  Yes
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="support-no" name="hasSupport" class="survey-field" value="no">
+                  No
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="support-sometimes" name="hasSupport" class="survey-field" value="sometimes">
+                  Sometimes
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="social-activities-frequency">How often do you engage in social activities or group events? *</label>
+              <select id="social-activities-frequency" name="socialActivitiesFrequency" class="survey-field" required>
+                <option value="">Select frequency</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="living-situation">Do you live alone or with others? *</label>
+              <input type="text" id="living-situation" name="livingSituation" class="survey-field" placeholder="e.g., Alone, With partner, With family" required>
+            </div>
+
+            <div class="form-group">
+              <label for="preferred-group-size">Preferred group size *</label>
+              <select id="preferred-group-size" name="preferredGroupSize" class="survey-field" required>
+                <option value="">Select your comfort level</option>
+                <option value="one-on-one">One-on-one or buddy activities</option>
+                <option value="small-group">Small group (3-5 people)</option>
+                <option value="medium-group">Medium group (6-10 people)</option>
+                <option value="large-group">Large gatherings (10+ people)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="social-relationships-satisfaction">How satisfied are you with your social relationships? *</label>
+              <select id="social-relationships-satisfaction" name="socialRelationshipsSatisfaction" class="survey-field" required>
+                <option value="">Select rating (1-10)</option>
+                <option value="1">1 - Very Dissatisfied</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 - Neutral</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10 - Very Satisfied</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Do you feel useless or without purpose? *</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input type="radio" id="useless-yes" name="feelUseless" value="yes" required>
+                  Yes
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="useless-no" name="feelUseless" value="no">
+                  No
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="useless-sometimes" name="feelUseless" value="sometimes">
+                  Sometimes
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Do you dislike yourself or have negative feelings about who you are? *</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input type="radio" id="negative-feelings-yes" name="negativeFeelings" class="survey-field" value="yes" required>
+                  Yes
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="negative-feelings-no" name="negativeFeelings" class="survey-field" value="no">
+                  No
+                </label>
+                <label class="radio-item">
+                  <input type="radio" id="negative-feelings-sometimes" name="negativeFeelings" class="survey-field" value="sometimes">
+                  Sometimes
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Save Profile &amp; Continue</button>
         </form>
-        
+
         <div class="back-link">
-            <a href="index.html">← Back to Welcome Page</a>
-        </div>
-        
-        <div class="back-link" style="margin-top: 10px;">
-            <a href="settings.html">⚙️ Account Settings</a>
+          <a href="index.html">← Back to Welcome Page</a>
         </div>
 
+        <div class="back-link" style="margin-top: 10px;">
+          <a href="settings.html">⚙️ Account Settings</a>
+        </div>
+      </div>
     </div>
 
     <script>
+        const surveySection = document.getElementById('elder-survey-section');
+        const wellbeingSection = document.getElementById('elder-wellbeing-section');
+        const surveyFields = Array.from(document.querySelectorAll('.survey-field'));
+        const roleInputs = document.querySelectorAll('input[name="userType"]');
+        const volunteerSectionEl = document.getElementById('volunteer-focus-section');
+        const volunteerFields = volunteerSectionEl ? Array.from(volunteerSectionEl.querySelectorAll('.volunteer-field')) : [];
+        const volunteerFocusCheckboxes = volunteerSectionEl ? Array.from(volunteerSectionEl.querySelectorAll('input[name="volunteerFocus"]')) : [];
+        const volunteerFirstAidRadios = volunteerSectionEl ? Array.from(volunteerSectionEl.querySelectorAll('input[name="volunteerFirstAid"]')) : [];
+        const ageInput = document.getElementById('age');
+
+        function storeOriginalRequirement(field) {
+            if (!field.dataset.originalRequired) {
+                field.dataset.originalRequired = field.hasAttribute('required') ? 'true' : 'false';
+            }
+        }
+
+        surveyFields.forEach(storeOriginalRequirement);
+        volunteerFields.forEach(storeOriginalRequirement);
+
+        function setFieldRequired(field, shouldRequire) {
+            if (shouldRequire) {
+                if (field.dataset.originalRequired === 'true') {
+                    field.setAttribute('required', '');
+                }
+            } else {
+                field.removeAttribute('required');
+            }
+        }
+
+        function clearField(field) {
+            if (field.type === 'radio' || field.type === 'checkbox') {
+                field.checked = false;
+            } else if (field.tagName === 'SELECT') {
+                field.selectedIndex = 0;
+            } else {
+                field.value = '';
+            }
+        }
+
+        function updateRoleSections(selectedRole) {
+            const isVolunteer = selectedRole === 'volunteer';
+            document.body.setAttribute('data-registration-role', isVolunteer ? 'volunteer' : 'elderly');
+
+            if (surveySection) {
+                if (isVolunteer) {
+                    surveySection.style.display = 'none';
+                    if (wellbeingSection) {
+                        wellbeingSection.style.display = 'none';
+                    }
+                    surveyFields.forEach(field => {
+                        setFieldRequired(field, false);
+                        clearField(field);
+                    });
+                } else {
+                    surveySection.style.display = '';
+                    if (wellbeingSection) {
+                        wellbeingSection.style.display = '';
+                    }
+                    surveyFields.forEach(field => {
+                        setFieldRequired(field, true);
+                    });
+                }
+            }
+
+            if (volunteerSectionEl) {
+                if (isVolunteer) {
+                    volunteerSectionEl.style.display = '';
+                    volunteerFields.forEach(field => {
+                        if (field.type === 'checkbox' || field.type === 'radio') {
+                            field.removeAttribute('required');
+                        } else {
+                            setFieldRequired(field, true);
+                        }
+                    });
+                    if (volunteerFocusCheckboxes.length > 0) {
+                        volunteerFocusCheckboxes[0].setAttribute('required', '');
+                    }
+                    if (volunteerFirstAidRadios.length > 0) {
+                        volunteerFirstAidRadios[0].setAttribute('required', '');
+                    }
+                } else {
+                    volunteerSectionEl.style.display = 'none';
+                    volunteerFields.forEach(field => {
+                        setFieldRequired(field, false);
+                        clearField(field);
+                    });
+                    volunteerFocusCheckboxes.forEach(box => {
+                        box.removeAttribute('required');
+                        box.checked = false;
+                    });
+                    volunteerFirstAidRadios.forEach(radio => {
+                        radio.removeAttribute('required');
+                        radio.checked = false;
+                    });
+                }
+            }
+
+            if (ageInput) {
+                if (isVolunteer) {
+                    ageInput.removeAttribute('min');
+                    ageInput.placeholder = ageInput.dataset.volunteerPlaceholder || 'Enter your age';
+                } else {
+                    if (ageInput.dataset.elderMin) {
+                        ageInput.setAttribute('min', ageInput.dataset.elderMin);
+                    }
+                    ageInput.placeholder = ageInput.dataset.elderPlaceholder || ageInput.placeholder;
+                }
+            }
+        }
+
+        roleInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                updateRoleSections(this.value);
+            });
+        });
+
+        const initialRoleInput = document.querySelector('input[name="userType"]:checked');
+        updateRoleSections(initialRoleInput ? initialRoleInput.value : 'elderly');
+
         document.getElementById('registration-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -264,7 +716,7 @@
             
             // Collect text inputs and selects
             for (const [key, value] of formData.entries()) {
-                if (key !== 'interests') {
+                if (key !== 'interests' && key !== 'volunteerFocus') {
                     profileData[key] = value;
                 }
             }
@@ -272,20 +724,34 @@
             // Collect interests (multiple checkboxes)
             const interests = formData.getAll('interests');
             profileData.interests = interests;
-            
-            console.log('Profile data collected:', profileData);
-            
-            // Add mental well-being category based on loneliness level
-            const lonelinessLevel = profileData.lonelinessLevel;
-            if (lonelinessLevel === 'mild') {
-                profileData.mentalWellBeingCategory = 'social';
-            } else if (lonelinessLevel === 'moderate') {
-                profileData.mentalWellBeingCategory = 'balanced';
-            } else if (lonelinessLevel === 'severe') {
-                profileData.mentalWellBeingCategory = 'wellness';
+
+            const volunteerFocus = formData.getAll('volunteerFocus');
+            if (volunteerFocus.length > 0) {
+                profileData.volunteerFocus = volunteerFocus;
+            } else {
+                delete profileData.volunteerFocus;
             }
-            
-            console.log('Mental well-being category set:', profileData.mentalWellBeingCategory);
+
+            const selectedRole = profileData.userType || 'elderly';
+
+            if (selectedRole === 'volunteer') {
+                delete profileData.lonelinessLevel;
+                delete profileData.wellBeingGoals;
+                delete profileData.mentalWellBeingCategory;
+            } else {
+                const lonelinessLevel = profileData.lonelinessLevel;
+                if (lonelinessLevel === 'mild') {
+                    profileData.mentalWellBeingCategory = 'social';
+                } else if (lonelinessLevel === 'moderate') {
+                    profileData.mentalWellBeingCategory = 'balanced';
+                } else if (lonelinessLevel === 'severe') {
+                    profileData.mentalWellBeingCategory = 'wellness';
+                } else {
+                    delete profileData.mentalWellBeingCategory;
+                }
+            }
+
+            console.log('Profile data collected:', profileData);
             
             // Store in localStorage for persistence
             try {
@@ -298,7 +764,11 @@
                 
                 // Show success message and redirect
                 alert(`Thank you, ${profileData.preferredName || 'valued member'}! Your profile has been saved successfully.`);
-                window.location.href = 'elder-connect-simple.html';
+                if (profileData.userType === 'volunteer') {
+                    window.location.href = 'volunteer-dashboard.html';
+                } else {
+                    window.location.href = 'elder-connect-simple.html';
+                }
             } catch (error) {
                 console.error('Error saving profile:', error);
                 alert('There was an error saving your profile. Please try again.');
@@ -341,6 +811,73 @@
                     if (profileData.wellBeingGoals) {
                         document.getElementById('well-being-goals').value = profileData.wellBeingGoals;
                     }
+                    // Load survey data
+                    if (profileData.dailyTalkingTime) {
+                        document.getElementById('daily-talking-time').value = profileData.dailyTalkingTime;
+                    }
+                    if (profileData.lackCompanionship) {
+                        const companionshipRadio = document.querySelector(`input[name="lackCompanionship"][value="${profileData.lackCompanionship}"]`);
+                        if (companionshipRadio) companionshipRadio.checked = true;
+                    }
+                    if (profileData.feelLonely) {
+                        const lonelyRadio = document.querySelector(`input[name="feelLonely"][value="${profileData.feelLonely}"]`);
+                        if (lonelyRadio) lonelyRadio.checked = true;
+                    }
+                    if (profileData.hasSupport) {
+                        const supportRadio = document.querySelector(`input[name="hasSupport"][value="${profileData.hasSupport}"]`);
+                        if (supportRadio) supportRadio.checked = true;
+                    }
+                    if (profileData.socialActivitiesFrequency) {
+                        document.getElementById('social-activities-frequency').value = profileData.socialActivitiesFrequency;
+                    }
+                    if (profileData.livingSituation) {
+                        document.getElementById('living-situation').value = profileData.livingSituation;
+                    }
+                    if (profileData.preferredGroupSize) {
+                        document.getElementById('preferred-group-size').value = profileData.preferredGroupSize;
+                    }
+                    if (profileData.socialRelationshipsSatisfaction) {
+                        document.getElementById('social-relationships-satisfaction').value = profileData.socialRelationshipsSatisfaction;
+                    }
+                    if (profileData.feelUseless) {
+                        const uselessRadio = document.querySelector(`input[name="feelUseless"][value="${profileData.feelUseless}"]`);
+                        if (uselessRadio) uselessRadio.checked = true;
+                    }
+                    if (profileData.negativeFeelings) {
+                        const negativeRadio = document.querySelector(`input[name="negativeFeelings"][value="${profileData.negativeFeelings}"]`);
+                        if (negativeRadio) negativeRadio.checked = true;
+                    }
+                    if (profileData.userType) {
+                        const roleInput = document.querySelector(`input[name="userType"][value="${profileData.userType}"]`);
+                        if (roleInput) roleInput.checked = true;
+                    }
+                    if (profileData.volunteerExperience) {
+                        const experienceSelect = document.getElementById('volunteer-experience');
+                        if (experienceSelect) experienceSelect.value = profileData.volunteerExperience;
+                    }
+                    if (profileData.volunteerFocus && Array.isArray(profileData.volunteerFocus)) {
+                        profileData.volunteerFocus.forEach(focus => {
+                            const focusCheckbox = document.querySelector(`input[name="volunteerFocus"][value="${focus}"]`);
+                            if (focusCheckbox) focusCheckbox.checked = true;
+                        });
+                    }
+                    if (profileData.volunteerFocus && !Array.isArray(profileData.volunteerFocus)) {
+                        const focusCheckbox = document.querySelector(`input[name="volunteerFocus"][value="${profileData.volunteerFocus}"]`);
+                        if (focusCheckbox) focusCheckbox.checked = true;
+                    }
+                    if (profileData.volunteerFirstAid) {
+                        const firstAidRadio = document.querySelector(`input[name="volunteerFirstAid"][value="${profileData.volunteerFirstAid}"]`);
+                        if (firstAidRadio) firstAidRadio.checked = true;
+                    }
+                    if (profileData.volunteerQualifications) {
+                        const qualificationsField = document.getElementById('volunteer-qualifications');
+                        if (qualificationsField) qualificationsField.value = profileData.volunteerQualifications;
+                    }
+                    if (profileData.volunteerMotivation) {
+                        const motivationField = document.getElementById('volunteer-motivation');
+                        if (motivationField) motivationField.value = profileData.volunteerMotivation;
+                    }
+                    updateRoleSections(profileData.userType || 'elderly');
                 } catch (e) {
                     console.error('Error loading saved profile:', e);
                 }

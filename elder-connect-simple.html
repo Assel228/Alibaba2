@@ -20,7 +20,7 @@
     <!-- Add the image fallback script -->
     <script src="image-fallbacks.js" defer></script>
 </head>
-<body>
+<body data-user-role="elderly">
     <header>
         <div class="container">
             <h1 class="logo">Elder<span>Connect</span></h1>
@@ -47,17 +47,17 @@
     <section class="main-tabs">
         <div class="container">
             <div class="tab-buttons">
-                <button class="tab-btn active" data-tab="explore">Explore Activities</button>
-                <button class="tab-btn" data-tab="events">My Events</button>
-                <button class="tab-btn" data-tab="navigation">Find Locations</button>
-                <button class="tab-btn" data-tab="calendar">Event Calendar</button>
-                <button class="tab-btn" data-tab="chat">Chat</button>
-                <button class="tab-btn" data-tab="profile">My Profile</button>
+                <button class="tab-btn active" data-tab="explore" data-role="both">Explore Activities</button>
+                <button class="tab-btn" data-tab="events" data-role="both">My Events</button>
+                <button class="tab-btn" data-tab="navigation" data-role="elderly">Find Locations</button>
+                <button class="tab-btn" data-tab="calendar" data-role="elderly">Event Calendar</button>
+                <button class="tab-btn" data-tab="chat" data-role="elderly">Chat</button>
+                <button class="tab-btn" data-tab="account" data-role="both">My Account</button>
             </div>
         </div>
     </section>
 
-    <section id="explore" class="tab-content active">
+    <section id="explore" class="tab-content active" data-role="both">
         <div class="container">
             <h2>Find Activities You'll Enjoy</h2>
             
@@ -70,24 +70,33 @@
             <div class="activities-container">
                 <div class="category-content active" id="social-category">
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://images.unsplash.com/photo-1709105658901-ff3d88aac188?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Board Games" data-activity="board-games">
+                        </div>
                         <h3>Board Games</h3>
                         <p>Join group sessions for mahjong, chess, and other classic games</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-social">🌟 Theme: Favourite Place in Hong Kong</div>
                     </div>
                     
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://plus.unsplash.com/premium_photo-1661667132735-2d01aae2a60d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Pottery" data-activity="pottery">
+                        </div>
                         <h3>Pottery</h3>
                         <p>Learn pottery and ceramic arts in a relaxed group setting</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-social">🌟 Theme: Memories That Bring a Smile</div>
                     </div>
                     
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://plus.unsplash.com/premium_photo-1681999643427-dcd624dcbbb2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Baking" data-activity="baking">
+                        </div>
                         <h3>Baking</h3>
                         <p>Join baking workshops and share recipes with others</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-social">🌟 Theme: Family Recipes and Traditions</div>
                     </div>
                     
                     <!-- More Activities Section -->
@@ -103,24 +112,33 @@
                 
                 <div class="category-content" id="wellness-category">
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://images.unsplash.com/photo-1576237652526-111d7669d9cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1169" alt="Tai Chi" data-activity="tai-chi">
+                        </div>
                         <h3>Tai Chi</h3>
                         <p>Gentle exercise and meditation in the park</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-wellness">🧘 Theme: Mindfulness and Inner Peace</div>
                     </div>
                     
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://plus.unsplash.com/premium_photo-1673912605401-1233e2dd4bea?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Fishing" data-activity="fishing">
+                        </div>
                         <h3>Fishing</h3>
                         <p>Relaxing fishing trips with fellow enthusiasts</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-wellness">🌊 Theme: Finding Calm in Nature's Rhythm</div>
                     </div>
                     
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://plus.unsplash.com/premium_photo-1726718438477-f23e74bf7033?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Gentle Yoga" data-activity="yoga">
+                        </div>
                         <h3>Gentle Yoga</h3>
                         <p>Improve flexibility and balance with guided yoga sessions</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-wellness">✨ Theme: Self-Affirmation Through Movement</div>
                     </div>
                     
                     <!-- More Activities Section -->
@@ -136,24 +154,33 @@
                 
                 <div class="category-content" id="volunteer-category">
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://images.unsplash.com/photo-1674802401374-eec8be656e35?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Charity Crochet" data-activity="charity">
+                        </div>
                         <h3>Charity Crochet</h3>
                         <p>Create blankets for charity and socialize</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-volunteer">💝 Theme: Creating Warmth for Others, Warming Your Heart</div>
                     </div>
                     
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://plus.unsplash.com/premium_photo-1679689587760-3fe7530a0ea1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="Beach Cleaning" data-activity="beach">
+                        </div>
                         <h3>Beach Cleaning</h3>
                         <p>Volunteer for environmental cleanup activities</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-volunteer">🌱 Theme: Coastal Care, Waves of Support</div>
                     </div>
                     
                     <div class="activity-card">
+                        <div class="activity-image-wrapper">
                         <img src="https://plus.unsplash.com/premium_photo-1680286739871-01142bc609df?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Community Garden" data-activity="garden">
+                        </div>
                         <h3>Community Garden</h3>
                         <p>Help maintain local gardens and grow fresh produce</p>
                         <button class="join-btn">Join Group</button>
+                        <div class="activity-theme theme-volunteer">🌻 Theme: Growing Together, Growing Stronger</div>
                     </div>
                     
                     <!-- More Activities Section -->
@@ -170,8 +197,8 @@
         </div>
     </section>
 
-    <section id="events" class="tab-content">
-        <div class="container">
+    <section id="events" class="tab-content" data-role="both">
+        <div class="container elderly-events" data-role-visibility="elderly">
             <h2>My Upcoming Events</h2>
             
             <div class="events-list">
@@ -191,6 +218,7 @@
                         <button class="action-btn directions">Get Directions</button>
                         <button class="action-btn chat">Chat with Group</button>
                     </div>
+                    <div class="event-theme theme-social">🌟 Theme: Favourite Place in Hong Kong</div>
                 </div>
                 
                 <div class="event-card">
@@ -209,6 +237,7 @@
                         <button class="action-btn directions">Get Directions</button>
                         <button class="action-btn chat">Chat with Group</button>
                     </div>
+                    <div class="event-theme theme-wellness">🧘 Theme: Mindfulness and Inner Peace</div>
                 </div>
                 
                 <div class="event-card">
@@ -217,20 +246,20 @@
                     </div>
                     <div class="event-header">
                         <h3>Pottery Workshop</h3>
-                        <span class="event-status finished">Finished</span>
+                        <span class="event-status finished">Yesterday</span>
                     </div>
                     <div class="event-details">
                         <p><strong>When:</strong> Yesterday, 10:00 AM</p>
                         <p><strong>Where:</strong> Arts & Crafts Center</p>
                     </div>
                     <div class="event-actions">
-                        <button class="action-btn rate">Rate Volunteer</button>
+                        <button class="action-btn">Rate Volunteer</button>
                         <button class="action-btn report">Report Issue</button>
                     </div>
+                    <div class="event-theme theme-social">🌟 Theme: Memories That Bring a Smile</div>
                 </div>
             </div>
             
-            <!-- Explore More Section -->
             <div class="more-activities">
                 <h3>Explore More Activities</h3>
                 <p>Discover additional activities you might enjoy</p>
@@ -258,15 +287,87 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 25px;">
-                    <button class="action-btn" onclick="switchToTab('explore')" style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); color: white; border: none; padding: 14px 28px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(24, 90, 157, 0.3);">
+                    <button class="action-btn" onclick="switchToTab('explore')" style="background: linear-gradient(135deg, #7ca6ff 0%, #4b6ed1 100%); color: white; border: none; padding: 14px 28px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 18px rgba(33, 58, 112, 0.35);">
                         View All Activities
                     </button>
                 </div>
             </div>
         </div>
+
+        <div class="container volunteer-events volunteer-container" data-role-visibility="volunteer" style="display: none;">
+            <h2>Support Log &amp; Ratings</h2>
+            <p class="volunteer-intro">Capture how each senior felt after the activity and note anything the next helper should know.</p>
+            <div class="volunteer-grid">
+                <div class="volunteer-card">
+                    <div class="volunteer-card-header">
+                        <h3>Rate John</h3>
+                        <span class="volunteer-time-badge">Gentle Yoga • Yesterday</span>
+                    </div>
+                    <p class="volunteer-meta">Share how John responded during the session.</p>
+                    <form class="volunteer-rating-form" data-elder-name="John">
+                        <label>Overall engagement</label>
+                        <select name="rating" required>
+                            <option value="">Select rating</option>
+                            <option value="5">⭐️⭐️⭐️⭐️⭐️ Fully engaged</option>
+                            <option value="4">⭐️⭐️⭐️⭐️ Very good</option>
+                            <option value="3">⭐️⭐️⭐️ Participated with prompts</option>
+                            <option value="2">⭐️⭐️ Needed encouragement</option>
+                            <option value="1">⭐️ Minimal engagement</option>
+                        </select>
+                        <label>Emotional tone</label>
+                        <select name="mood" required>
+                            <option value="">Select</option>
+                            <option>😊 Cheerful</option>
+                            <option>🙂 Calm</option>
+                            <option>😌 Quiet</option>
+                            <option>😟 Anxious</option>
+                            <option>😭 Distressed</option>
+                        </select>
+                        <label>Highlights or follow-ups</label>
+                        <textarea name="note" rows="3" placeholder="Share key moments, breakthroughs, or concerns"></textarea>
+                        <button type="submit" class="volunteer-btn">Submit rating</button>
+                    </form>
+                </div>
+                <div class="volunteer-card">
+                    <div class="volunteer-card-header">
+                        <h3>Post-Event Mental Health Survey</h3>
+                        <span class="volunteer-time-badge">Reflection checklist</span>
+                    </div>
+                    <p class="volunteer-meta">Log a quick wellbeing snapshot so coordinators can follow up if needed.</p>
+                    <form class="wellness-checkin-form volunteer-mental-form" data-elder-name="John">
+                        <label>Perceived mood after event</label>
+                        <select name="postMood" required>
+                            <option value="">Select</option>
+                            <option>Bright and positive</option>
+                            <option>Content</option>
+                            <option>A little low</option>
+                            <option>Withdrawn</option>
+                        </select>
+                        <label>Energy level</label>
+                        <select name="energy" required>
+                            <option value="">Select</option>
+                            <option>High</option>
+                            <option>Balanced</option>
+                            <option>Low</option>
+                        </select>
+                        <label>Did John mention loneliness or worries?</label>
+                        <select name="concernLevel" required>
+                            <option value="">Select</option>
+                            <option>No concerns mentioned</option>
+                            <option>Mild concerns • monitor</option>
+                            <option>Moderate concerns • share with team</option>
+                            <option>High concern • follow-up urgently</option>
+                        </select>
+                        <label>Notes for support team</label>
+                        <textarea name="support" rows="3" placeholder="E.g. schedule a check-in call, share calming resources"></textarea>
+                        <button type="submit" class="volunteer-btn">Save wellness check</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="navigation" class="tab-content">
+    <section id="navigation" class="tab-content" data-role="elderly">
         <div class="container">
             <h2>Find Activities Near You</h2>
             
@@ -389,7 +490,7 @@
         </div>
     </section>
 
-    <section id="calendar" class="tab-content">
+    <section id="calendar" class="tab-content" data-role="elderly">
         <div class="container">
             <h2>Event Calendar</h2>
             <p>View your upcoming and finished activities in calendar format.</p>
@@ -433,7 +534,7 @@
         </div>
     </section>
 
-    <section id="chat" class="tab-content">
+    <section id="chat" class="tab-content" data-role="elderly">
         <div class="container">
             <h2>Community Chat</h2>
             <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Connect with your group members and community</p>
@@ -521,7 +622,7 @@
         </div>
     </section>
 
-    <section id="profile" class="tab-content">
+    <section id="profile" class="tab-content" data-role="both">
         <div class="container">
             <h2>Your Profile</h2>
             <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Your profile information</p>
@@ -575,6 +676,190 @@
             </div>
         </div>
     </section>
+
+    <section id="account" class="tab-content" data-role="both">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>My Account</h2>
+                <button id="close-account" class="close-btn" style="background: #e74c3c; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">&times;</button>
+            </div>
+            <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Manage your account settings and preferences</p>
+            
+            <div class="account-tabs" style="display: flex; background-color: white; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); padding: 6px;">
+                <button class="account-tab-btn active" data-account-tab="profile" style="flex: 1; padding: 16px; background: none; border: none; font-size: 1rem; font-weight: 600; color: #7f8c8d; cursor: pointer; border-radius: 12px; margin: 0 4px;">Profile</button>
+                <button class="account-tab-btn" data-account-tab="preferences" style="flex: 1; padding: 16px; background: none; border: none; font-size: 1rem; font-weight: 600; color: #7f8c8d; cursor: pointer; border-radius: 12px; margin: 0 4px;">Preferences</button>
+                <button class="account-tab-btn" data-account-tab="notifications" style="flex: 1; padding: 16px; background: none; border: none; font-size: 1rem; font-weight: 600; color: #7f8c8d; cursor: pointer; border-radius: 12px; margin: 0 4px;">Notifications</button>
+                <button class="account-tab-btn" data-account-tab="privacy" style="flex: 1; padding: 16px; background: none; border: none; font-size: 1rem; font-weight: 600; color: #7f8c8d; cursor: pointer; border-radius: 12px; margin: 0 4px;">Privacy</button>
+            </div>
+            
+            <div class="account-content">
+                <!-- Profile Tab Content -->
+                <div class="account-tab-content active" id="profile-tab">
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Personal Information</h3>
+                        <div class="form-group">
+                            <label for="account-name">Name</label>
+                            <input type="text" id="account-name" value="" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;" placeholder="Name not available">
+                        </div>
+                        <div class="form-group">
+                            <label for="account-email">Email</label>
+                            <input type="email" id="account-email" value="" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;" placeholder="Add your email">
+                            <small style="display: block; margin-top: 6px; color: #7f8c8d;">Tap "Edit Information" to add or update your email address.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="account-phone">Phone</label>
+                            <input type="tel" id="account-phone" value="" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;" placeholder="Add your phone number">
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 10px;">
+                            <button id="account-edit-btn" class="submit-btn" style="flex: 1;">Edit Information</button>
+                            <button id="account-cancel-btn" class="submit-btn" style="flex: 1; background: #95a5a6; display: none;">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Account Security</h3>
+                        <div class="form-group">
+                            <label for="account-password">Password</label>
+                            <input type="password" id="account-password" value="••••••••" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <button class="submit-btn" style="margin-top: 10px; background: #95a5a6;">Change Password</button>
+                    </div>
+                </div>
+                
+                <!-- Preferences Tab Content -->
+                <div class="account-tab-content" id="preferences-tab">
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Communication Preferences</h3>
+                        <div class="form-group">
+                            <label for="email-notifications">Email Notifications</label>
+                            <select id="email-notifications" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>Enabled</option>
+                                <option>Disabled</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sms-notifications">SMS Notifications</label>
+                            <select id="sms-notifications" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>Enabled</option>
+                                <option>Disabled</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Language & Region</h3>
+                        <div class="form-group">
+                            <label for="language">Language</label>
+                            <select id="language" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>English</option>
+                                <option>繁體中文</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="timezone">Timezone</label>
+                            <select id="timezone" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>Hong Kong (GMT+8)</option>
+                                <option>Beijing (GMT+8)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications Tab Content -->
+                <div class="account-tab-content" id="notifications-tab">
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Notification Settings</h3>
+                        <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0;">
+                            <div>
+                                <label for="event-reminders">Event Reminders</label>
+                                <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem;">Get reminders before your events</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="event-reminders" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0;">
+                            <div>
+                                <label for="group-messages">Group Messages</label>
+                                <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem;">Receive messages from group members</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="group-messages" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0;">
+                            <div>
+                                <label for="activity-updates">Activity Updates</label>
+                                <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem;">Get notified about new activities</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="activity-updates" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Notification Frequency</h3>
+                        <div class="form-group">
+                            <label for="notification-frequency">How often do you want to receive notifications?</label>
+                            <select id="notification-frequency" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>Immediately</option>
+                                <option>Once per day</option>
+                                <option>Once per week</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Privacy Tab Content -->
+                <div class="account-tab-content" id="privacy-tab">
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Privacy Settings</h3>
+                        <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0;">
+                            <div>
+                                <label for="profile-visibility">Profile Visibility</label>
+                                <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem;">Who can see your profile information</p>
+                            </div>
+                            <select id="profile-visibility" style="padding: 8px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>Public</option>
+                                <option>Friends Only</option>
+                                <option>Private</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0;">
+                            <div>
+                                <label for="activity-sharing">Activity Sharing</label>
+                                <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem;">Share your activities with friends</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="activity-sharing" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h3>Data Management</h3>
+                        <div class="form-group">
+                            <label for="data-download">Download Your Data</label>
+                            <p style="margin: 5px 0 10px 0; color: #7f8c8d; font-size: 0.9rem;">Get a copy of your account data</p>
+                            <button class="submit-btn" style="background: #95a5a6;">Download Data</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label for="delete-account">Delete Account</label>
+                            <p style="margin: 5px 0 10px 0; color: #7f8c8d; font-size: 0.9rem;">Permanently delete your account and all data</p>
+                            <button class="submit-btn" style="background: #e74c3c;">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Settings tab removed as per requirements - accessible only through header button -->
 
     <footer>
         <div class="container">

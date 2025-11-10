@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Hub - ElderConnect</title>
+    <link rel="stylesheet" href="volunteer-styles.css">
+</head>
+<body>
+    <header class="volunteer-header">
+        <div class="header-copy">
+            <h1>Volunteer Hub</h1>
+            <p class="subtitle">Support seniors, capture wellbeing updates, and share encouragement.</p>
+        </div>
+        <div class="header-meta">
+            <div class="volunteer-name">
+                <span class="label">Signed in as</span>
+                <span id="volunteer-name-display">Volunteer</span>
+            </div>
+            <button id="volunteer-logout" class="ghost-btn">Sign Out</button>
+        </div>
+    </header>
+
+    <main class="volunteer-main">
+        <section class="volunteer-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-target="dashboard">Overview</button>
+                <button class="tab-btn" data-target="events">My Events</button>
+                <button class="tab-btn" data-target="rate">Rate &amp; Report</button>
+                <button class="tab-btn" data-target="alerts">Alerts &amp; Follow-ups</button>
+                <button class="tab-btn" data-target="resources">Resources</button>
+                <button class="tab-btn" data-target="history">Profile &amp; History</button>
+                <button class="tab-btn" data-target="support">Support &amp; FAQs</button>
+            </div>
+        </section>
+
+        <div class="tab-content active" data-tab="dashboard">
+            <section class="orientation-section">
+                <article class="orientation-card">
+                    <h2>How to use the volunteer hub</h2>
+                    <p class="muted">Follow these steps each time you support our elderly community.</p>
+                    <ol class="orientation-steps">
+                        <li><strong>Review your upcoming assignments.</strong> Check the schedule and note your role for each visit.</li>
+                        <li><strong>Log wellbeing feedback after events.</strong> Capture mood, engagement, and any follow-up needs.</li>
+                        <li><strong>Resolve flagged participants.</strong> Look at follow-up alerts so no elder is left waiting.</li>
+                    </ol>
+                    <div class="orientation-actions">
+                        <button type="button" class="secondary-btn tab-trigger" data-target="events">Open My Events</button>
+                        <button type="button" class="secondary-btn tab-trigger" data-target="rate">Log feedback</button>
+                    </div>
+                </article>
+                <article class="stats-card">
+                    <h3>Today’s statistics</h3>
+                    <p class="muted">Quick overview of where your attention matters most.</p>
+                    <ul class="stats-list">
+                        <li>
+                            <span class="stat-label">Upcoming events</span>
+                            <span class="stat-value" id="overview-events-count">0</span>
+                        </li>
+                        <li>
+                            <span class="stat-label">Elderly participants to follow up</span>
+                            <span class="stat-value" id="overview-followups-count">0</span>
+                        </li>
+                        <li>
+                            <span class="stat-label">Feedback reports logged</span>
+                            <span class="stat-value" id="overview-feedback-count">0</span>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+
+        <section id="my-events-section" class="module-section tab-content" data-tab="events">
+            <div class="section-header">
+                <div>
+                    <h2>My Events</h2>
+                    <p class="section-subtitle">Track your upcoming, in-progress, and completed assignments.</p>
+                </div>
+                <button id="open-events" class="link-btn">Open events dashboard</button>
+            </div>
+            <div class="events-table-wrapper">
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Date &amp; Time</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-table-body">
+                        <tr class="empty">
+                            <td colspan="4">No scheduled events yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="rate-report-section" class="module-section tab-content" data-tab="rate">
+            <div class="section-header">
+                <div>
+                    <h2>Rate &amp; Report Well-being</h2>
+                    <p class="section-subtitle">Log engagement, mood, and encouragement after every activity.</p>
+                </div>
+            </div>
+            <div class="feedback-grid">
+                <article class="feedback-card">
+                    <div class="card-header">
+                        <h3>Event rating</h3>
+                        <span class="badge neutral">After each session</span>
+                    </div>
+                    <form id="rating-form">
+                        <label for="rating-elder-name">Elderly participant</label>
+                        <input type="text" id="rating-elder-name" name="elderName" placeholder="e.g. Mrs. Chan" required>
+
+                        <label for="rating-event-name">Event</label>
+                        <input type="text" id="rating-event-name" name="eventName" placeholder="e.g. Tai Chi Support" required>
+
+                        <label for="rating-score">Engagement level</label>
+                        <select id="rating-score" name="rating" required>
+                            <option value="">Select rating</option>
+                            <option value="5">5 • Fully engaged and confident</option>
+                            <option value="4">4 • Mostly engaged and responsive</option>
+                            <option value="3">3 • Participated with prompts</option>
+                            <option value="2">2 • Needed encouragement</option>
+                            <option value="1">1 • Withdrawn or distressed</option>
+                        </select>
+
+                        <label for="rating-mood">Observed mood</label>
+                        <select id="rating-mood" name="mood" required>
+                            <option value="">Select mood</option>
+                            <option>🌞 Cheerful</option>
+                            <option>🙂 Calm</option>
+                            <option>😌 Quiet</option>
+                            <option>😟 Anxious</option>
+                            <option>😭 Distressed</option>
+                        </select>
+
+                        <label for="rating-notes">Highlights &amp; follow-up notes</label>
+                        <textarea id="rating-notes" name="notes" rows="3" placeholder="Encourage her to lead the gratitude circle next time"></textarea>
+
+                        <label class="inline-checkbox">
+                            <input type="checkbox" name="volunteerFollowUp">
+                            Flag this participant for a manual follow-up
+                        </label>
+
+                        <button type="submit" class="primary-btn">Log rating</button>
+                    </form>
+                </article>
+
+                <article class="feedback-card">
+                    <div class="card-header">
+                        <h3>Wellbeing check-in</h3>
+                        <span class="badge info">Share post-event insights</span>
+                    </div>
+                    <form id="checkin-form">
+                        <label for="checkin-elder-name">Elderly participant</label>
+                        <input type="text" id="checkin-elder-name" name="elderName" placeholder="e.g. Mr. Wong" required>
+
+                        <label for="checkin-event-name">Event</label>
+                        <input type="text" id="checkin-event-name" name="eventName" placeholder="e.g. Lunch Social" required>
+
+                        <label for="checkin-energy">Energy level</label>
+                        <select id="checkin-energy" name="energy" required>
+                            <option value="">Select energy</option>
+                            <option>High</option>
+                            <option>Balanced</option>
+                            <option>Low</option>
+                        </select>
+
+                        <label for="checkin-concern">Concerns or needs?</label>
+                        <select id="checkin-concern" name="concern" required>
+                            <option value="">Select concern</option>
+                            <option>No concerns mentioned</option>
+                            <option>Wants more social contact</option>
+                            <option>Requests wellness resources</option>
+                            <option>Needs immediate follow-up</option>
+                        </select>
+
+                        <label for="checkin-notes">Notes for coordination team</label>
+                        <textarea id="checkin-notes" name="notes" rows="3" placeholder="Suggest pairing him with walking buddy for next session"></textarea>
+
+                        <button type="submit" class="primary-btn">Save wellbeing update</button>
+                    </form>
+                </article>
+
+                <article class="feedback-card">
+                    <div class="card-header">
+                        <h3>Moral support toolkit</h3>
+                        <span class="badge success">Lift someone's spirits</span>
+                    </div>
+                    <form id="support-form">
+                        <label for="support-elder-name">Who are you uplifting?</label>
+                        <input type="text" id="support-elder-name" name="elderName" placeholder="e.g. Mrs. Lee" required>
+
+                        <label for="support-message">Your encouragement</label>
+                        <textarea id="support-message" name="message" rows="4" placeholder="Share a positive reflection, gratitude prompt, or calming reminder" required></textarea>
+
+                        <div class="suggestions">
+                            <button type="button" class="chip" data-suggestion="Remember a moment you felt proud this week.">Proud moment</button>
+                            <button type="button" class="chip" data-suggestion="What’s one thing that made you smile today?">Smile prompt</button>
+                            <button type="button" class="chip" data-suggestion="You are appreciated, and your stories inspire us.">Appreciation</button>
+                        </div>
+
+                        <button type="submit" class="primary-btn">Send encouragement</button>
+                    </form>
+
+                    <div class="encouragement-box">
+                        <h4>Need inspiration?</h4>
+                        <p id="encouragement-text">Press the button to generate a supportive message.</p>
+                        <button id="generate-encouragement" class="secondary-btn">Generate encouragement</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="alerts-section" class="module-section tab-content" data-tab="alerts">
+            <div class="section-header">
+                <div>
+                    <h2>Alerts &amp; Follow-ups</h2>
+                    <p class="section-subtitle">Review tasks highlighted by volunteers and AI companion.</p>
+                </div>
+            </div>
+            <div class="alerts-grid">
+                <article class="alerts-card">
+                    <div class="card-header">
+                        <h3>Volunteer follow-ups</h3>
+                        <span class="badge critical">Action needed</span>
+                    </div>
+                    <p class="muted">Check the list and resolve each item once you’ve completed outreach.</p>
+                    <div id="followup-queue" class="followup-queue"></div>
+                    <p id="followup-empty" class="empty">No pending follow-ups—great job!</p>
+                </article>
+
+                <article class="alerts-card ai-card">
+                    <div class="card-header">
+                        <h3>AI companion follow-up</h3>
+                        <span class="badge info">Assist our chatbot</span>
+                    </div>
+                    <p class="muted">Review AI recommendations and add a personal touch before closing the loop.</p>
+                    <select id="followup-select">
+                        <option value="">Pending AI follow-ups will appear here</option>
+                    </select>
+                    <div id="followup-details" class="followup-details empty">Choose a participant to review their recent observation and suggested response.</div>
+                    <p id="ai-suggestion" class="ai-suggestion">AI suggestions will appear here.</p>
+                    <textarea id="ai-message" rows="4" placeholder="Compose or refine the message you’ll send."></textarea>
+                    <div class="ai-actions">
+                        <button id="generate-suggestion" class="secondary-btn" disabled>Generate AI suggestion</button>
+                        <button id="ai-send" class="primary-btn" disabled>Send support message</button>
+                        <button id="ai-mark-complete" class="ghost-btn" disabled>Mark follow-up resolved</button>
+                    </div>
+                    <div id="ai-log" class="ai-log"></div>
+                </article>
+            </div>
+        </section>
+
+        <section id="resources-section" class="module-section tab-content" data-tab="resources">
+            <div class="section-header">
+                <div>
+                    <h2>Mental Health Resources</h2>
+                    <p class="section-subtitle">Refresh your knowledge on recognising signs and responding with care.</p>
+                </div>
+            </div>
+            <div class="resource-grid">
+                <article class="resource-card">
+                    <h3>Recognising mood shifts</h3>
+                    <p>Quick checklist to spot anxiety, withdrawal, or distress after activities.</p>
+                    <a href="#" class="resource-link">Download guide</a>
+                </article>
+                <article class="resource-card">
+                    <h3>Escalation protocol</h3>
+                    <p>Know when to involve coordinators, caregivers, or emergency services.</p>
+                    <a href="#" class="resource-link">View protocol</a>
+                </article>
+                <article class="resource-card">
+                    <h3>Self-care for volunteers</h3>
+                    <p>Tips for maintaining resilience while supporting others.</p>
+                    <a href="#" class="resource-link">Read article</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="history-section" class="module-section tab-content" data-tab="history">
+            <div class="section-header">
+                <div>
+                    <h2>Profile &amp; History</h2>
+                    <p class="section-subtitle">Review your recent logs and updates.</p>
+                </div>
+                <button id="clear-logs" class="ghost-btn">Clear my logs</button>
+            </div>
+            <div id="logs-container" class="logs-container"></div>
+        </section>
+
+        <section id="support-section" class="module-section tab-content" data-tab="support">
+            <div class="section-header">
+                <div>
+                    <h2>Support &amp; FAQs</h2>
+                    <p class="section-subtitle">Need help? Reach out or browse quick answers.</p>
+                </div>
+            </div>
+            <div class="support-grid">
+                <article class="support-card">
+                    <h3>Quick actions</h3>
+                    <p class="muted">Jump straight to key areas of the elderly experience.</p>
+                    <div class="support-actions">
+                        <button id="contact-coordinator" class="secondary-btn">Message coordinator</button>
+                        <button id="open-account" class="secondary-btn">Update ElderConnect settings</button>
+                    </div>
+                </article>
+                <article class="support-card">
+                    <h3>FAQ highlights</h3>
+                    <ul class="faq-list">
+                        <li>How do I report an urgent concern?</li>
+                        <li>Who receives my wellbeing logs?</li>
+                        <li>Can I view AI follow-up messages?</li>
+                    </ul>
+                    <a href="#" class="resource-link">Browse full FAQ</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="volunteer-footer">
+        <p>&copy; 2025 ElderConnect Volunteer Network</p>
+        <div class="footer-links">
+            <a href="elder-connect-simple.html">Switch to Elder view</a>
+            <a href="settings.html">Account settings</a>
+        </div>
+    </footer>
+
+    <script src="volunteer-script.js"></script>
+</body>
+</html>
