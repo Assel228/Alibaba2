@@ -13,25 +13,23 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
-            min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at 18% 18%, rgba(191, 215, 234, 0.3), transparent 55%), #f4f4f0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 24px;
         }
         
         .register-container {
-            background-color: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            padding: 40px;
-            width: 100%;
-            max-width: 600px;
-            position: relative;
-            overflow: hidden;
+            background: #f7f9fd;
+            border-radius: 26px;
+            box-shadow: 0 26px 60px rgba(52, 85, 143, 0.16);
+            width: min(480px, 100%);
+            padding: 38px 32px 44px;
+            border: 1px solid rgba(181, 202, 226, 0.6);
         }
         
         .register-container::before {
@@ -41,120 +39,122 @@
             left: 0;
             right: 0;
             height: 8px;
-            background: linear-gradient(90deg, #43cea2, #185a9d, #43cea2);
+            background: linear-gradient(90deg, #4472ca, #3c787e, #8ca0d7);
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: #185a9d;
+            color: #223a5e;
             text-align: center;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            margin-bottom: 18px;
         }
 
         .logo span {
-            color: #43cea2;
+            color: #3c787e;
         }
         
         h1 {
-            color: #2c3e50;
             text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 1.95rem;
+            color: #223a5e;
+            margin: 0;
         }
         
         .subtitle {
             text-align: center;
-            color: #7f8c8d;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            line-height: 1.5;
+            color: #53617c;
+            margin: 8px auto 28px;
+            max-width: 22rem;
+            line-height: 1.55;
         }
         
         .progress-bar {
-            height: 8px;
-            background-color: #ecf0f1;
-            border-radius: 4px;
-            margin-bottom: 30px;
+            height: 6px;
+            background: rgba(191, 215, 234, 0.35);
+            border-radius: 999px;
             overflow: hidden;
+            margin-bottom: 28px;
         }
         
         .progress {
+            width: 45%;
             height: 100%;
-            background: linear-gradient(90deg, #43cea2, #185a9d);
-            width: 30%;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #4472ca, #34558f);
+            border-radius: inherit;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
         
-        .form-group label {
+        label {
             display: block;
-            margin-bottom: 10px;
             font-weight: 600;
-            color: #2c3e50;
-            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #223a5e;
         }
         
-        .form-group small {
+        small {
             display: block;
-            margin-top: 8px;
-            color: #7f8c8d;
-            font-size: 0.85rem;
-            line-height: 1.5;
+            margin-top: 6px;
+            color: #5a6a85;
         }
         
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select,
+        textarea {
             width: 100%;
-            padding: 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(181, 202, 226, 0.7);
+            background: rgba(255, 255, 255, 0.95);
             font-family: inherit;
-            font-size: 1rem;
-            background-color: #ffffff;
-            transition: all 0.3s ease;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
         }
         
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #43cea2;
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 206, 162, 0.2);
+            border-color: #4472ca;
+            box-shadow: 0 0 0 4px rgba(68, 114, 202, 0.22);
+        }
+        
+        textarea {
+            resize: vertical;
         }
         
         /* Special styling for loneliness level selection */
         #loneliness-level {
-            border: 2px solid #43cea2;
-            background-color: #e8f8f5;
+            border: 2px solid #4472ca;
+            background-color: rgba(191, 215, 234, 0.35);
         }
         
         .checkbox-group {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
         }
         
         .checkbox-item {
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-            transition: all 0.2s ease;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(181, 202, 226, 0.7);
+            background: rgba(255, 255, 255, 0.94);
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+            color: #223a5e;
         }
         
-        .checkbox-item:hover {
-            background-color: #e8f8f5;
-            transform: translateY(-2px);
+        .checkbox-item:hover,
+        .radio-option:hover {
+            border-color: #4472ca;
+            box-shadow: 0 14px 28px rgba(68, 114, 202, 0.2);
         }
         
         .checkbox-item input[type="checkbox"] {
@@ -165,29 +165,27 @@
         
         .checkbox-item label {
             font-weight: 500;
-            color: #2c3e50;
+            color: #223a5e;
             margin: 0;
         }
         
         .submit-btn {
-            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            padding: 18px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
             width: 100%;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(24, 90, 157, 0.3);
-            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #4472ca, #34558f);
+            color: #f9fbff;
+            border: none;
+            border-radius: 18px;
+            padding: 15px 18px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 6px;
+            box-shadow: 0 18px 34px rgba(68, 114, 202, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(24, 90, 157, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 26px 44px rgba(52, 85, 143, 0.32);
         }
         
         .submit-btn:active {
@@ -198,11 +196,11 @@
             text-align: center;
             margin-top: 25px;
             padding-top: 25px;
-            border-top: 1px solid #ecf0f1;
+            border-top: 1px solid rgba(181, 202, 226, 0.6);
         }
         
         .back-link a {
-            color: #185a9d;
+            color: #3c787e;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.2s ease;
@@ -217,38 +215,97 @@
         }
         
         .footer-links {
+            margin-top: 28px;
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 18px;
+            color: #8a968b;
+            font-size: 0.9rem;
         }
         
         .footer-links a {
-            color: #bdc3c7;
+            color: inherit;
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
         }
         
         .footer-links a:hover {
-            color: #7f8c8d;
+            text-decoration: underline;
         }
         
-        @media (max-width: 600px) {
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(212, 202, 190, 0.7);
+            border-radius: 18px;
+            padding: 14px 16px;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+            color: #31443d;
+        }
+
+        .radio-option input {
+            transform: scale(1.1);
+        }
+
+        .duo-volunteer-section {
+            margin-top: 25px;
+            padding: 22px;
+            background: #eef5ff;
+            border-radius: 18px;
+            border: 1px solid #c9ddff;
+        }
+
+        .duo-volunteer-section h2 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            color: #2c5be0;
+            font-size: 1.2rem;
+        }
+
+        body[data-registration-role="volunteer"] #duo-survey-section {
+            display: none !important;
+        }
+
+        .duo-volunteer-focus {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .duo-volunteer-focus .checkbox-item {
+            align-items: flex-start;
+        }
+        
+        #duo-survey-section,
+        #duo-volunteer-section {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 202, 190, 0.8);
+            padding: 22px;
+            margin-top: 22px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 16px;
+            }
             .register-container {
-                padding: 30px 20px;
+                padding: 32px 24px 40px;
+                border-radius: 22px;
             }
-            
-            .checkbox-group {
+            .checkbox-group,
+            .radio-group {
                 grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
             }
         }
     </style>
@@ -265,6 +322,80 @@
         
         <form id="registration-form">
             <div class="form-group">
+                <label>Your Role *</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="userType" value="elderly" checked>
+                        <span>Elderly User (find activities and companions)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="userType" value="volunteer">
+                        <span>Volunteer (support seniors and log wellness)</span>
+                    </label>
+                </div>
+                <small>Volunteers can rate events and complete well-being check-ins for seniors.</small>
+            </div>
+
+            <div class="duo-volunteer-section" id="duo-volunteer-section" style="display: none;">
+                <h2>Volunteer Preferences</h2>
+                <div class="form-group">
+                    <label for="duo-volunteer-experience">Experience supporting seniors *</label>
+                    <select id="duo-volunteer-experience" name="volunteerExperience" class="duo-volunteer-field" required>
+                        <option value="">Select your experience level</option>
+                        <option value="first-time">First-time volunteer</option>
+                        <option value="some-experience">Some informal experience</option>
+                        <option value="professional">Professional caregiver / social worker</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>How would you like to help? *</label>
+                    <div class="duo-volunteer-focus">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="volunteerFocus" value="companionship" class="duo-volunteer-field">
+                            Friendly companionship & conversation circles
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="volunteerFocus" value="wellness-checks" class="duo-volunteer-field">
+                            Wellness check-ins & confidence coaching
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="volunteerFocus" value="event-support" class="duo-volunteer-field">
+                            Event support & activity coordination
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="volunteerFocus" value="logistics" class="duo-volunteer-field">
+                            Logistics (transport, reminders, scheduling)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="duo-volunteer-qualifications">Relevant qualifications or training</label>
+                    <textarea id="duo-volunteer-qualifications" name="volunteerQualifications" class="duo-volunteer-field" rows="3" placeholder="List any caregiving, counselling, social work or specialised training"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Do you hold a valid first-aid certificate? *</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="volunteerFirstAid" value="yes" class="duo-volunteer-field" required>
+                            <span>Yes, within the last 2 years</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="volunteerFirstAid" value="in-progress" class="duo-volunteer-field">
+                            <span>Currently training / scheduled</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="volunteerFirstAid" value="no" class="duo-volunteer-field">
+                            <span>Not yet, would like support</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="duo-volunteer-motivation">Why do you want to volunteer?</label>
+                    <textarea id="duo-volunteer-motivation" name="volunteerMotivation" class="duo-volunteer-field" rows="3" placeholder="Share what inspires you"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
                 <label for="preferred-name">Preferred Name *</label>
                 <input type="text" id="preferred-name" name="preferredName" placeholder="Enter your preferred name" required>
                 <small>The app will call you by this name</small>
@@ -272,7 +403,7 @@
             
             <div class="form-group">
                 <label for="age">Age *</label>
-                <input type="number" id="age" name="age" min="50" max="110" placeholder="Enter your age" required>
+                <input type="number" id="age" name="age" min="50" data-elder-min="50" data-elder-placeholder="Enter your age (50+)" data-volunteer-placeholder="Enter your age" placeholder="Enter your age (50+)" required>
                 <small>To group you with similar age participants</small>
             </div>
             
@@ -350,21 +481,23 @@
             </div>
             
             <!-- Mental Well-being Assessment -->
-            <div class="form-group">
-                <label for="loneliness-level">Loneliness Level *</label>
-                <select id="loneliness-level" name="lonelinessLevel" required>
-                    <option value="">Select your current loneliness level</option>
-                    <option value="mild">Mild - I feel generally connected but sometimes lonely</option>
-                    <option value="moderate">Moderate - I often feel lonely and seek more connections</option>
-                    <option value="severe">Severe - I feel isolated and need significant support</option>
-                </select>
-                <small>This helps us recommend activities that best suit your social needs</small>
-            </div>
-            
-            <div class="form-group">
-                <label for="well-being-goals">Well-being Goals</label>
-                <textarea id="well-being-goals" name="wellBeingGoals" placeholder="What would you like to improve about your mental well-being? (e.g., reduce loneliness, find motivation, build confidence)" rows="3"></textarea>
-                <small>For users with severe loneliness, we provide additional AI support and therapeutic activities</small>
+            <div id="duo-survey-section">
+                <div class="form-group">
+                    <label for="loneliness-level">Loneliness Level *</label>
+                    <select id="loneliness-level" name="lonelinessLevel" class="survey-field" required>
+                        <option value="">Select your current loneliness level</option>
+                        <option value="mild">Mild - I feel generally connected but sometimes lonely</option>
+                        <option value="moderate">Moderate - I often feel lonely and seek more connections</option>
+                        <option value="severe">Severe - I feel isolated and need significant support</option>
+                    </select>
+                    <small>This helps us recommend activities that best suit your social needs</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="well-being-goals">Well-being Goals</label>
+                    <textarea id="well-being-goals" name="wellBeingGoals" class="survey-field" placeholder="What would you like to improve about your mental well-being? (e.g., reduce loneliness, find motivation, build confidence)" rows="3"></textarea>
+                    <small>For users with severe loneliness, we provide additional AI support and therapeutic activities</small>
+                </div>
             </div>
             
             <button type="submit" class="submit-btn">Save Profile & Continue</button>
@@ -382,6 +515,118 @@
     </div>
 
     <script>
+        const duoSurveySection = document.getElementById('duo-survey-section');
+        const duoSurveyFields = Array.from(document.querySelectorAll('#duo-survey-section .survey-field'));
+        const duoRoleInputs = document.querySelectorAll('input[name="userType"]');
+        const duoVolunteerSection = document.getElementById('duo-volunteer-section');
+        const duoVolunteerFields = duoVolunteerSection ? Array.from(duoVolunteerSection.querySelectorAll('.duo-volunteer-field')) : [];
+        const duoVolunteerCheckboxes = duoVolunteerSection ? Array.from(duoVolunteerSection.querySelectorAll('input[name="volunteerFocus"]')) : [];
+        const duoVolunteerRadios = duoVolunteerSection ? Array.from(duoVolunteerSection.querySelectorAll('input[name="volunteerFirstAid"]')) : [];
+        const duoAgeInput = document.getElementById('age');
+ 
+        function storeOriginalRequirement(field) {
+            if (!field.dataset.originalRequired) {
+                field.dataset.originalRequired = field.hasAttribute('required') ? 'true' : 'false';
+            }
+        }
+
+        duoSurveyFields.forEach(storeOriginalRequirement);
+        duoVolunteerFields.forEach(storeOriginalRequirement);
+
+        function setDuoFieldRequired(field, shouldRequire) {
+            if (shouldRequire) {
+                if (field.dataset.originalRequired === 'true') {
+                    field.setAttribute('required', '');
+                }
+            } else {
+                field.removeAttribute('required');
+            }
+        }
+
+        function clearDuoField(field) {
+            if (field.type === 'radio' || field.type === 'checkbox') {
+                field.checked = false;
+            } else if (field.tagName === 'SELECT') {
+                field.selectedIndex = 0;
+            } else {
+                field.value = '';
+            }
+        }
+
+        function updateDuoRoleSections(role) {
+            const isVolunteer = role === 'volunteer';
+            document.body.setAttribute('data-registration-role', isVolunteer ? 'volunteer' : 'elderly');
+
+            if (duoSurveySection) {
+                if (isVolunteer) {
+                    duoSurveySection.style.display = 'none';
+                    duoSurveyFields.forEach(field => {
+                        setDuoFieldRequired(field, false);
+                        clearDuoField(field);
+                    });
+                } else {
+                    duoSurveySection.style.display = '';
+                    duoSurveyFields.forEach(field => {
+                        setDuoFieldRequired(field, true);
+                    });
+                }
+            }
+
+            if (duoVolunteerSection) {
+                if (isVolunteer) {
+                    duoVolunteerSection.style.display = '';
+                    duoVolunteerFields.forEach(field => {
+                        if (field.type === 'checkbox' || field.type === 'radio') {
+                            field.removeAttribute('required');
+                        } else {
+                            setDuoFieldRequired(field, true);
+                        }
+                    });
+                    if (duoVolunteerCheckboxes.length > 0) {
+                        duoVolunteerCheckboxes[0].setAttribute('required', '');
+                    }
+                    if (duoVolunteerRadios.length > 0) {
+                        duoVolunteerRadios[0].setAttribute('required', '');
+                    }
+                } else {
+                    duoVolunteerSection.style.display = 'none';
+                    duoVolunteerFields.forEach(field => {
+                        setDuoFieldRequired(field, false);
+                        clearDuoField(field);
+                    });
+                    duoVolunteerCheckboxes.forEach(box => {
+                        box.removeAttribute('required');
+                        box.checked = false;
+                    });
+                    duoVolunteerRadios.forEach(radio => {
+                        radio.removeAttribute('required');
+                        radio.checked = false;
+                    });
+                }
+            }
+
+            if (duoAgeInput) {
+                if (isVolunteer) {
+                    duoAgeInput.removeAttribute('min');
+                    duoAgeInput.placeholder = duoAgeInput.dataset.volunteerPlaceholder || 'Enter your age';
+                } else {
+                    if (duoAgeInput.dataset.elderMin) {
+                        duoAgeInput.setAttribute('min', duoAgeInput.dataset.elderMin);
+                    }
+                    duoAgeInput.placeholder = duoAgeInput.dataset.elderPlaceholder || duoAgeInput.placeholder;
+                }
+            }
+        }
+
+        duoRoleInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                updateDuoRoleSections(this.value);
+            });
+        });
+
+        const duoInitialRole = document.querySelector('input[name="userType"]:checked');
+        updateDuoRoleSections(duoInitialRole ? duoInitialRole.value : 'elderly');
+
         document.getElementById('registration-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -393,7 +638,7 @@
             
             // Collect text inputs and selects
             for (const [key, value] of formData.entries()) {
-                if (key !== 'interests') {
+                if (key !== 'interests' && key !== 'volunteerFocus') {
                     profileData[key] = value;
                 }
             }
@@ -401,20 +646,34 @@
             // Collect interests (multiple checkboxes)
             const interests = formData.getAll('interests');
             profileData.interests = interests;
-            
-            console.log('Profile data collected:', profileData);
-            
-            // Add mental well-being category based on loneliness level
-            const lonelinessLevel = profileData.lonelinessLevel;
-            if (lonelinessLevel === 'mild') {
-                profileData.mentalWellBeingCategory = 'social';
-            } else if (lonelinessLevel === 'moderate') {
-                profileData.mentalWellBeingCategory = 'balanced';
-            } else if (lonelinessLevel === 'severe') {
-                profileData.mentalWellBeingCategory = 'wellness';
+
+            const volunteerFocus = formData.getAll('volunteerFocus');
+            if (volunteerFocus.length > 0) {
+                profileData.volunteerFocus = volunteerFocus;
+            } else {
+                delete profileData.volunteerFocus;
             }
-            
-            console.log('Mental well-being category set:', profileData.mentalWellBeingCategory);
+
+            const selectedRole = profileData.userType || 'elderly';
+
+            if (selectedRole === 'volunteer') {
+                delete profileData.lonelinessLevel;
+                delete profileData.wellBeingGoals;
+                delete profileData.mentalWellBeingCategory;
+            } else {
+                const lonelinessLevel = profileData.lonelinessLevel;
+                if (lonelinessLevel === 'mild') {
+                    profileData.mentalWellBeingCategory = 'social';
+                } else if (lonelinessLevel === 'moderate') {
+                    profileData.mentalWellBeingCategory = 'balanced';
+                } else if (lonelinessLevel === 'severe') {
+                    profileData.mentalWellBeingCategory = 'wellness';
+                } else {
+                    delete profileData.mentalWellBeingCategory;
+                }
+            }
+
+            console.log('Profile data collected:', profileData);
             
             // Store in localStorage for persistence
             try {
@@ -427,7 +686,11 @@
                 
                 // Show success message and redirect
                 alert(`Thank you, ${profileData.preferredName || 'valued member'}! Your profile has been saved successfully.`);
-                window.location.href = 'elder-connect-simple.html';
+                if (profileData.userType === 'volunteer') {
+                    window.location.href = 'volunteer-dashboard.html';
+                } else {
+                    window.location.href = 'elder-connect-simple.html';
+                }
             } catch (error) {
                 console.error('Error saving profile:', error);
                 alert('There was an error saving your profile. Please try again.');
@@ -470,6 +733,37 @@
                     if (profileData.wellBeingGoals) {
                         document.getElementById('well-being-goals').value = profileData.wellBeingGoals;
                     }
+                    if (profileData.userType) {
+                        const roleInput = document.querySelector(`input[name="userType"][value="${profileData.userType}"]`);
+                        if (roleInput) roleInput.checked = true;
+                    }
+                    if (profileData.volunteerExperience) {
+                        const experienceSelect = document.getElementById('duo-volunteer-experience');
+                        if (experienceSelect) experienceSelect.value = profileData.volunteerExperience;
+                    }
+                    if (profileData.volunteerFocus && Array.isArray(profileData.volunteerFocus)) {
+                        profileData.volunteerFocus.forEach(focus => {
+                            const focusCheckbox = document.querySelector(`input[name="volunteerFocus"][value="${focus}"]`);
+                            if (focusCheckbox) focusCheckbox.checked = true;
+                        });
+                    }
+                    if (profileData.volunteerFocus && !Array.isArray(profileData.volunteerFocus)) {
+                        const focusCheckbox = document.querySelector(`input[name="volunteerFocus"][value="${profileData.volunteerFocus}"]`);
+                        if (focusCheckbox) focusCheckbox.checked = true;
+                    }
+                    if (profileData.volunteerFirstAid) {
+                        const firstAidRadio = document.querySelector(`input[name="volunteerFirstAid"][value="${profileData.volunteerFirstAid}"]`);
+                        if (firstAidRadio) firstAidRadio.checked = true;
+                    }
+                    if (profileData.volunteerQualifications) {
+                        const qualificationsField = document.getElementById('duo-volunteer-qualifications');
+                        if (qualificationsField) qualificationsField.value = profileData.volunteerQualifications;
+                    }
+                    if (profileData.volunteerMotivation) {
+                        const motivationField = document.getElementById('duo-volunteer-motivation');
+                        if (motivationField) motivationField.value = profileData.volunteerMotivation;
+                    }
+                    updateDuoRoleSections(profileData.userType || 'elderly');
                 } catch (e) {
                     console.error('Error loading saved profile:', e);
                 }
