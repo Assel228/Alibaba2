@@ -23,13 +23,38 @@
             max-width: 900px;
             margin: 0 auto;
         }
-        
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
         .logo {
             font-size: 2rem;
             font-weight: 700;
             color: #34495e;
-            text-align: center;
-            margin-bottom: 10px;
+            margin: 0;
+        }
+
+        .close-settings-btn {
+            background: linear-gradient(135deg, #7ca6ff 0%, #4b6ed1 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(33, 58, 112, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .close-settings-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(33, 58, 112, 0.35);
         }
         
         h1 {
@@ -388,7 +413,10 @@
 </head>
 <body>
     <div class="settings-container">
-        <div class="logo">ElderConnect</div>
+        <div class="settings-header">
+            <div class="logo">ElderConnect</div>
+            <button type="button" class="close-settings-btn" onclick="window.location.href='elder-connect-simple.html';">Close</button>
+        </div>
         <h1>Account Settings</h1>
         
         <div class="settings-tabs">

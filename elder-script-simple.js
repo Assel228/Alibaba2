@@ -10,6 +10,14 @@ let isRecording = false;
 let routingControl = null;
 let userLocationMarker = null;
 
+// Account editing state
+let accountEditing = false;
+let accountNameField = null;
+let accountEmailField = null;
+let accountPhoneField = null;
+let accountEditButton = null;
+let accountCancelButton = null;
+
 // Check if user is registered when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     const savedProfile = localStorage.getItem('elderConnectProfile');
@@ -17,6 +25,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Redirect to registration page if not registered
         window.location.href = 'index.html';
         return;
+    }
+    
+    try {
+        const parsedProfile = JSON.parse(savedProfile);
+        if (parsedProfile && parsedProfile.userType === 'volunteer') {
+            window.location.href = 'volunteer-dashboard.html';
+            return;
+        }
+    } catch (error) {
+        console.warn('Unable to inspect saved profile for user type:', error);
     }
 });
 
@@ -1531,6 +1549,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     tabButtons.forEach(function(button) {
         button.addEventListener('click', function() {
+<<<<<<< Updated upstream
             // Remove active class from all buttons and contents
             tabButtons.forEach(function(btn) {
                 btn.classList.remove('active');
@@ -1571,6 +1590,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 100);
                 }
             }
+=======
+            switchToTab(this.getAttribute('data-tab'));
+>>>>>>> Stashed changes
         });
     });
     
@@ -1641,24 +1663,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const buttonText = this.textContent.trim();
             
             if (buttonText === 'Get Directions') {
-                // Get the event name from the card
-                const eventName = this.closest('.event-card').querySelector('h3').textContent;
-                alert('Getting directions to the ' + eventName + ' event location.');
+                alert('Getting directions to the event location. In a full implementation, this would show a map with the route.');
             } else if (buttonText === 'Chat with Group') {
-                // Get the event name from the card
-                const eventName = this.closest('.event-card').querySelector('h3').textContent;
-                openChat(eventName);
+                openChat('Board Games');
+            } else if (buttonText === 'Chat') {
+                openChat('Board Games');
             } else if (buttonText === 'Rate Volunteer') {
-                const rating = prompt('Please rate the volunteer service (1-5 stars):');
-                if (rating && !isNaN(rating) && rating >= 1 && rating <= 5) {
-                    alert('Thank you for rating the volunteer with ' + rating + ' stars!');
-                } else if (rating !== null) {
-                    alert('Please enter a valid rating between 1 and 5.');
+                const feedback = prompt('Enter your rating or feedback for the volunteer:');
+                if (feedback !== null) {
+                    alert('Thank you! Your feedback has been recorded.');
                 }
             } else if (buttonText === 'Report Issue') {
-                const issue = prompt('Please describe the issue you experienced:');
-                if (issue) {
-                    alert('Thank you for reporting the issue. Our team will review it and contact you if needed.');
+                const issue = prompt('Describe the issue you would like to report:');
+                if (issue !== null) {
+                    alert('Thank you! Your report has been submitted to the coordinators.');
                 }
             }
         });
@@ -1758,22 +1776,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (profileButton) {
         profileButton.addEventListener('click', function() {
             // Switch to profile tab
-            tabButtons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-            
-            tabContents.forEach(function(content) {
-                content.classList.remove('active');
-            });
-            
-            // Activate profile tab button and content
-            const profileTabButton = document.querySelector('.tab-btn[data-tab="profile"]');
-            const profileTabContent = document.getElementById('profile');
-            
-            if (profileTabButton && profileTabContent) {
-                profileTabButton.classList.add('active');
-                profileTabContent.classList.add('active');
-            }
+            switchToTab('profile');
         });
     }
     
@@ -2064,6 +2067,19 @@ window.addEventListener('load', function() {
             document.getElementById('communication').value = profileData.communication || '';
             document.getElementById('availability').value = profileData.availability || '';
             document.getElementById('goals').value = profileData.goals || '';
+
+            if (profileData.negativeFeelings) {
+                const negativeRadio = document.querySelector(`input[name="negativeFeelings"][value="${profileData.negativeFeelings}"]`);
+                if (negativeRadio) negativeRadio.checked = true;
+            }
+
+            if (!profileData.userType) {
+                profileData.userType = 'elderly';
+                localStorage.setItem('elderConnectProfile', JSON.stringify(profileData));
+            }
+            const resolvedRole = profileData.userType || 'elderly';
+            configureInterfaceByRole(resolvedRole);
+            populateAccountTab();
         } catch (e) {
             console.error('Error loading saved profile:', e);
         }
@@ -2087,12 +2103,28 @@ function initializeCalendar() {
             description: 'Join us for mahjong, chess, and other classic games'
         },
         { 
+            date: '2025-11-01', 
+            title: 'Evening Tea Social', 
+            status: 'finished',
+            time: '6:00 PM',
+            location: 'Community Lounge',
+            description: 'Wind down together with soothing teas and conversation'
+        },
+        { 
             date: '2025-11-02', 
             title: 'Pottery Workshop', 
             status: 'upcoming',
             time: '10:00 AM',
             location: 'Arts & Crafts Center',
             description: 'Learn pottery techniques in a relaxed environment'
+        },
+        { 
+            date: '2025-11-02', 
+            title: 'Community Movie Night', 
+            status: 'upcoming',
+            time: '6:30 PM',
+            location: 'Community Theater',
+            description: 'Enjoy a heartwarming film with friends'
         },
         { 
             date: '2025-11-03', 
@@ -2103,12 +2135,36 @@ function initializeCalendar() {
             description: 'Gentle movements for balance and relaxation'
         },
         { 
+            date: '2025-11-03', 
+            title: 'Candlelight Meditation', 
+            status: 'upcoming',
+            time: '7:00 PM',
+            location: 'Wellness Studio',
+            description: 'An evening of quiet reflection with gentle guidance'
+        },
+        { 
+            date: '2025-11-05', 
+            title: 'Morning Mindfulness Walk', 
+            status: 'upcoming',
+            time: '8:00 AM',
+            location: 'Lakeside Trail',
+            description: 'Start the day with a peaceful walk and light stretching'
+        },
+        { 
             date: '2025-11-05', 
             title: 'Baking Class', 
             status: 'upcoming',
             time: '11:00 AM',
             location: 'Community Kitchen',
             description: 'Learn to bake cookies and cakes with grandma'
+        },
+        { 
+            date: '2025-11-05', 
+            title: 'Evening Choir Practice', 
+            status: 'upcoming',
+            time: '6:30 PM',
+            location: 'Community Hall',
+            description: 'Sing uplifting songs and harmonize with friends'
         },
         { 
             date: '2025-11-07', 
@@ -2119,6 +2175,14 @@ function initializeCalendar() {
             description: 'Improve flexibility and reduce stress'
         },
         { 
+            date: '2025-11-07', 
+            title: 'Reflection Circle', 
+            status: 'upcoming',
+            time: '7:00 PM',
+            location: 'Community Lounge',
+            description: 'Share gratitude moments from the week in a cozy setting'
+        },
+        { 
             date: '2025-11-10', 
             title: 'Charity Crochet', 
             status: 'upcoming',
@@ -2127,12 +2191,36 @@ function initializeCalendar() {
             description: 'Create items for those in need while socializing'
         },
         { 
+            date: '2025-11-10', 
+            title: 'Wellness Check-In', 
+            status: 'upcoming',
+            time: '5:00 PM',
+            location: 'Wellness Center',
+            description: 'A supportive circle to discuss wins and worries'
+        },
+        { 
             date: '2025-11-12', 
             title: 'Walking Group', 
             status: 'upcoming',
             time: '9:00 AM',
             location: 'Park Entrance',
             description: 'Enjoy a peaceful walk with companions'
+        },
+        { 
+            date: '2025-11-12', 
+            title: 'Sunset Stretch', 
+            status: 'upcoming',
+            time: '6:00 PM',
+            location: 'Rooftop Garden',
+            description: 'Gentle stretching as the sun sets over the harbor'
+        },
+        { 
+            date: '2025-11-15', 
+            title: 'Morning Journaling Circle', 
+            status: 'upcoming',
+            time: '9:30 AM',
+            location: 'Library Nook',
+            description: 'Start the weekend with guided reflection and writing prompts'
         },
         { 
             date: '2025-11-15', 
@@ -2151,6 +2239,22 @@ function initializeCalendar() {
             description: 'Explore your creativity with painting'
         },
         { 
+            date: '2025-11-18', 
+            title: 'Creative Reflection Evening', 
+            status: 'upcoming',
+            time: '7:00 PM',
+            location: 'Arts Center Studio B',
+            description: 'Wind down the day with light art therapy activities'
+        },
+        { 
+            date: '2025-11-20', 
+            title: 'Sunrise Stretch', 
+            status: 'upcoming',
+            time: '7:30 AM',
+            location: 'Community Garden',
+            description: 'Greet the day with gentle stretches among the flowers'
+        },
+        { 
             date: '2025-11-20', 
             title: 'Gardening Club', 
             status: 'upcoming',
@@ -2167,6 +2271,14 @@ function initializeCalendar() {
             description: 'Relax with soothing music and gentle activities'
         },
         { 
+            date: '2025-11-22', 
+            title: 'Calming Breathwork', 
+            status: 'upcoming',
+            time: '5:30 PM',
+            location: 'Wellness Studio',
+            description: 'Evening breathwork to settle the mind and body'
+        },
+        { 
             date: '2025-11-25', 
             title: 'Beach Cleaning', 
             status: 'upcoming',
@@ -2175,17 +2287,100 @@ function initializeCalendar() {
             description: 'Contribute to environmental conservation'
         },
         { 
+            date: '2025-11-25', 
+            title: 'Beach Sunset Gratitude', 
+            status: 'upcoming',
+            time: '5:30 PM',
+            location: 'Central Beach',
+            description: 'Share gratitude moments as the sun sets over the water'
+        },
+        { 
+            date: '2025-11-28', 
+            title: 'Morning Pet Social', 
+            status: 'upcoming',
+            time: '10:00 AM',
+            location: 'Local Animal Shelter',
+            description: 'Help socialize pets with gentle play and care'
+        },
+        { 
             date: '2025-11-28', 
             title: 'Animal Shelter Visit', 
             status: 'upcoming',
             time: '2:00 PM',
             location: 'Local Animal Shelter',
             description: 'Spend time with animals in need of love'
+        },
+        { 
+            date: '2025-11-30', 
+            title: 'Community Brunch', 
+            status: 'upcoming',
+            time: '11:00 AM',
+            location: 'Skyline Café',
+            description: 'Share stories and brunch favorites with new friends'
         }
     ];
     
+<<<<<<< Updated upstream
     // Function to update event statuses based on date
     function updateEventStatuses(currentDate) {
+=======
+    function parseTimeToMinutes(timeStr) {
+        const [time, period] = timeStr.split(' ');
+        const [hourPart, minutePart] = time.split(':');
+        let hours = parseInt(hourPart, 10);
+        const minutes = parseInt(minutePart, 10);
+        if (period === 'PM' && hours !== 12) {
+            hours += 12;
+        } else if (period === 'AM' && hours === 12) {
+            hours = 0;
+        }
+        return hours * 60 + minutes;
+    }
+
+    function sortEvents(events) {
+        return [...events].sort((a, b) => parseTimeToMinutes(a.time) - parseTimeToMinutes(b.time));
+    }
+
+    function getTimeCategory(timeStr) {
+        const minutes = parseTimeToMinutes(timeStr);
+        if (minutes < 12 * 60) {
+            return 'morning';
+        }
+        if (minutes < 17 * 60) {
+            return 'afternoon';
+        }
+        return 'evening';
+    }
+
+    function getTimeIcon(timeStr) {
+        const category = getTimeCategory(timeStr);
+        if (category === 'morning') {
+            return '🌅';
+        }
+        if (category === 'afternoon') {
+            return '🌞';
+        }
+        return '🌙';
+    }
+
+    function getTimeLabel(timeStr) {
+        const category = getTimeCategory(timeStr);
+        if (category === 'morning') {
+            return 'Morning';
+        }
+        if (category === 'afternoon') {
+            return 'Afternoon';
+        }
+        return 'Evening';
+    }
+    
+    // Function to update event statuses based on date and time in Hong Kong
+    function updateEventStatuses() {
+        // Get current time in Hong Kong
+        const hongKongTimeString = new Date().toLocaleString("en-US", {timeZone: "Asia/Hong_Kong"});
+        const hongKongDate = new Date(hongKongTimeString);
+        
+>>>>>>> Stashed changes
         calendarEvents.forEach(event => {
             // Convert event date string to Date object
             const eventDateParts = event.date.split('-');
@@ -2251,6 +2446,7 @@ function initializeCalendar() {
             
             // Add events for this day
             const dayEvents = calendarEvents.filter(event => event.date === dateStr);
+            const sortedDayEvents = sortEvents(dayEvents);
             
             // Check if this is today in Hong Kong
             let isToday = false;
@@ -2260,12 +2456,11 @@ function initializeCalendar() {
             }
             
             // Add status-based styling
-            if (dayEvents.length > 0) {
+            if (sortedDayEvents.length > 0) {
                 dayCell.classList.add('has-event');
                 
-                // Determine if any events are upcoming or finished
-                const hasUpcoming = dayEvents.some(event => event.status === 'upcoming');
-                const hasFinished = dayEvents.some(event => event.status === 'finished');
+                const hasUpcoming = sortedDayEvents.some(event => event.status === 'upcoming');
+                const hasFinished = sortedDayEvents.some(event => event.status === 'finished');
                 
                 if (hasUpcoming && !isToday) {
                     dayCell.classList.add('upcoming');
@@ -2280,9 +2475,15 @@ function initializeCalendar() {
             
             dayCell.innerHTML = `<div class="day-number">${day}</div>`;
             
-            // Add click event to show day details
+            if (sortedDayEvents.length > 0) {
+                const countBadge = document.createElement('div');
+                countBadge.className = 'event-count-badge';
+                countBadge.textContent = sortedDayEvents.length;
+                dayCell.appendChild(countBadge);
+            }
+            
             dayCell.addEventListener('click', function() {
-                showDayDetails(dateStr, day, month, year, dayEvents);
+                showDayDetails(dateStr, day, month, year, sortedDayEvents);
             });
             
             calendarGrid.appendChild(dayCell);
@@ -2303,28 +2504,28 @@ function initializeCalendar() {
         const eventsContainer = document.getElementById('detail-events-container');
         eventsContainer.innerHTML = '';
         
-        if (dayEvents.length > 0) {
-            dayEvents.forEach(event => {
+        const sortedDayEvents = sortEvents(dayEvents);
+        
+        if (sortedDayEvents.length > 0) {
+            sortedDayEvents.forEach(event => {
                 const eventElement = document.createElement('div');
                 eventElement.className = `detail-event ${event.status}`;
                 
-                // Add status-specific styling
-                let statusClass = '';
-                let statusText = '';
-                if (event.status === 'upcoming') {
-                    statusClass = 'upcoming';
-                    statusText = 'Upcoming';
-                } else {
-                    statusClass = 'finished';
-                    statusText = 'Finished';
-                }
+                const statusClass = event.status === 'upcoming' ? 'upcoming' : 'finished';
+                const statusText = event.status === 'upcoming' ? 'Upcoming' : 'Finished';
+                const timeIcon = getTimeIcon(event.time);
+                const timeLabel = getTimeLabel(event.time);
                 
                 eventElement.innerHTML = `
-                    <h4>${event.title}</h4>
-                    <p class="time">${event.time}</p>
-                    <p class="location">${event.location}</p>
+                    <div class="detail-event-header">
+                        <h4>${event.title}</h4>
+                        <span class="detail-status-badge ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="detail-event-meta">
+                        <span class="detail-time-badge">${timeIcon} ${timeLabel} • ${event.time}</span>
+                        <span class="detail-location"><span class="detail-location-icon">📍</span>${event.location}</span>
+                    </div>
                     <p>${event.description}</p>
-                    <p class="event-status ${statusClass}"><strong>Status:</strong> ${statusText}</p>
                 `;
                 eventsContainer.appendChild(eventElement);
             });
@@ -2379,6 +2580,13 @@ function initializeCalendar() {
 
 // Add tab switching function
 function switchToTab(tabId) {
+    const currentRole = getCurrentUserRole();
+    
+    if (tabId !== 'account' && accountEditing) {
+        setAccountEditing(false);
+        populateAccountTab();
+    }
+    
     // Hide all tab content
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
@@ -2389,11 +2597,57 @@ function switchToTab(tabId) {
         btn.classList.remove('active');
     });
     
+<<<<<<< Updated upstream
     // Show the selected tab content
     document.getElementById(tabId).classList.add('active');
     
     // Set the corresponding tab button as active
     document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+=======
+    const tabElement = document.getElementById(tabId);
+    if (!tabElement) {
+        const fallbackTab = getDefaultTabForRole(currentRole);
+        if (fallbackTab && fallbackTab !== tabId) {
+            switchToTab(fallbackTab);
+        }
+        return;
+    }
+    
+    const allowedRole = tabElement.getAttribute('data-role') || 'both';
+    if (allowedRole !== 'both' && allowedRole !== currentRole) {
+        const fallbackTab = getDefaultTabForRole(currentRole);
+        if (fallbackTab && fallbackTab !== tabId) {
+            switchToTab(fallbackTab);
+        }
+        return;
+    }
+    
+    tabElement.style.display = '';
+    tabElement.classList.add('active');
+    
+    const tabButton = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+    if (tabButton) {
+        const buttonRole = tabButton.getAttribute('data-role') || 'elderly';
+        if (buttonRole === 'both' || buttonRole === currentRole) {
+            tabButton.classList.add('active');
+        }
+    }
+    
+    if (tabId === 'navigation') {
+        setTimeout(function() {
+            if (!window.elderConnectMapInitialized) {
+                initializeInteractiveMap();
+            }
+        }, 150);
+    }
+    
+    if (tabId === 'account') {
+        setTimeout(function() {
+            initializeAccountTabs();
+            populateAccountTab();
+        }, 100);
+    }
+>>>>>>> Stashed changes
 }
 
 // Chat functions
@@ -2454,3 +2708,247 @@ function addMessage(content, sender, timestamp, type) {
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+<<<<<<< Updated upstream
+=======
+
+// Initialize account tab switching
+function initializeAccountTabs() {
+    const accountTabButtons = document.querySelectorAll('.account-tab-btn');
+    const accountTabContents = document.querySelectorAll('.account-tab-content');
+    
+    accountTabButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons and contents
+            accountTabButtons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            
+            accountTabContents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Show corresponding content
+            const tabId = this.getAttribute('data-account-tab');
+            const targetContent = document.getElementById(tabId + '-tab');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// Initialize account tabs when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize account tabs if account tab is already active
+    const accountTab = document.getElementById('account');
+    if (accountTab && accountTab.classList.contains('active')) {
+        initializeAccountTabs();
+    }
+    
+    // Close button for account tab
+    const closeAccountButton = document.getElementById('close-account');
+    if (closeAccountButton) {
+        closeAccountButton.addEventListener('click', function() {
+            // Switch back to explore tab
+            switchToTab('explore');
+        });
+    }
+    
+    // Settings button in header
+    const settingsButton = document.getElementById('settings-button');
+    if (settingsButton) {
+        settingsButton.addEventListener('click', function() {
+            // Redirect to settings page
+            window.location.href = 'settings.html';
+        });
+    }
+    
+    // Profile button in header
+    const profileButton = document.getElementById('profile-button');
+    if (profileButton) {
+        profileButton.addEventListener('click', function() {
+            // Switch to profile tab
+            switchToTab('profile');
+        });
+    }
+    
+    // Close button for profile tab
+    const closeProfileButton = document.getElementById('close-profile');
+    if (closeProfileButton) {
+        closeProfileButton.addEventListener('click', function() {
+            setAccountEditing(false);
+            populateAccountTab();
+        });
+    }
+});
+
+function getCurrentUserRole() {
+    const role = document.body.getAttribute('data-user-role');
+    return role === 'volunteer' ? 'volunteer' : 'elderly';
+}
+
+function getDefaultTabForRole(role) {
+    return 'explore';
+}
+
+function getDefaultTabForCurrentRole() {
+    return getDefaultTabForRole(getCurrentUserRole());
+}
+
+function configureInterfaceByRole(role) {
+    const resolvedRole = role === 'volunteer' ? 'volunteer' : 'elderly';
+    document.body.setAttribute('data-user-role', resolvedRole);
+    
+    document.querySelectorAll('.tab-btn').forEach(button => {
+        const targetRole = button.getAttribute('data-role') || 'both';
+        const shouldShow = targetRole === 'both' || targetRole === resolvedRole;
+        button.style.display = shouldShow ? '' : 'none';
+        button.classList.remove('active');
+    });
+    
+    document.querySelectorAll('.tab-content').forEach(content => {
+        const targetRole = content.getAttribute('data-role') || 'both';
+        const shouldShow = targetRole === 'both' || targetRole === resolvedRole;
+        content.style.display = shouldShow ? '' : 'none';
+        content.classList.remove('active');
+    });
+    
+    document.querySelectorAll('[data-role-visibility]').forEach(block => {
+        const targetRole = block.getAttribute('data-role-visibility') || 'both';
+        const shouldShow = targetRole === 'both' || targetRole === resolvedRole;
+        block.style.display = shouldShow ? '' : 'none';
+    });
+    
+    const defaultTab = getDefaultTabForRole(resolvedRole);
+    switchToTab(defaultTab);
+    
+    if (resolvedRole === 'volunteer') {
+        initializeVolunteerFeatures();
+    }
+}
+
+function initializeVolunteerFeatures() {
+    document.querySelectorAll('.volunteer-rating-form').forEach(form => {
+        if (form.dataset.listenerAttached === 'true') {
+            return;
+        }
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const elderName = form.dataset.elderName || 'this elder';
+            alert(`Thanks! Your notes for ${elderName} have been recorded.`);
+            form.reset();
+        });
+        form.dataset.listenerAttached = 'true';
+    });
+    
+    document.querySelectorAll('.wellness-checkin-form').forEach(form => {
+        if (form.dataset.listenerAttached === 'true') {
+            return;
+        }
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Wellness update saved and shared with the support team.');
+            form.reset();
+        });
+        form.dataset.listenerAttached = 'true';
+    });
+    
+    const toolkitBtn = document.getElementById('download-wellbeing-toolkit');
+    if (toolkitBtn && toolkitBtn.dataset.listenerAttached !== 'true') {
+        toolkitBtn.addEventListener('click', function() {
+            alert('Your wellbeing toolkit download will start shortly. A copy will also be emailed to you.');
+        });
+        toolkitBtn.dataset.listenerAttached = 'true';
+    }
+}
+
+function populateAccountTab() {
+    if (accountEditing) {
+        return;
+    }
+    try {
+        if (!accountNameField) {
+            accountNameField = document.getElementById('account-name');
+        }
+        if (!accountEmailField) {
+            accountEmailField = document.getElementById('account-email');
+        }
+        if (!accountPhoneField) {
+            accountPhoneField = document.getElementById('account-phone');
+        }
+        if (!accountEditButton) {
+            accountEditButton = document.getElementById('account-edit-btn');
+        }
+        if (!accountCancelButton) {
+            accountCancelButton = document.getElementById('account-cancel-btn');
+        }
+
+        const savedProfile = localStorage.getItem('elderConnectProfile');
+        if (!savedProfile || !accountNameField || !accountEmailField || !accountPhoneField) {
+            return;
+        }
+        const data = JSON.parse(savedProfile);
+
+        const fields = [accountNameField, accountEmailField, accountPhoneField];
+        fields.forEach(field => {
+            if (field) {
+                field.readOnly = true;
+                field.classList.remove('editing');
+            }
+        });
+        if (accountEditButton) {
+            accountEditButton.textContent = 'Edit Information';
+        }
+        if (accountCancelButton) {
+            accountCancelButton.style.display = 'none';
+        }
+
+        const profileNameField = document.getElementById('preferred-name');
+        const derivedName = data.preferredName || (profileNameField ? profileNameField.value : '');
+        accountNameField.value = derivedName || (data.userType === 'volunteer' ? 'Volunteer User' : 'Elderly User');
+
+        if (accountEmailField) {
+            if (data.email) {
+                accountEmailField.value = data.email;
+                accountEmailField.placeholder = '';
+            } else {
+                accountEmailField.value = '';
+                accountEmailField.placeholder = 'Add your email';
+            }
+        }
+
+        if (accountPhoneField) {
+            accountPhoneField.value = data.phone || '';
+        }
+    } catch (error) {
+        console.warn('Unable to populate account tab:', error);
+    }
+}
+
+function setAccountEditing(enabled) {
+    accountEditing = enabled;
+    const fields = [accountNameField, accountEmailField, accountPhoneField];
+    fields.forEach(field => {
+        if (!field) {
+            return;
+        }
+        field.readOnly = !enabled;
+        field.classList.toggle('editing', enabled);
+    });
+    if (accountEditButton) {
+        accountEditButton.textContent = enabled ? 'Save Information' : 'Edit Information';
+    }
+    if (accountCancelButton) {
+        accountCancelButton.style.display = enabled ? 'inline-block' : 'none';
+    }
+    if (enabled && accountNameField) {
+        setTimeout(() => {
+            accountNameField.focus();
+            accountNameField.select();
+        }, 0);
+    }
+}
+>>>>>>> Stashed changes
