@@ -1549,50 +1549,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     tabButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-<<<<<<< Updated upstream
-            // Remove active class from all buttons and contents
-            tabButtons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-            
-            tabContents.forEach(function(content) {
-                content.classList.remove('active');
-            });
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Show corresponding content
-            const tabId = this.getAttribute('data-tab');
-            const targetContent = document.getElementById(tabId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-                
-                // If we're showing the navigation tab, initialize the map
-                if (tabId === 'navigation') {
-                    // Small delay to ensure tab is fully visible
-                    setTimeout(function() {
-                        // If user location is available, update map with user location
-                        if (window.userLocation) {
-                            // Make sure map is initialized first
-                            if (!window.elderConnectMapInitialized) {
-                                initializeInteractiveMap();
-                            }
-                            // Then update with user location
-                            setTimeout(function() {
-                                if (window.elderConnectMap) {
-                                    updateMapWithUserLocation(window.userLocation[0], window.userLocation[1]);
-                                }
-                            }, 300);
-                        } else {
-                            initializeInteractiveMap();
-                        }
-                    }, 100);
-                }
-            }
-=======
             switchToTab(this.getAttribute('data-tab'));
->>>>>>> Stashed changes
         });
     });
     
@@ -2320,10 +2277,6 @@ function initializeCalendar() {
         }
     ];
     
-<<<<<<< Updated upstream
-    // Function to update event statuses based on date
-    function updateEventStatuses(currentDate) {
-=======
     function parseTimeToMinutes(timeStr) {
         const [time, period] = timeStr.split(' ');
         const [hourPart, minutePart] = time.split(':');
@@ -2375,19 +2328,16 @@ function initializeCalendar() {
     }
     
     // Function to update event statuses based on date and time in Hong Kong
-    function updateEventStatuses() {
-        // Get current time in Hong Kong
-        const hongKongTimeString = new Date().toLocaleString("en-US", {timeZone: "Asia/Hong_Kong"});
-        const hongKongDate = new Date(hongKongTimeString);
-        
->>>>>>> Stashed changes
+    function updateEventStatuses(referenceDate) {
+        const hongKongDate = referenceDate instanceof Date
+            ? referenceDate
+            : new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
+
         calendarEvents.forEach(event => {
-            // Convert event date string to Date object
             const eventDateParts = event.date.split('-');
             const eventDate = new Date(eventDateParts[0], eventDateParts[1] - 1, eventDateParts[2]);
-            
-            // If event date is before current date, mark as finished
-            if (eventDate < currentDate && event.status === 'upcoming') {
+
+            if (eventDate < hongKongDate && event.status === 'upcoming') {
                 event.status = 'finished';
             }
         });
@@ -2597,13 +2547,6 @@ function switchToTab(tabId) {
         btn.classList.remove('active');
     });
     
-<<<<<<< Updated upstream
-    // Show the selected tab content
-    document.getElementById(tabId).classList.add('active');
-    
-    // Set the corresponding tab button as active
-    document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
-=======
     const tabElement = document.getElementById(tabId);
     if (!tabElement) {
         const fallbackTab = getDefaultTabForRole(currentRole);
@@ -2647,7 +2590,6 @@ function switchToTab(tabId) {
             populateAccountTab();
         }, 100);
     }
->>>>>>> Stashed changes
 }
 
 // Chat functions
@@ -2708,8 +2650,6 @@ function addMessage(content, sender, timestamp, type) {
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
-<<<<<<< Updated upstream
-=======
 
 // Initialize account tab switching
 function initializeAccountTabs() {
@@ -2951,4 +2891,3 @@ function setAccountEditing(enabled) {
         }, 0);
     }
 }
->>>>>>> Stashed changes
