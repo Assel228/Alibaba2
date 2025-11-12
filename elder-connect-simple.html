@@ -57,6 +57,36 @@
         </div>
     </section>
 
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+        <div class="nav-items">
+            <button class="nav-item active" data-tab="explore" data-role="both">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-label">Explore</span>
+            </button>
+            <button class="nav-item" data-tab="events" data-role="both">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Events</span>
+            </button>
+            <button class="nav-item" data-tab="navigation" data-role="elderly">
+                <span class="nav-icon">📍</span>
+                <span class="nav-label">Locations</span>
+            </button>
+            <button class="nav-item" data-tab="calendar" data-role="elderly">
+                <span class="nav-icon">📆</span>
+                <span class="nav-label">Calendar</span>
+            </button>
+            <button class="nav-item" data-tab="chat" data-role="elderly">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">Chat</span>
+            </button>
+            <button class="nav-item" data-tab="account" data-role="both">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">Account</span>
+            </button>
+        </div>
+    </nav>
+
     <section id="explore" class="tab-content active" data-role="both">
         <div class="container">
             <h2>Find Activities You'll Enjoy</h2>
@@ -541,36 +571,73 @@
             
             <div class="chat-container" style="max-width: 800px; margin: 0 auto;">
                 <!-- Notification Box -->
-                <div class="notification-box" style="background: #e3f2fd; border-radius: 8px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
-                    <h3 style="margin-top: 0; color: #0d47a1;">🔔 Recent Notifications</h3>
+                <div class="notification-box" style="background: rgba(227, 242, 253, 0.9); border-radius: 8px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+                    <h3 style="margin-top: 0;">🔔 Recent Notifications</h3>
                     <div id="notifications-list">
                         <div class="notification-item" style="padding: 10px 0; border-bottom: 1px solid #bbdefb;">
+                            <p style="margin: 0;"><strong>👤 From Volunteer:</strong> "Great job at today's Tai Chi session! You looked so peaceful and engaged. Keep up the wonderful work!"</p>
+                            <small>1 hour ago</small>
+                        </div>
+                        <div class="notification-item" style="padding: 10px 0; border-bottom: 1px solid #bbdefb;">
+                            <p style="margin: 0;"><strong>🤖 From AI Companion:</strong> "I noticed you completed 'Board Games Club' yesterday. How did it go? I'm here if you'd like to chat about your experience!"</p>
+                            <small>3 hours ago</small>
+                        </div>
+                        <div class="notification-item" style="padding: 10px 0; border-bottom: 1px solid #bbdefb;">
+                            <p style="margin: 0;"><strong>👤 From Volunteer:</strong> "Thank you for your participation in the Beach Cleaning event. Your dedication to our community is truly inspiring!"</p>
+                            <small>Yesterday</small>
+                        </div>
+                        <div class="notification-item" style="padding: 10px 0; border-bottom: 1px solid #bbdefb;">
                             <p style="margin: 0;"><strong>New Message:</strong> Board Games group - "See you tomorrow!"</p>
-                            <small style="color: #546e7a;">2 minutes ago</small>
+                            <small>2 minutes ago</small>
                         </div>
                         <div class="notification-item" style="padding: 10px 0; border-bottom: 1px solid #bbdefb;">
                             <p style="margin: 0;"><strong>Event Reminder:</strong> Tai Chi session starts in 30 minutes</p>
-                            <small style="color: #546e7a;">5 minutes ago</small>
+                            <small>5 minutes ago</small>
                         </div>
                         <div class="notification-item" style="padding: 10px 0;">
                             <p style="margin: 0;"><strong>Group Update:</strong> Pottery class rescheduled to next week</p>
-                            <small style="color: #546e7a;">1 hour ago</small>
+                            <small>1 hour ago</small>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Chat Messages -->
-                <div class="chat-messages-container" style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px;">
-                    <h3 style="margin-top: 0; color: #2c3e50;">💬 Group Chats</h3>
+                <div class="chat-messages-container" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px;">
+                    <h3 style="margin-top: 0;">💬 Group Chats</h3>
+                    
+                    <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid #7dd3a0;" onclick="openChat('Volunteer Support')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0;">👤 Volunteer Support</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Volunteer Sarah: "You did amazing at today's event! Your positive energy really brightened everyone's day."</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: block; font-size: 0.8rem;">30 min ago</span>
+                                <span style="display: block; background: #7dd3a0; color: white; border-radius: 50%; width: 20px; height: 20px; text-align: center; line-height: 20px; font-size: 0.7rem; margin-top: 5px;">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid #5a8de8;" onclick="openChat('AI Wellness Companion')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0;">🤖 AI Wellness Companion</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">AI: "I noticed you completed 'Beach Cleaning' yesterday. How did it feel to contribute to our community?"</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: block; font-size: 0.8rem;">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Board Games')">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Board Games Group</h4>
-                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Margaret: See you all tomorrow! 🎲</p>
+                                <h4 style="margin: 0 0 5px 0;">Board Games Group</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Margaret: See you all tomorrow! 🎲</p>
                             </div>
                             <div style="text-align: right;">
-                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">2 min ago</span>
+                                <span style="display: block; font-size: 0.8rem;">2 min ago</span>
                                 <span style="display: block; background: #e74c3c; color: white; border-radius: 50%; width: 20px; height: 20px; text-align: center; line-height: 20px; font-size: 0.7rem; margin-top: 5px;">1</span>
                             </div>
                         </div>
@@ -579,11 +646,11 @@
                     <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Tai Chi')">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Tai Chi Group</h4>
-                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Robert: Don't forget our session today! 🧘</p>
+                                <h4 style="margin: 0 0 5px 0;">Tai Chi Group</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Robert: Don't forget our session today! 🧘</p>
                             </div>
                             <div style="text-align: right;">
-                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">15 min ago</span>
+                                <span style="display: block; font-size: 0.8rem;">15 min ago</span>
                             </div>
                         </div>
                     </div>
@@ -591,11 +658,11 @@
                     <div class="chat-group" style="margin-bottom: 15px; padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Pottery')">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Pottery Class</h4>
-                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">System: Class rescheduled to next Monday</p>
+                                <h4 style="margin: 0 0 5px 0;">Pottery Class</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">System: Class rescheduled to next Monday</p>
                             </div>
                             <div style="text-align: right;">
-                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">1 hour ago</span>
+                                <span style="display: block; font-size: 0.8rem;">1 hour ago</span>
                             </div>
                         </div>
                     </div>
@@ -603,11 +670,11 @@
                     <div class="chat-group" style="padding: 15px; border-radius: 8px; background: #f8f9fa; cursor: pointer;" onclick="openChat('Community')">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">Community Announcements</h4>
-                                <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Admin: New activities added this month! 🎉</p>
+                                <h4 style="margin: 0 0 5px 0;">Community Announcements</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Admin: New activities added this month! 🎉</p>
                             </div>
                             <div style="text-align: right;">
-                                <span style="display: block; font-size: 0.8rem; color: #7f8c8d;">3 hours ago</span>
+                                <span style="display: block; font-size: 0.8rem;">3 hours ago</span>
                             </div>
                         </div>
                     </div>

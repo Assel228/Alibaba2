@@ -1324,3 +1324,443 @@ input[type="range"] {
         align-items: flex-start;
     }
 }
+
+/* Mobile-First Responsive Styles for Volunteer Hub */
+/* Bottom Navigation Bar for Mobile */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(160deg, rgba(90, 141, 232, 0.98), rgba(68, 114, 202, 0.95));
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border-top: 2px solid rgba(90, 141, 232, 0.5);
+    padding: 8px 0;
+    backdrop-filter: blur(10px);
+}
+
+.mobile-bottom-nav .nav-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 100%;
+    padding: 0 10px;
+}
+
+.mobile-bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 60px;
+    padding: 8px 4px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    gap: 4px;
+}
+
+.mobile-bottom-nav .nav-item.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-bottom-nav .nav-item .nav-icon {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+}
+
+.mobile-bottom-nav .nav-item .nav-label {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* Add padding to body to account for bottom nav */
+body.has-bottom-nav {
+    padding-bottom: 80px;
+}
+
+/* Responsive styles for tablets and mobile */
+@media (max-width: 768px) {
+    .volunteer-main {
+        padding: 20px 16px 100px;
+    }
+    
+    /* Header adjustments */
+    .volunteer-header {
+        padding: 12px 16px;
+        flex-direction: column;
+        gap: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--background);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 0;
+    }
+    
+    .header-copy h1 {
+        font-size: clamp(1.4rem, 5vw, 1.8rem);
+        margin-bottom: 4px;
+    }
+    
+    .subtitle {
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+    }
+    
+    .header-meta {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .volunteer-name {
+        font-size: clamp(0.8rem, 3vw, 0.9rem);
+    }
+    
+    .ghost-btn {
+        min-height: 44px;
+        padding: 10px 16px;
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+    }
+    
+    /* Hide top tab navigation on mobile, show bottom nav */
+    .volunteer-tabs {
+        display: none;
+    }
+    
+    .mobile-bottom-nav {
+        display: block;
+    }
+    
+    body.has-bottom-nav {
+        padding-bottom: 80px;
+    }
+    
+    /* Container adjustments */
+    .volunteer-main .module-section {
+        padding: 16px 0;
+    }
+    
+    /* Tab content adjustments */
+    .tab-content {
+        padding: 16px 0 100px;
+        margin-top: 0;
+    }
+    
+    /* Ensure main content doesn't get covered by header */
+    .volunteer-main {
+        padding-top: 10px;
+    }
+    
+    /* Section headers */
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .section-header h2 {
+        font-size: clamp(1.3rem, 4vw, 1.6rem);
+    }
+    
+    .section-subtitle {
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+    }
+    
+    /* Orientation section */
+    .orientation-section {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .orientation-card,
+    .stats-card {
+        padding: 20px;
+    }
+    
+    .orientation-card h2,
+    .stats-card h3 {
+        font-size: clamp(1.3rem, 4vw, 1.6rem);
+    }
+    
+    .orientation-steps {
+        font-size: clamp(0.95rem, 3vw, 1.05rem);
+        line-height: 1.7;
+        padding-left: 20px;
+    }
+    
+    .orientation-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .secondary-btn {
+        width: 100%;
+        min-height: 48px;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        padding: 14px 20px;
+    }
+    
+    /* Stats list */
+    .stats-list {
+        gap: 16px;
+    }
+    
+    .stat-label {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+    
+    .stat-value {
+        font-size: clamp(1.4rem, 4vw, 1.8rem);
+    }
+    
+    /* Section headers */
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .section-header h2 {
+        font-size: clamp(1.4rem, 4vw, 1.7rem);
+    }
+    
+    .section-subtitle {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+    
+    /* Events table - make it scrollable on mobile */
+    .events-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -16px;
+        padding: 0 16px;
+        scrollbar-width: none;
+    }
+    
+    .events-table-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .events-table {
+        min-width: 600px;
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+    }
+    
+    .events-table th,
+    .events-table td {
+        padding: 12px 8px;
+        min-height: 44px;
+    }
+    
+    .event-title {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        display: block;
+        margin-bottom: 4px;
+    }
+    
+    .event-location {
+        font-size: clamp(0.8rem, 3vw, 0.9rem);
+    }
+    
+    /* Forms and inputs */
+    .rate-form,
+    .support-form,
+    .checkin-form {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        font-size: clamp(0.95rem, 3vw, 1.05rem);
+        margin-bottom: 8px;
+        display: block;
+        font-weight: 600;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    textarea,
+    select {
+        width: 100%;
+        min-height: 48px;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        padding: 12px 16px;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+    
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    /* Buttons - ensure minimum 44px touch target */
+    button, .btn, .primary-btn, .secondary-btn, .ghost-btn {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+        font-size: clamp(0.95rem, 3vw, 1.05rem);
+    }
+    
+    /* Cards */
+    .orientation-card,
+    .stats-card,
+    .welcome-card,
+    .resource-card,
+    .alerts-card,
+    .ai-card {
+        padding: 20px;
+        margin-bottom: 16px;
+        border-radius: 16px;
+    }
+    
+    .orientation-card h2,
+    .stats-card h3,
+    .welcome-card h2,
+    .resource-card h3,
+    .alerts-card h3 {
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        margin-bottom: 12px;
+    }
+    
+    .orientation-steps {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        line-height: 1.7;
+        padding-left: 20px;
+    }
+    
+    .orientation-steps li {
+        margin-bottom: 12px;
+    }
+    
+    /* Follow-up items */
+    .followup-item {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .followup-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .followup-actions button {
+        width: 100%;
+        min-height: 48px;
+    }
+    
+    /* History log */
+    .history-log {
+        padding: 16px;
+    }
+    
+    .history-item {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+    
+    /* FAQ */
+    .faq-item {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .faq-question {
+        font-size: clamp(1rem, 3vw, 1.15rem);
+    }
+    
+    .faq-answer {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .volunteer-main {
+        padding: 16px 12px 100px;
+    }
+    
+    .volunteer-header {
+        padding: 16px 12px;
+    }
+    
+    .header-copy h1 {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    /* Bottom nav adjustments */
+    .mobile-bottom-nav .nav-item {
+        min-height: 56px;
+        padding: 6px 2px;
+    }
+    
+    .mobile-bottom-nav .nav-item .nav-icon {
+        font-size: 1.3rem;
+    }
+    
+    .mobile-bottom-nav .nav-item .nav-label {
+        font-size: 0.65rem;
+    }
+    
+    body.has-bottom-nav {
+        padding-bottom: 72px;
+    }
+    
+    /* Cards */
+    .orientation-card,
+    .stats-card,
+    .welcome-card,
+    .resource-card,
+    .alerts-card,
+    .ai-card {
+        padding: 16px;
+    }
+    
+    /* Events table - even smaller on very small screens */
+    .events-table {
+        min-width: 500px;
+        font-size: 0.8rem;
+    }
+    
+    .events-table th,
+    .events-table td {
+        padding: 10px 6px;
+    }
+    
+    /* Forms */
+    .rate-form,
+    .support-form {
+        padding: 16px;
+    }
+    
+    /* Ensure all interactive elements are touch-friendly */
+    a, button, input, select, textarea {
+        -webkit-tap-highlight-color: rgba(90, 141, 232, 0.3);
+    }
+}
+

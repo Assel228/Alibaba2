@@ -8,6 +8,7 @@ let activeFollowupId = null;
 
 function activateTab(target) {
     if (!target) return;
+    
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     let matched = false;
@@ -25,6 +26,11 @@ function activateTab(target) {
             matched = true;
         }
     });
+    
+    // Update mobile bottom nav active state
+    if (window.updateMobileNavActiveState) {
+        window.updateMobileNavActiveState(target);
+    }
 
     if (!matched && tabButtons.length) {
         const fallback = tabButtons[0].dataset.target;
@@ -34,9 +40,22 @@ function activateTab(target) {
 
     const activeSection = document.querySelector(`.tab-content[data-tab="${target}"]`);
     if (activeSection) {
-        activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // On mobile, don't scroll into view as it might interfere with bottom nav
+        if (window.innerWidth > 768) {
+            activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    
+    // Re-render events table when events tab is opened
+    if (target === 'events') {
+        setTimeout(function() {
+            renderEventsTable();
+        }, 100);
     }
 }
+
+// Make it globally available for inline handlers
+window.activateTab = activateTab;
 
 function bindTabNavigation() {
     const tabButtons = document.querySelectorAll('.tab-btn');
@@ -49,6 +68,41 @@ function bindTabNavigation() {
     tabTriggers.forEach(trigger => {
         trigger.addEventListener('click', () => activateTab(trigger.dataset.target));
     });
+    
+    // Mobile bottom navigation event listeners
+    document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(button => {
+        button.addEventListener('click', () => {
+            const target = button.dataset.target;
+            activateTab(target);
+        });
+    });
+    
+    // Function to update mobile nav active state
+    function updateMobileNavActiveState(activeTarget) {
+        document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(item => {
+            if (item.dataset.target === activeTarget) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+    
+    // Add has-bottom-nav class to body on mobile
+    function checkMobileView() {
+        if (window.innerWidth <= 768) {
+            document.body.classList.add('has-bottom-nav');
+        } else {
+            document.body.classList.remove('has-bottom-nav');
+        }
+    }
+    
+    // Check on load and resize
+    checkMobileView();
+    window.addEventListener('resize', checkMobileView);
+    
+    // Store update function globally for use in activateTab
+    window.updateMobileNavActiveState = updateMobileNavActiveState;
 
     const defaultTarget = document.querySelector('.tab-btn.active')?.dataset.target || 'dashboard';
     activateTab(defaultTarget);
@@ -96,11 +150,67 @@ const EVENTS_SCHEDULE = [
         status: 'Upcoming'
     },
     {
+        title: 'Evening Wellness Calls',
+        date: 'December 02, 2025',
+        time: '18:30',
+        location: 'Virtual',
+        role: 'Follow-up',
+        status: 'Upcoming'
+    },
+    {
+        title: 'Board Games Support',
+        date: 'December 05, 2025',
+        time: '14:00',
+        location: 'Community Center, Room 3',
+        role: 'Facilitating',
+        status: 'Upcoming'
+    },
+    {
+        title: 'Beach Cleaning Volunteer',
+        date: 'December 08, 2025',
+        time: '10:00',
+        location: 'Repulse Bay Beach',
+        role: 'Coordinating',
+        status: 'Upcoming'
+    },
+    {
         title: 'Community Story Circle',
         date: 'November 18, 2025',
         time: '14:00',
         location: 'Central Library Lounge',
         role: 'Facilitating',
+        status: 'Completed'
+    },
+    {
+        title: 'Pottery Workshop Support',
+        date: 'November 15, 2025',
+        time: '10:30',
+        location: 'Arts & Crafts Center',
+        role: 'Assisting',
+        status: 'Upcoming'
+    },
+    {
+        title: 'Morning Tea Social',
+        date: 'November 12, 2025',
+        time: '09:30',
+        location: 'Victoria Park Café',
+        role: 'Observing',
+        status: 'Upcoming'
+    },
+    {
+        title: 'Charity Crochet Session',
+        date: 'November 08, 2025',
+        time: '15:00',
+        location: 'Community Hall',
+        role: 'Supporting',
+        status: 'Completed'
+    },
+    {
+        title: 'Harbour Walk Support',
+        date: 'November 05, 2025',
+        time: '08:00',
+        location: 'Tsim Sha Tsui Promenade',
+        role: 'Attending',
         status: 'Completed'
     }
 ];
@@ -662,19 +772,32 @@ function bindFeedbackForms() {
             });
         });
 
-        supportForm.addEventListener('submit', event => {
+        supportForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            const formData = new FormData(supportForm);
-            const elderName = formData.get('elderName')?.trim();
-            const message = formData.get('message')?.trim();
+            var formData = new FormData(supportForm);
+            var elderNameField = formData.get('elderName');
+            var messageField = formData.get('message');
+            var elderName = elderNameField ? elderNameField.trim() : '';
+            var message = messageField ? messageField.trim() : '';
             if (!elderName || !message) {
-                alert('Please include the participant’s name and your message.');
+                alert('Please include the participant\'s name and your message.');
                 return;
             }
 
+            // Store encouragement message for the elderly user
+            var encouragementKey = 'encouragement_' + elderName.toLowerCase().replace(/\s+/g, '_');
+            var encouragements = JSON.parse(localStorage.getItem(encouragementKey) || '[]');
+            encouragements.push({
+                message: message,
+                sender: 'Volunteer',
+                timestamp: Date.now(),
+                volunteerId: volunteerIdentifier
+            });
+            localStorage.setItem(encouragementKey, JSON.stringify(encouragements));
+
             appendHistoryLog({
                 volunteerId: volunteerIdentifier,
-                title: `${elderName} • Encouragement sent`,
+                title: elderName + ' • Encouragement sent',
                 summary: 'Encouragement shared',
                 details: message,
                 timestamp: Date.now()
@@ -835,34 +958,104 @@ function bindQuickActions() {
     }
 }
 
+// Helper function to format date/time in Hong Kong timezone
+function formatHongKongDateTime(dateStr, timeStr) {
+    try {
+        // Parse the date string (e.g., "November 25, 2025")
+        const dateParts = dateStr.split(' ');
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const month = monthNames.indexOf(dateParts[0]);
+        const day = parseInt(dateParts[1].replace(',', ''));
+        const year = parseInt(dateParts[2]);
+        
+        // Create date object and format in Hong Kong timezone
+        const date = new Date(year, month, day);
+        const hkFormatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Hong_Kong',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        const formattedDate = hkFormatter.format(date);
+        return formattedDate + '<br><span class="event-time">' + timeStr + ' HKT</span>';
+    } catch (e) {
+        return dateStr + '<br><span class="event-time">' + timeStr + ' HKT</span>';
+    }
+}
+
+// Classify events as upcoming or completed based on Hong Kong time
+function classifyVolunteerEvents() {
+    if (!EVENTS_SCHEDULE || !EVENTS_SCHEDULE.length) {
+        return [];
+    }
+    
+    var now = new Date();
+    var hkNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' }));
+    var result = [];
+    
+    for (var i = 0; i < EVENTS_SCHEDULE.length; i++) {
+        var event = EVENTS_SCHEDULE[i];
+        try {
+            var dateParts = event.date.split(' ');
+            var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var month = monthNames.indexOf(dateParts[0]);
+            var day = parseInt(dateParts[1].replace(',', ''));
+            var year = parseInt(dateParts[2]);
+            var timeParts = event.time.split(':');
+            var hours = Number(timeParts[0]);
+            var minutes = Number(timeParts[1]);
+            
+            var eventDate = new Date(year, month, day, hours, minutes);
+            var hkEventDate = new Date(eventDate.toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' }));
+            
+            var isCompleted = hkEventDate < hkNow;
+            result.push({
+                title: event.title,
+                date: event.date,
+                time: event.time,
+                location: event.location,
+                role: event.role,
+                status: isCompleted ? 'Completed' : 'Upcoming',
+                originalStatus: event.status
+            });
+        } catch (e) {
+            // If classification fails, use original event
+            result.push(event);
+        }
+    }
+    
+    return result;
+}
+
 function renderEventsTable() {
-    const tbody = document.getElementById('events-table-body');
+    var tbody = document.getElementById('events-table-body');
     if (!tbody) return;
 
     tbody.innerHTML = '';
-
-    if (!EVENTS_SCHEDULE.length) {
-        const row = document.createElement('tr');
-        row.className = 'empty';
-        row.innerHTML = '<td colspan="4">No scheduled events yet.</td>';
-        tbody.appendChild(row);
+    
+    if (!EVENTS_SCHEDULE || EVENTS_SCHEDULE.length === 0) {
+        var emptyRow = document.createElement('tr');
+        emptyRow.className = 'empty';
+        emptyRow.innerHTML = '<td colspan="4">No scheduled events yet.</td>';
+        tbody.appendChild(emptyRow);
         return;
     }
-
-    EVENTS_SCHEDULE.forEach(event => {
-        const row = document.createElement('tr');
-        const statusClass = event.status.toLowerCase().includes('complete') ? 'completed' : (event.status.toLowerCase().includes('follow') ? 'followup' : 'upcoming');
-        row.innerHTML = `
-            <td>
-                <span class="event-title">${event.title}</span>
-                <span class="event-location">${event.location}</span>
-            </td>
-            <td>${event.date}<br><span class="event-time">${event.time}</span></td>
-            <td>${event.role}</td>
-            <td><span class="status-badge ${statusClass}">${event.status}</span></td>
-        `;
+    
+    var eventsToShow = EVENTS_SCHEDULE.slice(0, 3);
+    
+    for (var i = 0; i < eventsToShow.length; i++) {
+        var evt = eventsToShow[i];
+        var row = document.createElement('tr');
+        var statusClass = evt.status && evt.status.toLowerCase().indexOf('complete') !== -1 ? 'completed' : 'upcoming';
+        var dateTime = evt.date + '<br><span class="event-time">' + evt.time + ' HKT</span>';
+        
+        row.innerHTML = '<td><span class="event-title">' + evt.title + '</span><span class="event-location">' + evt.location + '</span></td>' +
+            '<td>' + dateTime + '</td>' +
+            '<td>' + evt.role + '</td>' +
+            '<td><span class="status-badge ' + statusClass + '">' + evt.status + '</span></td>';
         tbody.appendChild(row);
-    });
+    }
 }
 
 function renderUpcomingEvents() {

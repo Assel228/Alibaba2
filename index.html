@@ -163,21 +163,106 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             body {
-                padding: 24px;
+                padding: 16px;
+                align-items: flex-start;
+                padding-top: 20px;
             }
 
             .welcome-container {
-                padding: 28px;
+                padding: clamp(24px, 5vw, 32px);
+                border-radius: 20px;
+                max-width: 100%;
+            }
+
+            .logo {
+                font-size: clamp(1.8rem, 6vw, 2.2rem);
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: clamp(1.6rem, 5vw, 2rem);
+                margin-bottom: 12px;
+            }
+
+            p {
+                font-size: clamp(0.95rem, 3vw, 1.05rem);
+                margin-bottom: 24px;
+            }
+
+            .features {
+                padding: 18px 20px;
+                border-radius: 18px;
+                margin: 24px 0;
+            }
+
+            .features h3 {
+                font-size: clamp(1.1rem, 3vw, 1.2rem);
+                margin-bottom: 12px;
+            }
+
+            .features ul {
+                font-size: clamp(0.9rem, 3vw, 1rem);
+                padding-left: 20px;
+            }
+
+            .features li {
+                margin-bottom: 10px;
             }
 
             .button-group {
+                flex-direction: column;
                 gap: 12px;
+                margin-top: 24px;
             }
 
             .btn {
-                flex: 1 1 100%;
+                width: 100%;
+                min-height: 48px;
+                font-size: clamp(1rem, 3vw, 1.1rem);
+                padding: 14px 20px;
+            }
+
+            .support-link {
+                margin-top: 20px;
+            }
+
+            .support-link a {
+                font-size: clamp(0.9rem, 3vw, 1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+                padding-top: 16px;
+            }
+
+            .welcome-container {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            .features {
+                padding: 16px;
+            }
+
+            .btn {
+                min-height: 48px;
+                font-size: 1rem;
             }
         }
     </style>

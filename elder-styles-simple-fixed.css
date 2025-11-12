@@ -1295,53 +1295,221 @@ header .container {
     margin-bottom: 10px;
 }
 
-/* Responsive styles */
+/* Mobile-First Responsive Styles */
+/* Bottom Navigation Bar for Mobile */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(160deg, rgba(90, 141, 232, 0.98), rgba(68, 114, 202, 0.95));
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border-top: 2px solid rgba(90, 141, 232, 0.5);
+    padding: 8px 0;
+    backdrop-filter: blur(10px);
+}
+
+.mobile-bottom-nav .nav-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 100%;
+    padding: 0 10px;
+}
+
+.mobile-bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 60px;
+    padding: 8px 4px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    gap: 4px;
+}
+
+.mobile-bottom-nav .nav-item.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-bottom-nav .nav-item .nav-icon {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+}
+
+.mobile-bottom-nav .nav-item .nav-label {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* Add padding to body to account for bottom nav */
+body.has-bottom-nav {
+    padding-bottom: 80px;
+}
+
+/* Responsive styles for tablets and mobile */
 @media (max-width: 768px) {
     .container {
-        padding: 0 15px;
+        padding: 0 16px;
+        max-width: 100%;
+    }
+    
+    /* Header adjustments */
+    header {
+        position: sticky;
+        top: 0;
     }
     
     header .container {
-        padding: 12px 0;
+        padding: 12px 16px;
+        flex-wrap: wrap;
     }
     
     .logo {
-        font-size: 1.7rem;
+        font-size: clamp(1.4rem, 4vw, 1.8rem);
+    }
+    
+    .header-actions {
+        gap: 8px;
+    }
+    
+    .profile-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    /* Hero section */
+    .hero {
+        padding: 24px 0;
     }
     
     .hero h2 {
-        font-size: 1.7rem;
+        font-size: clamp(1.5rem, 5vw, 1.9rem);
+        margin-bottom: 12px;
     }
     
     .hero p {
-        font-size: 1rem;
+        font-size: clamp(0.95rem, 3vw, 1.1rem);
     }
     
-    .tab-buttons {
-        padding: 6px;
+    /* Hide top tab navigation on mobile, show bottom nav */
+    .main-tabs {
+        display: none;
     }
     
-    .tab-btn {
-        padding: 14px 8px;
-        font-size: 0.85rem;
-        margin: 0 2px;
+    .mobile-bottom-nav {
+        display: block;
+    }
+    
+    body.has-bottom-nav {
+        padding-bottom: 80px;
+    }
+    
+    /* Category tabs */
+    .category-tabs {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 12px 0;
+        margin-bottom: 20px;
+    }
+    
+    .category-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .category-btn {
+        padding: 14px 20px;
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        min-height: 44px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    
+    /* Activities container - horizontal scroll on mobile */
+    .activities-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 20px;
+        margin: 0 -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .category-content {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
     }
     
     .category-content.active {
-        grid-template-columns: 1fr;
+        display: flex;
+        grid-template-columns: none;
     }
     
+    .activity-card {
+        min-width: 280px;
+        max-width: 320px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+    }
+    
+    .activity-card h3 {
+        font-size: clamp(1.2rem, 4vw, 1.4rem);
+        padding: 16px 16px 8px;
+    }
+    
+    .activity-card p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        padding: 0 16px 12px;
+        line-height: 1.6;
+    }
+    
+    .join-btn {
+        min-height: 48px;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        padding: 14px 24px;
+        margin: 0 16px 16px;
+    }
+    
+    .activity-theme {
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+        padding: 10px 12px;
+        margin: 0 16px 16px;
+    }
+    
+    /* Calendar adjustments */
     .calendar-grid {
         grid-template-columns: repeat(7, 1fr);
-        gap: 5px;
+        gap: 6px;
     }
     
     .calendar-day-header,
     .calendar-day {
-        padding: 10px 5px;
-        font-size: 0.85rem;
+        padding: 12px 6px;
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+        min-height: 44px;
     }
     
+    /* Profile and account sections */
     .profile-stats {
         flex-direction: column;
         gap: 20px;
@@ -1349,58 +1517,189 @@ header .container {
     
     .detail-item {
         flex-direction: column;
+        gap: 12px;
     }
     
     .detail-label {
         width: 100%;
         margin-bottom: 8px;
+        font-size: clamp(0.95rem, 3vw, 1.05rem);
     }
     
     .event-actions {
         flex-direction: column;
+        gap: 12px;
     }
     
     .action-btn {
         width: 100%;
+        min-height: 48px;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        padding: 14px 20px;
+    }
+    
+    /* Chat container */
+    .chat-container {
+        max-width: 100%;
+        padding: 16px;
+    }
+    
+    .chat-group {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .chat-group h4 {
+        font-size: clamp(1rem, 3vw, 1.15rem);
+    }
+    
+    .chat-group p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+    
+    /* Buttons - ensure minimum 44px touch target */
+    button, .btn, .submit-btn {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+        font-size: clamp(0.95rem, 3vw, 1.05rem);
+    }
+    
+    /* Form inputs */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    textarea,
+    select {
+        min-height: 48px;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        padding: 12px 16px;
+    }
+    
+    /* Tab content padding */
+    .tab-content {
+        padding: 20px 0 100px;
+    }
+    
+    /* View all activities button */
+    .view-all-btn {
+        min-height: 48px;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        padding: 14px 28px;
+        margin: 24px auto;
     }
 }
 
+/* Small mobile devices */
 @media (max-width: 480px) {
-    .tab-btn {
-        min-width: 80px;
-        padding: 12px 5px;
+    .container {
+        padding: 0 12px;
+    }
+    
+    header .container {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .profile-btn {
+        padding: 8px 12px;
         font-size: 0.8rem;
     }
     
-    .category-btn {
-        padding: 12px 6px;
-        font-size: 0.9rem;
+    .profile-btn .profile-icon {
+        font-size: 1.2rem;
+    }
+    
+    .hero {
+        padding: 20px 0;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero p {
+        font-size: 0.95rem;
+    }
+    
+    /* Bottom nav adjustments */
+    .mobile-bottom-nav .nav-item {
+        min-height: 56px;
+        padding: 6px 2px;
+    }
+    
+    .mobile-bottom-nav .nav-item .nav-icon {
+        font-size: 1.3rem;
+    }
+    
+    .mobile-bottom-nav .nav-item .nav-label {
+        font-size: 0.65rem;
+    }
+    
+    body.has-bottom-nav {
+        padding-bottom: 72px;
+    }
+    
+    /* Activity cards - slightly smaller on very small screens */
+    .activity-card {
+        min-width: 260px;
+        max-width: 300px;
     }
     
     .activity-card h3 {
         font-size: 1.2rem;
     }
     
-    .activities-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .activity-card p {
+        font-size: 0.9rem;
     }
     
+    .join-btn {
+        min-height: 48px;
+        font-size: 1rem;
+    }
+    
+    /* Category buttons */
+    .category-btn {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+    
+    /* Calendar */
+    .calendar-day-header,
+    .calendar-day {
+        padding: 10px 4px;
+        font-size: 0.8rem;
+    }
+    
+    /* Chat */
     .chat-container {
-        height: 500px;
+        padding: 12px;
     }
     
     .message {
         max-width: 85%;
-        padding: 12px 15px;
+        padding: 12px 14px;
         font-size: 0.9rem;
     }
     
     .profile-name {
-        font-size: 1.7rem;
+        font-size: 1.6rem;
     }
     
     .stat-number {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+    }
+    
+    /* Ensure all interactive elements are touch-friendly */
+    a, button, input, select, textarea {
+        -webkit-tap-highlight-color: rgba(90, 141, 232, 0.3);
     }
 }
 
@@ -1692,9 +1991,55 @@ header .container {
     border-left: 4px solid var(--primary);
 }
 
+.notification-box h3 {
+    color: #223a5e !important;
+    font-weight: 600;
+}
+
 .notification-item {
     padding: 10px 0;
     border-bottom: 1px solid rgba(181, 202, 226, 0.6);
+}
+
+.notification-item p {
+    color: #223a5e !important;
+    margin: 0;
+}
+
+.notification-item p strong {
+    color: #223a5e !important;
+    font-weight: 600;
+}
+
+.notification-item small {
+    color: #454545 !important;
+}
+
+/* Override inline styles in chat tab */
+#chat .notification-box p,
+#chat .notification-box p strong {
+    color: #223a5e !important;
+}
+
+#chat .notification-box small {
+    color: #454545 !important;
+}
+
+#chat .chat-group h4 {
+    color: #223a5e !important;
+    font-weight: 600;
+}
+
+#chat .chat-group p {
+    color: #454545 !important;
+}
+
+#chat .chat-group span {
+    color: #454545 !important;
+}
+
+#chat .chat-messages-container h3 {
+    color: #223a5e !important;
 }
 
 .notification-item:last-child {
@@ -1718,13 +2063,23 @@ header .container {
 
 .chat-group h4 {
     margin: 0 0 5px 0;
-    color: var(--heading);
+    color: #223a5e !important;
+    font-weight: 600;
 }
 
 .chat-group p {
     margin: 0;
-    color: var(--text-muted);
+    color: #454545 !important;
     font-size: 0.9rem;
+}
+
+.chat-messages-container h3 {
+    color: #223a5e !important;
+    font-weight: 600;
+}
+
+.chat-group span {
+    color: #454545 !important;
 }
 
 .submit-btn {

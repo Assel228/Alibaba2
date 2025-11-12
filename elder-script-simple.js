@@ -1553,6 +1553,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Mobile bottom navigation event listeners
+    document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            switchToTab(tabId);
+        });
+    });
+    
+    // Function to update mobile nav active state
+    function updateMobileNavActiveState(activeTabId) {
+        document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(item => {
+            if (item.getAttribute('data-tab') === activeTabId) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+    
+    // Add has-bottom-nav class to body on mobile
+    function checkMobileView() {
+        if (window.innerWidth <= 768) {
+            document.body.classList.add('has-bottom-nav');
+        } else {
+            document.body.classList.remove('has-bottom-nav');
+        }
+    }
+    
+    // Check on load and resize
+    checkMobileView();
+    window.addEventListener('resize', checkMobileView);
+    
     // Initialize interactive map if we're on the navigation tab
     const navTabButton = document.querySelector('.tab-btn[data-tab="navigation"]');
     if (navTabButton && navTabButton.classList.contains('active')) {
@@ -2339,6 +2371,8 @@ function initializeCalendar() {
 
             if (eventDate < hongKongDate && event.status === 'upcoming') {
                 event.status = 'finished';
+                // Generate AI message after event completion
+                generateAIMessageAfterEvent(event);
             }
         });
     }
@@ -2576,6 +2610,19 @@ function switchToTab(tabId) {
         }
     }
     
+    // Update mobile bottom nav active state
+    const mobileNavItem = document.querySelector(`.mobile-bottom-nav .nav-item[data-tab="${tabId}"]`);
+    if (mobileNavItem) {
+        document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        mobileNavItem.classList.add('active');
+    }
+    
+    if (tabId === 'chat') {
+        loadEncouragementAndAIMessages();
+    }
+    
     if (tabId === 'navigation') {
         setTimeout(function() {
             if (!window.elderConnectMapInitialized) {
@@ -2749,6 +2796,14 @@ function configureInterfaceByRole(role) {
         button.classList.remove('active');
     });
     
+    // Also configure mobile bottom nav items
+    document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(button => {
+        const targetRole = button.getAttribute('data-role') || 'both';
+        const shouldShow = targetRole === 'both' || targetRole === resolvedRole;
+        button.style.display = shouldShow ? '' : 'none';
+        button.classList.remove('active');
+    });
+    
     document.querySelectorAll('.tab-content').forEach(content => {
         const targetRole = content.getAttribute('data-role') || 'both';
         const shouldShow = targetRole === 'both' || targetRole === resolvedRole;
@@ -2767,6 +2822,11 @@ function configureInterfaceByRole(role) {
     
     if (resolvedRole === 'volunteer') {
         initializeVolunteerFeatures();
+    }
+    
+    // Initialize AI messages for finished events (elderly users only)
+    if (resolvedRole === 'elderly') {
+        initializeAIMessagesForFinishedEvents();
     }
 }
 
@@ -2890,4 +2950,221 @@ function setAccountEditing(enabled) {
             accountNameField.select();
         }, 0);
     }
+}
+
+// Function to load and display encouragement and AI messages in chat tab
+function loadEncouragementAndAIMessages() {
+    const chatContainer = document.querySelector('#chat .chat-container');
+    if (!chatContainer) return;
+    
+    // Get user's preferred name to match with stored messages
+    const savedProfile = JSON.parse(localStorage.getItem('elderConnectProfile') || '{}');
+    const userName = savedProfile.preferredName || 'User';
+    const normalizedUserName = userName.toLowerCase().replace(/[^\w]/g, '_').replace(/_+/g, '_');
+    const encouragementKey = `encouragement_${normalizedUserName}`;
+    
+    // Get stored encouragement messages - try multiple variations of the name
+    let encouragements = JSON.parse(localStorage.getItem(encouragementKey) || '[]');
+    
+    // Also check for messages stored with different name variations
+    const allKeys = Object.keys(localStorage);
+    allKeys.forEach(key => {
+        if (key.startsWith('encouragement_')) {
+            const storedName = key.replace('encouragement_', '').replace(/_/g, ' ');
+            const storedNormalized = storedName.toLowerCase().replace(/[^\w]/g, '_').replace(/_+/g, '_');
+            if (storedNormalized === normalizedUserName || storedName.toLowerCase().includes(userName.toLowerCase()) || userName.toLowerCase().includes(storedName.toLowerCase())) {
+                const storedMessages = JSON.parse(localStorage.getItem(key) || '[]');
+                encouragements = encouragements.concat(storedMessages);
+            }
+        }
+    });
+    
+    // Get stored AI messages
+    const aiMessages = JSON.parse(localStorage.getItem('ai_messages') || '[]');
+    
+    // Create or update messages section
+    let messagesSection = document.getElementById('encouragement-messages-section');
+    if (!messagesSection) {
+        messagesSection = document.createElement('div');
+        messagesSection.id = 'encouragement-messages-section';
+        messagesSection.style.cssText = 'background: linear-gradient(135deg, rgba(90, 141, 232, 0.1), rgba(125, 211, 160, 0.1)); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 2px solid rgba(90, 141, 232, 0.3);';
+        
+        const notificationBox = chatContainer.querySelector('.notification-box');
+        if (notificationBox && notificationBox.nextSibling) {
+            chatContainer.insertBefore(messagesSection, notificationBox.nextSibling);
+        } else {
+            chatContainer.insertBefore(messagesSection, chatContainer.firstChild);
+        }
+    }
+    
+    // Clear previous content
+    messagesSection.innerHTML = '';
+    
+    // Add header
+    const header = document.createElement('h3');
+    header.style.cssText = 'margin-top: 0; color: var(--heading); font-size: 1.3rem; margin-bottom: 16px;';
+    header.textContent = '💬 Messages from Volunteers & AI';
+    messagesSection.appendChild(header);
+    
+    // Display encouragement messages
+    if (encouragements.length > 0) {
+        encouragements.forEach((enc, index) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = 'background: var(--surface); border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 4px solid rgba(125, 211, 160, 0.6);';
+            
+            const senderDiv = document.createElement('div');
+            senderDiv.style.cssText = 'font-weight: 600; color: #7dd3a0; margin-bottom: 8px; font-size: 0.95rem;';
+            senderDiv.textContent = '👤 From Volunteer';
+            messageDiv.appendChild(senderDiv);
+            
+            const messageText = document.createElement('div');
+            messageText.style.cssText = 'color: var(--text-main); margin-bottom: 8px; line-height: 1.6;';
+            messageText.textContent = enc.message;
+            messageDiv.appendChild(messageText);
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.style.cssText = 'font-size: 0.85rem; color: var(--text-muted);';
+            const messageDate = new Date(enc.timestamp);
+            timeDiv.textContent = messageDate.toLocaleString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            messageDiv.appendChild(timeDiv);
+            
+            messagesSection.appendChild(messageDiv);
+        });
+    }
+    
+    // Display AI messages
+    if (aiMessages.length > 0) {
+        aiMessages.forEach((aiMsg, index) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = 'background: var(--surface); border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 4px solid rgba(90, 141, 232, 0.6);';
+            
+            const senderDiv = document.createElement('div');
+            senderDiv.style.cssText = 'font-weight: 600; color: #5a8de8; margin-bottom: 8px; font-size: 0.95rem;';
+            senderDiv.textContent = '🤖 From AI Wellness Companion';
+            messageDiv.appendChild(senderDiv);
+            
+            const messageText = document.createElement('div');
+            messageText.style.cssText = 'color: var(--text-main); margin-bottom: 8px; line-height: 1.6;';
+            messageText.textContent = aiMsg.message;
+            messageDiv.appendChild(messageText);
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.style.cssText = 'font-size: 0.85rem; color: var(--text-muted);';
+            const messageDate = new Date(aiMsg.timestamp);
+            timeDiv.textContent = messageDate.toLocaleString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            messageDiv.appendChild(timeDiv);
+            
+            messagesSection.appendChild(messageDiv);
+        });
+    }
+    
+    // Show example messages if no real messages yet
+    if (encouragements.length === 0 && aiMessages.length === 0) {
+        // Add example messages to show users what they'll receive
+        const exampleVolunteerMsg = document.createElement('div');
+        exampleVolunteerMsg.style.cssText = 'background: var(--surface); border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 4px solid rgba(125, 211, 160, 0.6); opacity: 0.8;';
+        
+        const exampleVolunteerSender = document.createElement('div');
+        exampleVolunteerSender.style.cssText = 'font-weight: 600; color: #7dd3a0; margin-bottom: 8px; font-size: 0.95rem;';
+        exampleVolunteerSender.textContent = '👤 From Volunteer (Example)';
+        exampleVolunteerMsg.appendChild(exampleVolunteerSender);
+        
+        const exampleVolunteerText = document.createElement('div');
+        exampleVolunteerText.style.cssText = 'color: var(--text-main); margin-bottom: 8px; line-height: 1.6;';
+        exampleVolunteerText.textContent = 'Great job participating in today\'s activity! You looked so engaged and happy. Keep up the wonderful work! 🌟';
+        exampleVolunteerMsg.appendChild(exampleVolunteerText);
+        
+        const exampleVolunteerTime = document.createElement('div');
+        exampleVolunteerTime.style.cssText = 'font-size: 0.85rem; color: var(--text-muted);';
+        exampleVolunteerTime.textContent = 'Example message';
+        exampleVolunteerMsg.appendChild(exampleVolunteerTime);
+        
+        messagesSection.appendChild(exampleVolunteerMsg);
+        
+        const exampleAIMsg = document.createElement('div');
+        exampleAIMsg.style.cssText = 'background: var(--surface); border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 4px solid rgba(90, 141, 232, 0.6); opacity: 0.8;';
+        
+        const exampleAISender = document.createElement('div');
+        exampleAISender.style.cssText = 'font-weight: 600; color: #5a8de8; margin-bottom: 8px; font-size: 0.95rem;';
+        exampleAISender.textContent = '🤖 From AI Wellness Companion (Example)';
+        exampleAIMsg.appendChild(exampleAISender);
+        
+        const exampleAIText = document.createElement('div');
+        exampleAIText.style.cssText = 'color: var(--text-main); margin-bottom: 8px; line-height: 1.6;';
+        exampleAIText.textContent = 'I noticed you attended an event recently. That\'s wonderful! Engaging in activities helps build connections and brings joy to your day. How did it go? 💙';
+        exampleAIMsg.appendChild(exampleAIText);
+        
+        const exampleAITime = document.createElement('div');
+        exampleAITime.style.cssText = 'font-size: 0.85rem; color: var(--text-muted);';
+        exampleAITime.textContent = 'Example message';
+        exampleAIMsg.appendChild(exampleAITime);
+        
+        messagesSection.appendChild(exampleAIMsg);
+        
+        const infoDiv = document.createElement('div');
+        infoDiv.style.cssText = 'text-align: center; color: var(--text-muted); padding: 20px; font-style: italic;';
+        infoDiv.textContent = 'After participating in events, you\'ll receive real encouragement from volunteers and support from our AI companion.';
+        messagesSection.appendChild(infoDiv);
+    }
+}
+
+// Function to generate AI message after event completion
+function generateAIMessageAfterEvent(event) {
+    const aiMessages = JSON.parse(localStorage.getItem('ai_messages') || '[]');
+    
+    // Check if we already sent a message for this event
+    const eventKey = `event_${event.id || event.title}_${event.date}`;
+    const alreadyMessaged = aiMessages.some(msg => msg.eventKey === eventKey);
+    
+    if (alreadyMessaged) return;
+    
+    // Generate AI message based on event
+    const aiMessageTemplates = [
+        `Great job participating in "${event.title}"! I hope you had a wonderful time. Remember, every activity you join helps build connections and brings joy to your day. Keep up the amazing work! 🌟`,
+        `I noticed you attended "${event.title}" today. That's wonderful! Engaging in activities like this is great for your well-being. How did it go? Feel free to share your experience. 💙`,
+        `Congratulations on completing "${event.title}"! Your participation matters and contributes to our vibrant community. I'm here if you need any support or just want to chat. Take care! ✨`,
+        `Well done on joining "${event.title}"! Activities like this help us stay active and connected. I'm proud of you for taking this step. Remember, you're doing great! 🌈`,
+        `I see you participated in "${event.title}" today. That's fantastic! Every event you attend is a step toward staying engaged and happy. Keep it up! 💪`
+    ];
+    
+    const randomMessage = aiMessageTemplates[Math.floor(Math.random() * aiMessageTemplates.length)];
+    
+    aiMessages.push({
+        message: randomMessage,
+        eventTitle: event.title,
+        eventDate: event.date,
+        eventKey: eventKey,
+        timestamp: Date.now()
+    });
+    
+    localStorage.setItem('ai_messages', JSON.stringify(aiMessages));
+}
+
+// Function to initialize AI messages for existing finished events on page load
+function initializeAIMessagesForFinishedEvents() {
+    // Get events from the calendar initialization
+    // Since calendarEvents is local, we'll check localStorage for event data
+    // or generate messages when events are marked as finished
+    // This will be called after calendar initialization
+    setTimeout(() => {
+        // Check if there are any finished events in the sample data
+        const sampleFinishedEvents = [
+            { date: '2025-11-01', title: 'Board Games Club', status: 'finished' },
+            { date: '2025-11-01', title: 'Evening Tea Social', status: 'finished' }
+        ];
+        
+        sampleFinishedEvents.forEach(event => {
+            generateAIMessageAfterEvent(event);
+        });
+    }, 1000);
 }

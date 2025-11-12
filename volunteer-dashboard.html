@@ -5,6 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer Hub - ElderConnect</title>
     <link rel="stylesheet" href="volunteer-styles.css">
+    <script>
+        // Define activateTab immediately so inline handlers can use it
+        function activateTab(target) {
+            if (!target) return;
+            
+            var tabButtons = document.querySelectorAll('.tab-btn');
+            var tabContents = document.querySelectorAll('.tab-content');
+            var matched = false;
+            var i;
+
+            for (i = 0; i < tabButtons.length; i++) {
+                var btn = tabButtons[i];
+                var isMatch = btn.dataset.target === target;
+                if (isMatch) {
+                    btn.classList.add('active');
+                    matched = true;
+                } else {
+                    btn.classList.remove('active');
+                }
+            }
+
+            for (i = 0; i < tabContents.length; i++) {
+                var section = tabContents[i];
+                var sectionTab = section.getAttribute('data-tab');
+                var isMatch = sectionTab === target;
+                if (isMatch) {
+                    section.classList.add('active');
+                    matched = true;
+                } else {
+                    section.classList.remove('active');
+                }
+            }
+            
+            // Update mobile bottom nav active state
+            var mobileNavItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
+            for (i = 0; i < mobileNavItems.length; i++) {
+                var item = mobileNavItems[i];
+                if (item.dataset.target === target) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            }
+
+            if (!matched && tabButtons.length > 0) {
+                var fallback = tabButtons[0].dataset.target;
+                if (fallback) {
+                    activateTab(fallback);
+                }
+                return;
+            }
+
+            var activeSection = document.querySelector('.tab-content[data-tab="' + target + '"]');
+            if (activeSection && window.innerWidth > 768) {
+                activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        window.activateTab = activateTab;
+    </script>
 </head>
 <body>
     <header class="volunteer-header">
@@ -24,15 +83,16 @@
     <main class="volunteer-main">
         <section class="volunteer-tabs">
             <div class="tab-buttons">
-                <button class="tab-btn active" data-target="dashboard">Overview</button>
-                <button class="tab-btn" data-target="events">My Events</button>
-                <button class="tab-btn" data-target="rate">Rate &amp; Report</button>
-                <button class="tab-btn" data-target="alerts">Alerts &amp; Follow-ups</button>
-                <button class="tab-btn" data-target="resources">Resources</button>
-                <button class="tab-btn" data-target="history">Profile &amp; History</button>
-                <button class="tab-btn" data-target="support">Support &amp; FAQs</button>
+                <button class="tab-btn active" data-target="dashboard" onclick="activateTab('dashboard'); return false;">Overview</button>
+                <button class="tab-btn" data-target="events" onclick="activateTab('events'); return false;">My Events</button>
+                <button class="tab-btn" data-target="rate" onclick="activateTab('rate'); return false;">Rate &amp; Report</button>
+                <button class="tab-btn" data-target="alerts" onclick="activateTab('alerts'); return false;">Alerts &amp; Follow-ups</button>
+                <button class="tab-btn" data-target="resources" onclick="activateTab('resources'); return false;">Resources</button>
+                <button class="tab-btn" data-target="history" onclick="activateTab('history'); return false;">Profile &amp; History</button>
+                <button class="tab-btn" data-target="support" onclick="activateTab('support'); return false;">Support &amp; FAQs</button>
             </div>
         </section>
+
 
         <div class="tab-content active" data-tab="dashboard">
             <section class="orientation-section">
@@ -74,7 +134,7 @@
             <div class="section-header">
                 <div>
                     <h2>My Events</h2>
-                    <p class="section-subtitle">Track your upcoming, in-progress, and completed assignments.</p>
+                    <p class="section-subtitle">Track your upcoming, in-progress, and completed assignments. All times shown in Hong Kong Time (HKT).</p>
                 </div>
                 <button id="open-events" class="link-btn">Open events dashboard</button>
             </div>
@@ -320,6 +380,40 @@
             </div>
         </section>
     </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+        <div class="nav-items">
+            <button class="nav-item active" data-target="dashboard" onclick="activateTab('dashboard'); return false;">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Overview</span>
+            </button>
+            <button class="nav-item" data-target="events" onclick="activateTab('events'); return false;">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Events</span>
+            </button>
+            <button class="nav-item" data-target="rate" onclick="activateTab('rate'); return false;">
+                <span class="nav-icon">⭐</span>
+                <span class="nav-label">Rate</span>
+            </button>
+            <button class="nav-item" data-target="alerts" onclick="activateTab('alerts'); return false;">
+                <span class="nav-icon">🔔</span>
+                <span class="nav-label">Alerts</span>
+            </button>
+            <button class="nav-item" data-target="resources" onclick="activateTab('resources'); return false;">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">Resources</span>
+            </button>
+            <button class="nav-item" data-target="history" onclick="activateTab('history'); return false;">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">History</span>
+            </button>
+            <button class="nav-item" data-target="support" onclick="activateTab('support'); return false;">
+                <span class="nav-icon">❓</span>
+                <span class="nav-label">Support</span>
+            </button>
+        </div>
+    </nav>
 
     <footer class="volunteer-footer">
         <p>&copy; 2025 ElderConnect Volunteer Network</p>
