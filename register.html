@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
     <style>
         :root {
-            --primary: #4472ca;
-            --primary-dark: #34558f;
-            --secondary: #a8d5ba;
-            --accent: #bfd7ea;
-            --surface: #f9fbff;
-            --surface-alt: #f4f4f0;
-            --outline: #d0d8e6;
-            --text-main: #223a5e;
-            --text-muted: #566680;
+            --primary: #5a8de8;
+            --primary-dark: #4472ca;
+            --secondary: #7dd3a0;
+            --accent: #8ca0d7;
+            --surface: #253447;
+            --surface-alt: #1a2332;
+            --outline: #3d556f;
+            --text-main: #e8f0f8;
+            --text-muted: #b8c8d8;
         }
 
         body {
             margin: 0;
             font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            background: radial-gradient(circle at 18% 20%, rgba(191, 215, 234, 0.32), transparent 55%),
-                        radial-gradient(circle at 82% 78%, rgba(168, 213, 186, 0.25), transparent 60%),
+            background: radial-gradient(circle at 18% 20%, rgba(90, 141, 232, 0.15), transparent 55%),
+                        radial-gradient(circle at 82% 78%, rgba(125, 211, 160, 0.12), transparent 60%),
                         var(--surface-alt);
             display: flex;
             justify-content: center;
@@ -35,7 +35,8 @@
         .register-container {
             background: var(--surface);
             border-radius: 28px;
-            box-shadow: 0 26px 60px rgba(52, 85, 143, 0.18);
+            box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(90, 141, 232, 0.4);
             overflow: hidden;
             width: min(720px, 100%);
             padding: clamp(32px, 5vw, 48px);
@@ -99,8 +100,8 @@
             width: 100%;
             padding: 14px 16px;
             border-radius: 16px;
-            border: 1px solid var(--outline);
-            background: rgba(255, 255, 255, 0.96);
+            border: 2px solid var(--outline);
+            background: rgba(45, 63, 86, 0.6);
             font-size: 0.98rem;
             font-family: inherit;
             color: var(--text-main);
@@ -112,7 +113,8 @@
         textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(68, 114, 202, 0.22);
+            box-shadow: 0 0 0 4px rgba(90, 141, 232, 0.3);
+            background: rgba(45, 63, 86, 0.8);
             transform: translateY(-1px);
         }
 
@@ -132,8 +134,8 @@
         .checkbox-item {
             padding: 14px 16px;
             border-radius: 16px;
-            border: 1px solid var(--outline);
-            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--outline);
+            background: rgba(45, 63, 86, 0.6);
             display: flex;
             gap: 10px;
             align-items: flex-start;
@@ -143,7 +145,8 @@
         .radio-item:hover,
         .checkbox-item:hover {
             border-color: var(--primary);
-            box-shadow: 0 16px 30px rgba(68, 114, 202, 0.16);
+            box-shadow: 0 16px 30px rgba(90, 141, 232, 0.3);
+            background: rgba(45, 63, 86, 0.8);
         }
 
         .radio-item input,
@@ -156,26 +159,27 @@
             width: 100%;
             padding: 15px 20px;
             border-radius: 18px;
-            border: none;
+            border: 2px solid rgba(90, 141, 232, 0.5);
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: #f9fbff;
+            color: #ffffff;
             font-size: 1.05rem;
             font-weight: 600;
             letter-spacing: 0.3px;
-            box-shadow: 0 22px 40px rgba(68, 114, 202, 0.26);
+            box-shadow: 0 22px 40px rgba(90, 141, 232, 0.5);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 26px 48px rgba(52, 85, 143, 0.32);
+            box-shadow: 0 26px 48px rgba(90, 141, 232, 0.6);
+            border-color: rgba(90, 141, 232, 0.7);
         }
 
         small,
         .field-note {
             display: block;
             margin-top: 6px;
-            color: rgba(83, 97, 124, 0.85);
+            color: var(--text-muted);
             font-size: 0.85rem;
         }
 
@@ -188,12 +192,12 @@
         .survey-section,
         .volunteer-section,
         #elder-wellbeing-section {
-            background: rgba(191, 215, 234, 0.2);
+            background: rgba(37, 52, 71, 0.6);
             border-radius: 22px;
-            border: 1px solid rgba(140, 160, 215, 0.3);
+            border: 2px solid rgba(90, 141, 232, 0.3);
             padding: 26px;
             margin-top: 28px;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3);
         }
 
         .survey-section h2,

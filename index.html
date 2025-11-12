@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="elder-styles-simple.css">
     <style>
         :root {
-            --primary: #4472ca;
-            --primary-dark: #34558f;
-            --secondary: #a8d5ba;
-            --accent: #bfd7ea;
+            --primary: #5a8de8;
+            --primary-dark: #4472ca;
+            --secondary: #7dd3a0;
+            --accent: #8ca0d7;
             --trust: #3c787e;
-            --surface: #f7f9fd;
-            --surface-alt: #f4f4f0;
-            --outline: #d3dae7;
-            --text-main: #223a5e;
-            --text-muted: #53617c;
+            --surface: #253447;
+            --surface-alt: #1a2332;
+            --outline: #3d556f;
+            --text-main: #e8f0f8;
+            --text-muted: #b8c8d8;
         }
 
         body {
@@ -27,16 +27,16 @@
             justify-content: center;
             align-items: center;
             padding: 32px;
-            background: radial-gradient(circle at 18% 18%, rgba(191, 215, 234, 0.35), transparent 60%),
-                        radial-gradient(circle at 82% 80%, rgba(168, 213, 186, 0.22), transparent 55%),
+            background: radial-gradient(circle at 18% 18%, rgba(90, 141, 232, 0.15), transparent 60%),
+                        radial-gradient(circle at 82% 80%, rgba(125, 211, 160, 0.12), transparent 55%),
                         var(--surface-alt);
         }
 
         .welcome-container {
             background: var(--surface);
             border-radius: 28px;
-            box-shadow: 0 26px 58px rgba(52, 85, 143, 0.18);
-            border: 1px solid rgba(181, 202, 226, 0.65);
+            box-shadow: 0 26px 58px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(90, 141, 232, 0.4);
             padding: clamp(32px, 6vw, 48px);
             max-width: 560px;
             width: 100%;
@@ -49,9 +49,9 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 15% 20%, rgba(191, 215, 234, 0.28), transparent 55%),
-                        radial-gradient(circle at 85% 80%, rgba(168, 213, 186, 0.2), transparent 55%),
-                        radial-gradient(circle at 55% 10%, rgba(140, 160, 215, 0.25), transparent 65%);
+            background: radial-gradient(circle at 15% 20%, rgba(90, 141, 232, 0.2), transparent 55%),
+                        radial-gradient(circle at 85% 80%, rgba(125, 211, 160, 0.15), transparent 55%),
+                        radial-gradient(circle at 55% 10%, rgba(140, 160, 215, 0.18), transparent 65%);
             z-index: 0;
         }
 
@@ -69,7 +69,7 @@
         }
 
         h1 {
-            color: var(--text-main);
+            color: #ffffff;
             font-size: clamp(2.1rem, 3.4vw, 2.6rem);
             margin: 0 0 16px 0;
         }
@@ -84,11 +84,11 @@
         .features {
             text-align: left;
             margin: 30px 0;
-            background: rgba(191, 215, 234, 0.32);
+            background: rgba(37, 52, 71, 0.8);
             padding: 22px 24px;
             border-radius: 22px;
-            border: 1px solid rgba(140, 160, 215, 0.35);
-            box-shadow: 0 16px 30px rgba(68, 114, 202, 0.18);
+            border: 2px solid rgba(90, 141, 232, 0.4);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
         }
 
         .features h3 {
@@ -131,15 +131,16 @@
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: #f9fbff;
-            box-shadow: 0 22px 40px rgba(68, 114, 202, 0.28);
+            color: #ffffff;
+            box-shadow: 0 22px 40px rgba(90, 141, 232, 0.5);
+            border: 2px solid rgba(90, 141, 232, 0.5);
         }
 
         .btn-secondary {
-            background: rgba(168, 213, 186, 0.28);
-            color: var(--trust);
-            border: 1px solid rgba(60, 120, 126, 0.35);
-            box-shadow: 0 16px 32px rgba(168, 213, 186, 0.28);
+            background: rgba(37, 52, 71, 0.8);
+            color: var(--secondary);
+            border: 2px solid rgba(125, 211, 160, 0.4);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
         }
 
         .btn:hover {
@@ -149,7 +150,7 @@
         .support-link {
             margin-top: 24px;
             font-size: 0.92rem;
-            color: rgba(34, 58, 94, 0.58);
+            color: var(--text-muted);
         }
 
         .support-link a {

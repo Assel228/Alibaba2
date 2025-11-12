@@ -1,16 +1,16 @@
 /* Volunteer Wellbeing Center Styles */
 :root {
-    --primary: #4472ca;
-    --primary-dark: #34558f;
-    --secondary: #a8d5ba;
-    --accent: #bfd7ea;
-    --background: #f4f4f0;
-    --surface: #f7f9fd;
-    --text-main: #223a5e;
-    --text-muted: #566680;
-    --border: #ccd5e6;
-    --ai-tag: rgba(191, 215, 234, 0.45);
-    --volunteer-tag: rgba(168, 213, 186, 0.45);
+    --primary: #5a8de8;
+    --primary-dark: #4472ca;
+    --secondary: #7dd3a0;
+    --accent: #8ca0d7;
+    --background: #1a2332;
+    --surface: #253447;
+    --text-main: #e8f0f8;
+    --text-muted: #b8c8d8;
+    --border: #3d556f;
+    --ai-tag: rgba(90, 141, 232, 0.35);
+    --volunteer-tag: rgba(125, 211, 160, 0.35);
 }
 
 * {
@@ -20,8 +20,8 @@
 body {
     margin: 0;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: radial-gradient(circle at 18% 18%, rgba(191, 215, 234, 0.32), transparent 55%),
-                radial-gradient(circle at 80% 82%, rgba(168, 213, 186, 0.22), transparent 60%),
+    background: radial-gradient(circle at 18% 18%, rgba(90, 141, 232, 0.15), transparent 55%),
+                radial-gradient(circle at 80% 82%, rgba(125, 211, 160, 0.12), transparent 60%),
                 var(--background);
     color: var(--text-main);
     min-height: 100vh;
@@ -35,25 +35,28 @@ button {
 }
 
 .volunteer-header {
-    background: linear-gradient(150deg, rgba(68, 114, 202, 0.92), rgba(60, 120, 126, 0.88));
-    color: #f9fbff;
+    background: linear-gradient(150deg, rgba(90, 141, 232, 0.95), rgba(68, 114, 202, 0.92));
+    color: #ffffff;
     padding: 36px 44px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    box-shadow: 0 28px 48px rgba(52, 85, 143, 0.22);
+    box-shadow: 0 28px 48px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(90, 141, 232, 0.3);
 }
 
 .header-copy h1 {
     margin: 0 0 8px 0;
     font-size: 2rem;
+    color: #ffffff;
+    font-weight: 700;
 }
 
 .subtitle {
     margin: 0;
     font-size: 1rem;
-    opacity: 0.85f;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .header-meta {
@@ -102,36 +105,38 @@ button {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    background: rgba(191, 215, 234, 0.25);
+    background: rgba(37, 52, 71, 0.7);
     border-radius: 20px;
     padding: 8px;
-    border: 1px solid rgba(181, 202, 226, 0.6);
-    box-shadow: 0 18px 32px rgba(52, 85, 143, 0.12);
+    border: 2px solid rgba(90, 141, 232, 0.3);
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.4);
 }
 
 .tab-btn {
     flex: 1 1 150px;
     min-width: 140px;
-    background: transparent;
-    border: none;
+    background: rgba(45, 63, 86, 0.5);
+    border: 2px solid rgba(90, 141, 232, 0.2);
     padding: 12px 16px;
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: #b8c8d8;
     border-radius: 14px;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .tab-btn.active {
-    background: linear-gradient(135deg, #7ca6ff 0%, #4b6ed1 100%);
-    color: #f9fbff;
-    box-shadow: 0 18px 34px rgba(63, 95, 174, 0.26);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #ffffff;
+    box-shadow: 0 18px 34px rgba(90, 141, 232, 0.5);
+    border-color: rgba(90, 141, 232, 0.6);
 }
 
 .tab-btn:hover:not(.active) {
-    background: rgba(124, 166, 255, 0.28);
-    color: #3f5fae;
+    background: rgba(90, 141, 232, 0.25);
+    color: var(--text-main);
+    border-color: rgba(90, 141, 232, 0.4);
 }
 
 .tab-content {
@@ -160,8 +165,8 @@ button {
     background: var(--surface);
     border-radius: 24px;
     padding: 28px;
-    box-shadow: 0 24px 46px rgba(52, 85, 143, 0.14);
-    border: 1px solid rgba(181, 202, 226, 0.6);
+    box-shadow: 0 24px 46px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(90, 141, 232, 0.3);
 }
 
 .micro-tag {
@@ -179,12 +184,13 @@ button {
 .welcome-card h2 {
     margin: 14px 0 8px 0;
     font-size: 2rem;
-    color: var(--heading);
+    color: #7ca6ff;
+    font-weight: 600;
 }
 
 .welcome-subtitle {
     margin: 0 0 24px 0;
-    color: var(--text-muted);
+    color: #e8f0f8;
     font-size: 1.05rem;
     line-height: 1.6;
 }
@@ -196,8 +202,8 @@ button {
 }
 
 .stat-card {
-    background: rgba(191, 215, 234, 0.35);
-    border: 1px solid rgba(181, 202, 226, 0.6);
+    background: rgba(45, 63, 86, 0.6);
+    border: 2px solid rgba(90, 141, 232, 0.3);
     border-radius: 18px;
     padding: 16px;
     text-align: center;
@@ -207,12 +213,13 @@ button {
     display: block;
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--primary-dark);
+    color: var(--primary);
 }
 
 .stat-label {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: #ffffff;
+    font-weight: 500;
 }
 
 .upcoming-header {
@@ -233,27 +240,27 @@ button {
 
 .upcoming-list li {
     border-radius: 16px;
-    border: 1px solid rgba(181, 202, 226, 0.6);
+    border: 2px solid rgba(90, 141, 232, 0.3);
     padding: 14px;
-    background: rgba(247, 249, 253, 0.96);
-    box-shadow: 0 10px 22px rgba(52, 85, 143, 0.12);
+    background: rgba(37, 52, 71, 0.8);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
     display: grid;
     gap: 6px;
 }
 
 .upcoming-list li .item-title {
     font-weight: 600;
-    color: var(--heading);
+    color: #ffffff;
 }
 
 .upcoming-list li .item-meta {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: #b8c8d8;
 }
 
 .role-tag {
     font-size: 0.85rem;
-    color: var(--text-muted);
+    color: #454545;
 }
 
 .upcoming-list li.needs-attention {
@@ -263,7 +270,7 @@ button {
 .upcoming-list li.empty {
     text-align: center;
     font-style: italic;
-    color: var(--text-muted);
+    color: #b8c8d8;
     box-shadow: none;
     border-style: dashed;
 }
@@ -357,12 +364,14 @@ button {
 
 .section-header h2 {
     margin: 0;
-    color: var(--heading);
+    color: #7ca6ff;
+    font-weight: 600;
 }
 
 .section-subtitle {
     margin: 6px 0 0 0;
-    color: var(--text-muted);
+    color: #e8f0f8;
+    font-weight: 500;
 }
 
 .link-btn {
@@ -380,6 +389,9 @@ button {
 .events-table {
     width: 100%;
     border-collapse: collapse;
+    background: rgba(37, 52, 71, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .events-table th,
@@ -391,28 +403,36 @@ button {
 
 .events-table th {
     font-weight: 700;
-    color: var(--heading);
-    background: rgba(191, 215, 234, 0.24);
+    color: #ffffff;
+    background: rgba(90, 141, 232, 0.3);
+    border-bottom: 2px solid rgba(90, 141, 232, 0.4);
+}
+
+.events-table td {
+    color: #e8f0f8;
+    border-bottom: 1px solid rgba(90, 141, 232, 0.2);
 }
 
 .events-table td .event-title {
     font-weight: 600;
     display: block;
+    color: #ffffff;
 }
 
 .events-table td .event-location {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: #b8c8d8;
 }
 
 .events-table td .event-time {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: #b8c8d8;
 }
 
 .events-table tr.empty td {
     text-align: center;
     font-style: italic;
+    color: #b8c8d8;
 }
 
 .status-badge {
@@ -424,18 +444,27 @@ button {
 }
 
 .status-badge.upcoming {
-    background: rgba(124, 166, 255, 0.28);
-    color: #3f5fae;
+    background: linear-gradient(135deg, #66bb6a 0%, #388e3c 100%);
+    color: #ffffff;
+    border: 2px solid rgba(102, 187, 106, 0.5);
+    box-shadow: 0 4px 12px rgba(102, 187, 106, 0.3);
+    font-weight: 700;
 }
 
 .status-badge.completed {
-    background: rgba(168, 213, 186, 0.32);
-    color: #2f6b50;
+    background: linear-gradient(135deg, #ef5350 0%, #c62828 100%);
+    color: #ffffff;
+    border: 2px solid rgba(239, 83, 80, 0.5);
+    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.3);
+    font-weight: 700;
 }
 
 .status-badge.followup {
-    background: rgba(230, 108, 108, 0.22);
-    color: #b53a3a;
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    color: #ffffff;
+    border: 2px solid rgba(255, 152, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+    font-weight: 700;
 }
 
 .feedback-grid {
@@ -455,6 +484,7 @@ button {
 .feedback-card label {
     font-weight: 600;
     margin-top: 12px;
+    color: #223a5e;
 }
 
 .feedback-card input,
@@ -464,6 +494,20 @@ button {
     border: 1px solid var(--border);
     padding: 12px 14px;
     background: rgba(255, 255, 255, 0.96);
+    color: #223a5e;
+}
+
+.feedback-card input::placeholder,
+.feedback-card textarea::placeholder {
+    color: #7f8c8d;
+}
+
+.feedback-card select {
+    color: #223a5e;
+}
+
+.feedback-card select option {
+    color: #223a5e;
 }
 
 .card-header {
@@ -471,6 +515,11 @@ button {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+}
+
+.alerts-card .card-header h3 {
+    color: #223a5e;
+    font-weight: 600;
 }
 
 .badge {
@@ -495,12 +544,19 @@ button {
     color: #2f6b50;
 }
 
+.badge.critical {
+    background: rgba(230, 108, 108, 0.25);
+    color: #c0392b;
+    font-weight: 700;
+}
+
 .inline-checkbox {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #223a5e;
+    font-weight: 500;
     font-size: 0.9rem;
-    color: var(--text-muted);
     margin-top: 10px;
 }
 
@@ -518,6 +574,8 @@ button {
     padding: 8px 14px;
     font-size: 0.85rem;
     cursor: pointer;
+    color: #223a5e;
+    font-weight: 500;
 }
 
 .encouragement-box {
@@ -525,6 +583,16 @@ button {
     border-radius: 16px;
     padding: 16px;
     border: 1px solid rgba(181, 202, 226, 0.6);
+}
+
+.encouragement-box h4,
+.encouragement-box p {
+    color: #223a5e;
+}
+
+.encouragement-box h4 {
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
 .alerts-grid {
@@ -541,15 +609,62 @@ button {
     box-shadow: 0 22px 40px rgba(34, 58, 94, 0.14);
 }
 
+.alerts-card h3 {
+    color: #223a5e;
+    font-weight: 600;
+}
+
+.alerts-card .muted {
+    color: #454545;
+}
+
+.alerts-card .empty {
+    color: #454545;
+}
+
 .muted {
-    color: var(--text-muted);
+    color: #e8f0f8;
     font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* General heading styles for volunteer hub - ensure all are visible */
+.volunteer-main h2,
+.volunteer-main h3 {
+    color: #7ca6ff !important;
+    font-weight: 600;
+}
+
+/* Exception for header h1 which should stay white */
+.volunteer-header h1 {
+    color: #ffffff !important;
 }
 
 .ai-card select,
 .ai-card textarea {
     width: 100%;
     margin-bottom: 12px;
+    color: #223a5e;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+
+.ai-card select {
+    color: #223a5e;
+}
+
+.ai-card textarea {
+    color: #223a5e;
+}
+
+.ai-card textarea::placeholder {
+    color: #7f8c8d;
+}
+
+.ai-card select option {
+    color: #223a5e;
 }
 
 .ai-actions {
@@ -575,11 +690,12 @@ button {
 
 .resource-card h3 {
     margin-top: 0;
-    color: var(--heading);
+    color: #7ca6ff;
+    font-weight: 600;
 }
 
 .resource-card p {
-    color: var(--text-muted);
+    color: #454545;
 }
 
 .resource-link {
@@ -619,6 +735,15 @@ button {
     box-shadow: 0 20px 34px rgba(52, 85, 143, 0.12);
 }
 
+.support-card h3 {
+    color: #7ca6ff;
+    font-weight: 600;
+}
+
+.support-card p {
+    color: #454545;
+}
+
 .support-actions {
     display: flex;
     flex-wrap: wrap;
@@ -635,7 +760,7 @@ button {
 }
 
 .faq-list li {
-    color: var(--text-muted);
+    color: #454545;
     font-size: 0.95rem;
 }
 
@@ -669,8 +794,13 @@ button {
 .pipeline-card ul {
     margin: 0;
     padding-left: 20px;
-    color: var(--text-muted);
+    color: #454545;
     line-height: 1.6;
+}
+
+.pipeline-card ol li,
+.pipeline-card ul li {
+    color: #454545;
 }
 
 .pipeline-card.highlight {
@@ -701,6 +831,8 @@ button {
 
 .panel-header h3 {
     margin: 0;
+    color: #7ca6ff;
+    font-weight: 600;
 }
 
 .ghost-btn.small {
@@ -748,7 +880,7 @@ input[type="range"] {
 .rating-hint {
     margin: 0 0 14px 0;
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: #454545;
 }
 
 .followup-flags {
@@ -768,7 +900,7 @@ input[type="range"] {
     align-items: center;
     gap: 10px;
     font-size: 0.95rem;
-    color: var(--text-muted);
+    color: #223a5e;
 }
 
 .primary-btn {
@@ -808,13 +940,18 @@ input[type="range"] {
 
 .log-entry p {
     margin: 4px 0;
-    color: var(--text-muted);
+    color: #454545;
     font-size: 0.95rem;
+}
+
+.log-entry h4 {
+    color: #223a5e;
+    font-weight: 600;
 }
 
 .log-entry time {
     font-size: 0.8rem;
-    color: #96a2c0;
+    color: #666666;
 }
 
 .followup-section {
@@ -869,6 +1006,8 @@ input[type="range"] {
 
 .followup-card h4 {
     margin: 0 0 6px 0;
+    color: #223a5e;
+    font-weight: 600;
 }
 
 .followup-meta {
@@ -880,7 +1019,7 @@ input[type="range"] {
 
 .followup-meta p {
     margin: 0;
-    color: var(--text-muted);
+    color: #454545;
 }
 
 .followup-actions {
@@ -906,7 +1045,7 @@ input[type="range"] {
 
 .empty {
     text-align: center;
-    color: var(--text-muted);
+    color: #7f8c8d;
     margin-top: 12px;
 }
 
@@ -927,6 +1066,11 @@ input[type="range"] {
 .ai-panel select,
 .ai-panel textarea {
     margin-bottom: 16px;
+    color: #223a5e;
+}
+
+.ai-panel textarea::placeholder {
+    color: #7f8c8d;
 }
 
 .followup-details {
@@ -935,12 +1079,17 @@ input[type="range"] {
     background: #f5f7ff;
     border: 1px solid var(--border);
     margin-bottom: 16px;
-    color: var(--text-muted);
+    color: #223a5e;
 }
 
 .followup-details.empty {
     text-align: center;
     font-style: italic;
+    color: #454545;
+}
+
+.followup-details:not(.empty) {
+    color: #223a5e;
 }
 
 .ai-suggestion {
@@ -948,7 +1097,7 @@ input[type="range"] {
     border-left: 3px solid var(--primary);
     padding: 12px 14px;
     border-radius: 10px;
-    color: var(--text-muted);
+    color: #223a5e;
     margin-top: 0;
     margin-bottom: 16px;
 }
@@ -972,47 +1121,50 @@ input[type="range"] {
     background: #f9faff;
     padding: 10px 14px;
     border: 1px solid var(--border);
+    color: #223a5e;
 }
 
 .impact-panel ul {
     padding-left: 20px;
     margin-top: 0;
     margin-bottom: 16px;
-    color: var(--text-muted);
+    color: #454545;
 }
 
 .impact-panel li {
     margin-bottom: 10px;
     font-size: 0.95rem;
+    color: #454545;
 }
 
 .impact-panel span {
     font-weight: 700;
-    color: var(--primary-dark);
+    color: #223a5e;
 }
 
 .impact-note {
     margin: 0 0 16px 0;
-    color: var(--text-muted);
+    color: #454545;
     line-height: 1.5;
 }
 
 .secondary-btn {
-    background: rgba(191, 215, 234, 0.24);
-    border: 1px solid rgba(140, 160, 215, 0.4);
+    background: rgba(37, 52, 71, 0.8);
+    border: 2px solid rgba(90, 141, 232, 0.4);
     border-radius: 12px;
     padding: 12px 16px;
-    color: var(--primary-dark);
+    color: var(--text-main);
     font-weight: 600;
 }
 
 .secondary-btn:hover {
-    background: rgba(191, 215, 234, 0.35);
+    background: rgba(90, 141, 232, 0.25);
+    border-color: rgba(90, 141, 232, 0.6);
 }
 
 .volunteer-footer {
-    background: #fff;
-    border-top: 1px solid var(--border);
+    background: var(--surface);
+    border-top: 2px solid rgba(90, 141, 232, 0.3);
     padding: 18px 40px;
     display: flex;
     justify-content: space-between;
@@ -1021,9 +1173,13 @@ input[type="range"] {
 
 .footer-links a {
     margin-left: 16px;
-    color: var(--primary-dark);
+    color: #7ca6ff;
     text-decoration: none;
     font-weight: 600;
+}
+
+.volunteer-footer p {
+    color: #b8c8d8;
 }
 
 .footer-links a:hover {
@@ -1049,7 +1205,8 @@ input[type="range"] {
 .orientation-card h2 {
     margin: 0;
     font-size: 1.6rem;
-    color: var(--heading);
+    color: #7ca6ff;
+    font-weight: 600;
 }
 
 .orientation-steps {
@@ -1057,12 +1214,17 @@ input[type="range"] {
     padding-left: 20px;
     display: grid;
     gap: 12px;
-    color: var(--text-muted);
+    color: #e8f0f8;
     line-height: 1.6;
 }
 
+.orientation-steps li {
+    color: #e8f0f8;
+}
+
 .orientation-steps strong {
-    color: var(--heading);
+    color: #ffffff;
+    font-weight: 600;
 }
 
 .orientation-actions {
@@ -1084,7 +1246,8 @@ input[type="range"] {
 .stats-card h3 {
     margin: 0;
     font-size: 1.35rem;
-    color: var(--heading);
+    color: #7ca6ff;
+    font-weight: 600;
 }
 
 .stats-list {
@@ -1107,7 +1270,8 @@ input[type="range"] {
 
 .stats-list .stat-label {
     font-size: 0.95rem;
-    color: var(--text-muted);
+    color: #ffffff;
+    font-weight: 500;
 }
 
 .stats-list .stat-value {
