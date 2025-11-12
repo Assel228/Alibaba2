@@ -18,10 +18,11 @@
         }
         
         .settings-container {
-            background: var(--white);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
-            padding: var(--spacing-xl);
+            background-color: #253447;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(90, 141, 232, 0.4);
+            padding: 30px;
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
@@ -37,12 +38,9 @@
         }
 
         .logo {
-            font-size: clamp(1.75rem, 3vw, 2.5rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--primary-light-blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5a8de8;
             margin: 0;
         }
 
@@ -67,10 +65,15 @@
         }
         
         h1 {
-            color: var(--dark-blue-text);
+            color: #ffffff;
             text-align: center;
-            margin-bottom: var(--spacing-lg);
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
             font-weight: 700;
         }
         
@@ -134,8 +137,7 @@
             display: block;
             margin-bottom: var(--spacing-xs);
             font-weight: 600;
-            color: var(--dark-blue-text);
-            font-size: var(--font-size-base);
+            color: #e8f0f8;
         }
         
         .form-group small {
@@ -464,9 +466,8 @@
         }
         
         .setting-info h4 {
-            margin: 0 0 var(--spacing-xs);
-            color: var(--dark-blue-text);
-            font-size: var(--font-size-lg);
+            margin: 0 0 5px;
+            color: #e8f0f8;
         }
         
         .setting-info p {

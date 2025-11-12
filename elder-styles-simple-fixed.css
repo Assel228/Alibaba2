@@ -1,8 +1,33 @@
-/* Import Jumpstarter Design System - MUST be first */
-@import url('jumpstarter-design-system.css');
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Additional overrides and app-specific styles */
-/* Background is set in design system */
+:root {
+    --primary: #5a8de8;
+    --primary-dark: #4472ca;
+    --accent: #8ca0d7;
+    --secondary: #7dd3a0;
+    --background: #1a2332;
+    --surface: #253447;
+    --surface-alt: #2d3f56;
+    --outline: #3d556f;
+    --text-main: #e8f0f8;
+    --text-muted: #b8c8d8;
+    --heading: #ffffff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-main);
+    background: radial-gradient(circle at 18% 20%, rgba(90, 141, 232, 0.15), transparent 60%),
+                radial-gradient(circle at 82% 78%, rgba(125, 211, 160, 0.12), transparent 58%),
+                var(--background);
+    min-height: 100vh;
+}
 
 .container {
     max-width: 1200px;
@@ -151,14 +176,17 @@ header .container {
 }
 
 .tab-btn.active {
-    background: var(--button-blue);
-    color: var(--white);
-    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #ffffff;
+    box-shadow: 0 18px 34px rgba(90, 141, 232, 0.5);
+    border-color: rgba(90, 141, 232, 0.7);
 }
 
 .tab-btn:hover:not(.active) {
-    background: var(--light-blue-dark);
-    color: var(--accent-blue);
+    background-color: rgba(90, 141, 232, 0.25);
+    color: var(--text-main);
+    border-color: rgba(90, 141, 232, 0.5);
+    transform: translateY(-2px);
 }
 
 /* Tab content - Using design system */
@@ -201,23 +229,22 @@ header .container {
 /* Category tabs - Using design system */
 .category-tabs {
     display: flex;
-    background: var(--light-blue);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-xs);
-    margin-bottom: var(--spacing-lg);
-    box-shadow: var(--shadow-sm);
-    border: 2px solid var(--light-blue-dark);
-    gap: var(--spacing-xs);
+    background-color: rgba(37, 52, 71, 0.7);
+    border-radius: 18px;
+    margin-bottom: 30px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(90, 141, 232, 0.3);
+    overflow: hidden;
+    padding: 8px;
     margin-top: 0;
 }
 
 .category-btn {
     flex: 1;
-    padding: var(--spacing-md);
-    background: transparent;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-base);
+    padding: 16px;
+    background: rgba(45, 63, 86, 0.5);
+    border: 2px solid rgba(90, 141, 232, 0.2);
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
@@ -226,14 +253,16 @@ header .container {
 }
 
 .category-btn.active {
-    background: var(--button-blue);
-    color: var(--white);
-    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #ffffff;
+    box-shadow: 0 18px 34px rgba(90, 141, 232, 0.4);
+    border-color: rgba(90, 141, 232, 0.6);
 }
 
 .category-btn:hover:not(.active) {
-    background: var(--light-blue-dark);
-    color: var(--accent-blue);
+    background-color: rgba(90, 141, 232, 0.25);
+    color: var(--text-main);
+    border-color: rgba(90, 141, 232, 0.4);
 }
 
 /* Activity cards */
@@ -261,24 +290,24 @@ header .container {
 }
 
 .activity-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    background-color: var(--surface);
+    border-radius: 22px;
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    transition: all 0.3s ease;
-    border: 2px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid rgba(90, 141, 232, 0.4);
     display: flex;
     flex-direction: column;
     min-width: 280px;
     scroll-snap-align: start;
     position: relative;
-    padding: var(--spacing-lg);
+    background-image: linear-gradient(180deg, rgba(37, 52, 71, 0.95), rgba(29, 40, 54, 0.95));
 }
 
 .activity-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary-light-blue);
+    transform: translateY(-6px);
+    box-shadow: 0 26px 48px rgba(90, 141, 232, 0.4);
+    border-color: rgba(90, 141, 232, 0.6);
 }
 
 .activity-image-wrapper {
@@ -336,21 +365,21 @@ header .container {
 }
 
 .theme-social {
-    background: var(--light-blue);
-    color: var(--accent-blue);
-    border: 2px solid var(--light-blue-dark);
+    background: linear-gradient(135deg, rgba(90, 141, 232, 0.35), rgba(140, 160, 215, 0.3));
+    color: #e8f0f8;
+    border: 2px solid rgba(140, 160, 215, 0.5);
 }
 
 .theme-wellness {
-    background: var(--primary-light-blue);
-    color: var(--white);
-    border: 2px solid var(--button-blue);
+    background: linear-gradient(135deg, rgba(125, 211, 160, 0.35), rgba(90, 180, 130, 0.3));
+    color: #e8f0f8;
+    border: 2px solid rgba(125, 211, 160, 0.5);
 }
 
 .theme-volunteer {
-    background: rgba(79, 195, 247, 0.2);
-    color: var(--accent-blue);
-    border: 2px solid var(--button-blue);
+    background: linear-gradient(135deg, rgba(68, 114, 202, 0.35), rgba(60, 120, 126, 0.3));
+    color: #e8f0f8;
+    border: 2px solid rgba(68, 114, 202, 0.5);
 }
 
 .activity-card h3 {
@@ -397,21 +426,21 @@ header .container {
     padding: var(--spacing-md) var(--spacing-lg);
     border-radius: var(--radius-md);
     margin-top: auto;
-    background: var(--button-blue);
-    color: var(--white);
-    border: none;
-    font-size: var(--font-size-base);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #ffffff;
+    border: 2px solid rgba(90, 141, 232, 0.5);
+    font-size: 0.96rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-    font-family: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 18px 34px rgba(90, 141, 232, 0.4);
 }
 
 .join-btn:hover {
     background: var(--accent-blue);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 24px 40px rgba(90, 141, 232, 0.5);
+    border-color: rgba(90, 141, 232, 0.7);
 }
 
 /* Events section */
@@ -424,12 +453,12 @@ header .container {
 }
 
 .event-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    background-color: var(--surface);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     padding: 0;
     transition: all 0.3s ease;
-    border: 2px solid var(--border);
+    border: 2px solid rgba(90, 141, 232, 0.3);
     display: flex;
     flex-direction: column;
     min-height: 100%;
@@ -437,9 +466,9 @@ header .container {
 }
 
 .event-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary-light-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(90, 141, 232, 0.4);
+    border-color: rgba(90, 141, 232, 0.5);
 }
 
 .event-image {
@@ -546,9 +575,11 @@ header .container {
 }
 
 .action-btn.report {
-    background-color: rgba(255, 204, 204, 0.45);
-    color: #a23d3d;
-    border: 1px solid rgba(242, 174, 174, 0.6);
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(192, 57, 43, 0.9));
+    color: #ffffff;
+    border: 2px solid rgba(231, 76, 60, 0.7);
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
 }
 
 .action-btn:hover {
@@ -631,29 +662,30 @@ header .container {
     transition: all 0.2s ease;
     position: relative;
     font-weight: 500;
-    border: 1px solid rgba(216, 224, 245, 0.85);
-    background-color: rgba(248, 250, 255, 0.97);
-    box-shadow: 0 16px 28px rgba(14, 32, 68, 0.18);
+    border: 2px solid rgba(90, 141, 232, 0.4);
+    background-color: rgba(37, 52, 71, 0.9);
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.4);
     min-height: 140px;
     padding: 14px;
     gap: 6px;
+    color: var(--text-main);
 }
 
 .calendar-day:hover {
-    background: linear-gradient(150deg, rgba(124, 166, 255, 0.6), rgba(248, 250, 255, 0.85));
-    border-color: rgba(124, 166, 255, 0.9);
+    background: linear-gradient(150deg, rgba(90, 141, 232, 0.4), rgba(37, 52, 71, 0.95));
+    border-color: rgba(90, 141, 232, 0.7);
     transform: translateY(-3px);
-    box-shadow: 0 22px 38px rgba(20, 42, 88, 0.28);
+    box-shadow: 0 22px 38px rgba(90, 141, 232, 0.4);
 }
 
 .calendar-day.empty {
-    background-color: rgba(243, 238, 227, 0.65);
+    background-color: rgba(29, 40, 54, 0.6);
     cursor: default;
-    border: 1px dashed rgba(216, 209, 197, 0.8);
+    border: 2px dashed rgba(90, 141, 232, 0.2);
 }
 
 .calendar-day.empty:hover {
-    background-color: rgba(243, 238, 227, 0.65);
+    background-color: rgba(29, 40, 54, 0.6);
     transform: none;
 }
 
@@ -698,15 +730,26 @@ header .container {
     gap: 30px;
     margin-top: 25px;
     padding: 20px;
-    background-color: white;
+    background-color: rgba(37, 52, 71, 0.8);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 2px solid rgba(90, 141, 232, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .legend-item {
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 8px 16px;
+    background: rgba(37, 52, 71, 0.8);
+    border-radius: 12px;
+    border: 2px solid rgba(90, 141, 232, 0.3);
+}
+
+.legend-item span {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
 .legend-color {
@@ -839,12 +882,12 @@ header .container {
 
 /* Navigation styles - Using design system */
 .location-form {
-    background: var(--light-blue);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
-    box-shadow: var(--shadow-md);
-    margin-bottom: var(--spacing-lg);
-    border: 2px solid var(--light-blue-dark);
+    background-color: var(--surface);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    margin-bottom: 30px;
+    border: 2px solid rgba(90, 141, 232, 0.3);
 }
 
 .location-form h3 {
@@ -875,8 +918,8 @@ header .container {
     border-radius: var(--radius-md);
     font-size: var(--font-size-base);
     transition: all 0.3s ease;
-    background: var(--white);
-    font-family: inherit;
+    background: rgba(45, 63, 86, 0.6);
+    color: var(--text-main);
 }
 
 .form-group input:focus,
@@ -889,25 +932,25 @@ header .container {
 .get-directions-btn,
 .submit-btn {
     width: 100%;
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--button-blue);
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #ffffff;
+    border: 2px solid rgba(90, 141, 232, 0.5);
+    border-radius: 18px;
+    font-size: 1.05rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-    margin-top: var(--spacing-sm);
-    font-family: inherit;
+    box-shadow: 0 20px 34px rgba(90, 141, 232, 0.4);
+    margin-top: 10px;
 }
 
 .get-directions-btn:hover,
 .submit-btn:hover {
     background: var(--accent-blue);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 26px 42px rgba(90, 141, 232, 0.5);
+    border-color: rgba(90, 141, 232, 0.7);
 }
 
 #map {
@@ -993,30 +1036,28 @@ header .container {
 
 /* More Activities card styles */
 .more-activities-card {
-    background: var(--light-blue);
+    background: linear-gradient(135deg, rgba(37, 52, 71, 0.95), rgba(45, 63, 86, 0.95));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 2px solid var(--light-blue-dark);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: var(--spacing-xl);
-    min-height: 300px;
+    border: 2px solid rgba(90, 141, 232, 0.5);
+    border-radius: 22px;
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.5);
 }
 
 .more-activities-card h3 {
-    color: var(--dark-blue-text);
-    margin: 0 0 var(--spacing-sm) 0;
-    font-size: var(--font-size-xl);
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    font-size: 1.4rem;
     font-weight: 700;
 }
 
 .more-activities-card p {
-    color: var(--text-secondary);
-    margin: 0 0 var(--spacing-lg) 0;
-    font-size: var(--font-size-base);
+    color: var(--text-main);
+    margin: 0 0 20px 0;
+    font-size: 1rem;
 }
 
 .more-activities-card .join-btn {
@@ -1844,9 +1885,42 @@ header .container {
 
 .account-section h3 {
     margin-top: 0;
-    color: var(--heading);
-    border-bottom: 2px solid rgba(181, 202, 226, 0.6);
+    color: #223a5e;
+    border-bottom: 2px solid rgba(90, 141, 232, 0.3);
     padding-bottom: 10px;
+    font-weight: 700;
+}
+
+/* Override for account sections with white background */
+.account-section[style*="background: white"] h3,
+.account-section[style*="background-color: white"] h3 {
+    color: #223a5e !important;
+}
+
+/* Ensure account section h3 titles are visible */
+#account .account-section h3 {
+    color: #223a5e !important;
+    font-weight: 700;
+}
+
+/* Account section labels - make them dark */
+#account .account-section .form-group label {
+    color: #223a5e !important;
+    font-weight: 600;
+}
+
+/* Account section inputs - change grey background to white */
+#account .account-section input,
+#account .account-section select,
+#account .account-section textarea {
+    background-color: #ffffff !important;
+    color: #223a5e !important;
+    border: 2px solid #ddd !important;
+}
+
+#account .account-section input::placeholder,
+#account .account-section textarea::placeholder {
+    color: #7f8c8d !important;
 }
 
 .form-group {
@@ -1866,13 +1940,22 @@ header .container {
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--outline);
+    border: 2px solid var(--outline);
     border-radius: 10px;
     font-size: 1rem;
+    background-color: rgba(45, 63, 86, 0.6);
+    color: var(--text-main);
 }
 
-.form-group input[readonly] {
-    background-color: rgba(191, 215, 234, 0.2);
+.form-group input[readonly],
+.form-group textarea[readonly] {
+    background-color: rgba(45, 63, 86, 0.6);
+    color: var(--text-main);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
 }
 
 .switch {
@@ -2278,12 +2361,61 @@ body[data-user-role="volunteer"] .elder-label {
     display: none !important;
 }
 
+/* Footer styles */
+footer {
+    background: var(--surface);
+    border-top: 2px solid rgba(90, 141, 232, 0.3);
+    padding: 30px 0;
+    margin-top: 60px;
+    text-align: center;
+}
+
+footer p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
 body[data-user-role="volunteer"] .volunteer-label {
     display: inline !important;
 }
 
 body:not([data-user-role="volunteer"]) .volunteer-label {
     display: none !important;
+}
+
+/* Profile tab specific styles */
+#profile h2 {
+    color: var(--heading);
+    font-weight: 700;
+}
+
+#profile .profile-form-container {
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(90, 141, 232, 0.3);
+}
+
+#profile #interests-display {
+    color: var(--text-main);
+    padding: 12px;
+    background: rgba(45, 63, 86, 0.6);
+    border-radius: 10px;
+    border: 2px solid var(--outline);
+    min-height: 40px;
+}
+
+#profile #interests-display span,
+#profile #interests-display div {
+    color: var(--text-main);
+    display: inline-block;
+    margin: 4px 8px 4px 0;
+    padding: 6px 12px;
+    background: rgba(90, 141, 232, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(90, 141, 232, 0.3);
 }
 
 .account-section input.editing,
